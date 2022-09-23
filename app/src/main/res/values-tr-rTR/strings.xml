@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title -->
+    <string name="title_home">Ev</string>
+    <string name="title_stack_over_flow">StackOverFlow</string>
+    <string name="title_stack_over_flow_detail">StackOverFlowDetail</string>
+    <string name="title_github">Github</string>
+    <string name="title_github_detail">GithubDetail</string>
+    <string name="title_settings">Ayarlar</string>
+
+    <!-- EMPTY -->
+    <string name="not_found">Bulunamadı</string>
+</resources>
