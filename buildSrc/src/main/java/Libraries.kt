@@ -49,18 +49,25 @@ object Libraries {
     val timber = Dependency("com.jakewharton.timber:timber:${Versions.timberVersion}")
     val kotlinxCoroutinesCore = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.jetBrainsCoroutinesVersion}")
     val kotlinxCoroutinesAndroid = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.jetBrainsCoroutinesVersion}")
-    val kotlinxCoroutinesPlayServices = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.jetBrainsCoroutinesVersion}")
-    val kotlinxCoroutinesTest = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testJetBrainsCoroutinesVersion}")
+    val kotlinxCoroutinesPlayServices =
+        Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.jetBrainsCoroutinesVersion}")
+    val kotlinxCoroutinesTest =
+        Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testJetBrainsCoroutinesVersion}")
     val retrofit = Dependency("com.squareup.retrofit2:retrofit:${Versions.squareupRetrofitVersion}")
-    val retrofitConverterGson = Dependency("com.squareup.retrofit2:converter-gson:${Versions.squareupRetrofitVersion}")
+    val retrofitConverterGson =
+        Dependency("com.squareup.retrofit2:converter-gson:${Versions.squareupRetrofitVersion}")
     val retrofitOkhttp = Dependency("com.squareup.okhttp3:okhttp:${Versions.squareupOkHttpVersion}")
-    val retrofitLoggingInterceptor = Dependency("com.squareup.okhttp3:logging-interceptor:${Versions.squareupOkHttpVersion}")
+    val retrofitLoggingInterceptor =
+        Dependency("com.squareup.okhttp3:logging-interceptor:${Versions.squareupOkHttpVersion}")
     val truth = Dependency("com.google.truth:truth:${Versions.testGoogleTruthVersion}")
     val junit = Dependency("junit:junit:${Versions.testJunitVersion}")
-    val espressoCore = Dependency("androidx.test.espresso:espresso-core:${Versions.testAndroidxTestEspressoVersion}")
-    val extJunit = Dependency("androidx.test.ext:junit-ktx:${Versions.testAndroidxTestJunitVersion}")
-    val chuckLibrary = Dependency("com.readystatesoftware.chuck:library:${Versions.chuckVersion}")
-    val chuckLibraryNoOp = Dependency("com.readystatesoftware.chuck:library-no-op:${Versions.chuckVersion}")
+    val espressoCore =
+        Dependency("androidx.test.espresso:espresso-core:${Versions.testAndroidxTestEspressoVersion}")
+    val extJunit =
+        Dependency("androidx.test.ext:junit-ktx:${Versions.testAndroidxTestJunitVersion}")
+    val chuckLibrary = Dependency("com.github.chuckerteam.chucker:library:${Versions.chuckVersion}")
+    val chuckLibraryNoOp =
+        Dependency("com.github.chuckerteam.chucker:library-no-op:${Versions.chuckVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"

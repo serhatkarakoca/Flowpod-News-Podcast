@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 // /*
 // * Designed and developed by 2021 Batuhan Demir
 // *
@@ -54,20 +52,15 @@ android {
         all {
             this.buildConfigField(
                 "String",
-                "GITHUB_API",
-                "\"${gradleLocalProperties(rootDir).getProperty("github_api")}\""
-            )
-            this.buildConfigField(
-                "String",
-                "STACK_OVER_FLOW_API",
-                "\"${gradleLocalProperties(rootDir).getProperty("stack_over_flow_api")}\""
+                "BASE_URL",
+                "\"${AppConfig.BASE_URL}\""
             )
         }
         debug {
             this.resValue(
                 "string",
                 "app_name",
-                "batdemir - Debug"
+                "Feedz - Debug"
             )
             // signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
@@ -76,7 +69,7 @@ android {
             this.resValue(
                 "string",
                 "app_name",
-                "batdemir"
+                "Feedz"
             )
             // signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
@@ -115,6 +108,10 @@ dependencies {
     kaptAndroidTest(AppDependencies.compilerAndroidTestLibraries)
     debugImplementation(AppDependencies.debugLibraries)
     releaseImplementation(AppDependencies.releaseLibraries)
+}
+enum class BuildType(val value: String) {
+    DEBUG("debug"),
+    RELEASE("release")
 }
 
 kotlin.sourceSets.all {

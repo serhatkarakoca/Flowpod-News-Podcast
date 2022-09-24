@@ -28,7 +28,7 @@ object Versions {
     const val androidxViewPagerVersion = "1.0.0"
     const val androidxWebKitVersion = "1.4.0"
     const val androidxWorkManagerVersion = "2.7.1"
-    const val chuckVersion = "1.1.0"
+    const val chuckVersion = "3.5.2"
     const val githubGlideVersion = "4.13.1"
     const val githubLingverVersion = "1.3.0"
     const val githubMPAndroidChartVersion = "v3.1.0"

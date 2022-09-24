@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.batdemir.core">
+    package="com.life4.core">
 
     <application>
         <receiver
-            android:name="com.batdemir.core.manager.hdmi.MyHdmiReceiver"
+            android:name="com.life4.core.manager.hdmi.MyHdmiReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.HDMI_PLUGGED" />
@@ -18,13 +18,13 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.batdemir.core.initializer.LanguageInitializer"
+                android:name="com.life4.core.initializer.LanguageInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.batdemir.core.initializer.ThemeInitializer"
+                android:name="com.life4.core.initializer.ThemeInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.batdemir.core.initializer.TimberInitializer"
+                android:name="com.life4.core.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

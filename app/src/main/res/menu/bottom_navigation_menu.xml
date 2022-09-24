@@ -9,13 +9,8 @@
 
     <item
         android:id="@+id/stack_over_flow_navigation"
-        android:icon="@drawable/ic_black_stack_over_flow"
+        android:icon="@drawable/ic_round_bookmarks"
         android:title="@string/title_stack_over_flow"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/github_navigation"
-        android:icon="@drawable/ic_black_github"
-        android:title="@string/title_github"
-        app:showAsAction="ifRoom" />
 </menu>
