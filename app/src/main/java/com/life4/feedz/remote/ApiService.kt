@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("/")
+    @GET("convert")
     suspend fun getSiteData(@Query("url") url: String): Response<RssResponse>
 }

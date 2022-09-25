@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Title -->
-    <string name="title_home">Ev</string>
+    <string name="title_home">Akış</string>
     <string name="title_stack_over_flow">Kaydedilenler</string>
     <string name="title_stack_over_flow_detail">StackOverFlowDetail</string>
     <string name="title_github">Github</string>

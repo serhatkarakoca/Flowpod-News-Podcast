@@ -8,7 +8,7 @@
     <string name="notification_name" translatable="false">@string/app_name</string>
 
     <!-- Title -->
-    <string name="title_home">Home</string>
+    <string name="title_home">Flow</string>
     <string name="title_stack_over_flow">Saved</string>
     <string name="title_stack_over_flow_detail">StackOverFlowDetail</string>
     <string name="title_github">Github</string>

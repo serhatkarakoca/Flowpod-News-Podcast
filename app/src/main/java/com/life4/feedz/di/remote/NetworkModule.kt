@@ -29,11 +29,9 @@ import javax.inject.Singleton
 )
 object NetworkModule {
     @Provides
-    @Singleton
     fun provideRetrofitBuilder(): Retrofit.Builder = Retrofit.Builder()
 
     @Provides
-    @Singleton
     fun provideOkHttpClientBuilder(
         hostSelectionInterceptor: HostSelectionInterceptor
     ): OkHttpClient.Builder = OkHttpClient.Builder()

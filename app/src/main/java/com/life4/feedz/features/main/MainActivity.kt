@@ -26,6 +26,7 @@ class MainActivity :
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         val toolbar = getBinding().toolbar
+       // toolbar.isVisible = false
         val bottomNavigationView = getBinding().bottomNavigationView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment

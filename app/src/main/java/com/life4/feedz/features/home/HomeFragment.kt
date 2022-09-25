@@ -34,6 +34,7 @@ class HomeFragment :
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         setHasOptionsMenu(true)
+        getViewModel().getSiteData("https://sekil.net/feed")
     }
 
     override fun setupData() {
@@ -42,7 +43,6 @@ class HomeFragment :
 
     override fun onResume() {
         super.onResume()
-        viewModel.getSiteData("sekil.net/feed")
     }
 
     override fun onPause() {
