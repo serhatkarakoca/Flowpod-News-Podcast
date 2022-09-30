@@ -23,6 +23,8 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.googleHiltVersion}")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidxNavigationVersion}")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.firebaseCrashlyticsGradleVersion}")
+        classpath("com.google.gms:google-services:${Versions.googleServiceVersion}")
     }
 }
 

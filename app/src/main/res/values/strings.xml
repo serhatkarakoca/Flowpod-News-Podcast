@@ -17,4 +17,15 @@
 
     <!-- EMPTY -->
     <string name="not_found">Not Found</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="welcome_sub">You can fill your spare time by reading thousands of the latest news that we provide</string>
+    <string name="login_welcome">Find thousands of interesting news every day</string>
 </resources>

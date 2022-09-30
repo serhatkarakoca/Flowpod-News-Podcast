@@ -18,6 +18,9 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("kotlin-parcelize")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -33,6 +36,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     // signingConfigs {
     //     getByName("debug") {
@@ -63,7 +67,7 @@ android {
                 "Feedz - Debug"
             )
             // signingConfig = signingConfigs.getByName("debug")
-            applicationIdSuffix = ".debug"
+            //applicationIdSuffix = ".debug"
         }
         release {
             this.resValue(
@@ -101,6 +105,18 @@ dependencies {
     )
     implementation(project(":core"))
     implementation(AppDependencies.appLibraries)
+    implementation(project.dependencies.platform(Libraries.firebaseBom))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation(project.dependencies.platform(Libraries.firebaseAnalytics))
+    implementation(project.dependencies.platform(Libraries.firebaseCrashlytics))
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.6.1")
+    implementation("androidx.annotation:annotation:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("com.google.android.gms:play-services-base:18.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
     kapt(AppDependencies.compilerLibraries)

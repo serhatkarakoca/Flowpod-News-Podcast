@@ -20,7 +20,15 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settingsFragment2"
         android:name="com.life4.core.features.settings.SettingsFragment"
         android:label="@string/title_settings" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.life4.feedz.features.settings.SettingsFragment"
+        android:label="SettingsFragment">
+        <action
+            android:id="@+id/action_settingsFragment2_to_settingsFragment"
+            app:destination="@id/settingsFragment2" />
+    </fragment>
 </navigation>

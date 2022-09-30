@@ -47,9 +47,9 @@ object Versions {
     const val testJunitVersion = "4.13.2"
 
     // google-firebase
-    const val googleServiceVersion = "4.3.10"
-    const val googleAuthVersion = "20.1.0"
-    const val firebaseVersion = "29.2.0"
+    const val googleServiceVersion = "4.3.14"
+    const val googleAuthVersion = "20.3.0"
+    const val firebaseVersion = "30.4.1"
     const val firebaseUIVersion = "8.0.0"
     const val firebasePerformancePluginVersion = "1.4.1"
     const val firebaseCrashlyticsGradleVersion = "2.8.1"

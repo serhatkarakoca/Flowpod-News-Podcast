@@ -13,4 +13,9 @@
         android:title="@string/title_stack_over_flow"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_round_settings"
+        android:title="@string/title_settings"
+        app:showAsAction="ifRoom" />
 </menu>

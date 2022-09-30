@@ -18,4 +18,6 @@
 
     <color name="selected">#FFBABABA</color>
     <color name="un_selected">#FFFFFFFF</color>
+    <color name="purple">#B36CEA</color>
+    <color name="orange_login">#ED9F67</color>
 </resources>

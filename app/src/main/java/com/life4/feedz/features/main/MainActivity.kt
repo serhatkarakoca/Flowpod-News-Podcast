@@ -2,6 +2,7 @@ package com.life4.feedz.features.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,7 +27,6 @@ class MainActivity :
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         val toolbar = getBinding().toolbar
-       // toolbar.isVisible = false
         val bottomNavigationView = getBinding().bottomNavigationView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment
@@ -35,7 +35,11 @@ class MainActivity :
         setSupportActionBar(toolbar)
         toolbar.setupWithNavController(navController, appBarConfiguration)
         bottomNavigationView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { _, _, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment -> toolbar.isVisible = false
+                else -> toolbar.isVisible = true
+            }
             dismissProgress()
         }
     }
