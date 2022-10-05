@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life4.feedz.models.Item" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_news"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/newspaper"
+            android:scaleType="centerCrop"
+            app:setImage="@{item.postImage}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/img_news"
+            tools:text="Türkiyede Bomba Haber"
+            android:text="@{item.title}"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_bold_italic"
+            android:background="@drawable/background_transparency" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

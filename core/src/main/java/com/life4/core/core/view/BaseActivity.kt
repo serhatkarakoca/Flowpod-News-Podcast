@@ -2,6 +2,8 @@ package com.life4.core.core.view
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -86,6 +88,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> constructor(
     private fun showProgress() {
         if (progressDialog == null) {
             progressDialog = Dialog(this).apply {
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 setCancelable(false)
                 setContentView(R.layout.view_progress)
             }

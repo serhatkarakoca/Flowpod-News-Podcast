@@ -117,6 +117,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-auth:20.3.0")
+    implementation("com.squareup.picasso:picasso:2.8")
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
     kapt(AppDependencies.compilerLibraries)

@@ -40,7 +40,6 @@ class MainActivity :
                 R.id.homeFragment -> toolbar.isVisible = false
                 else -> toolbar.isVisible = true
             }
-            dismissProgress()
         }
     }
 }

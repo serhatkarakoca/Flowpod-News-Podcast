@@ -10,6 +10,7 @@ import javax.inject.Singleton
 class MyPreference @Inject constructor(@ApplicationContext context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val username = "KEY_USERNAME"
+    private val browserInApp = "KEY_BROWSER_IN_APP"
 
     fun setUsername(username: String) {
         prefs.edit().putString(this.username, username).apply()
@@ -17,4 +18,9 @@ class MyPreference @Inject constructor(@ApplicationContext context: Context) {
 
     fun getUsername(): String? = prefs.getString(username, null)
 
+    fun setBrowserInApp(value: Boolean) {
+        prefs.edit().putBoolean(browserInApp, value).apply()
+    }
+
+    fun getBrowserInApp(): Boolean? = prefs.getBoolean(browserInApp, true)
 }

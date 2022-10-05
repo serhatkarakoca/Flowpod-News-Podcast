@@ -8,7 +8,7 @@
     <string name="notification_name" translatable="false">@string/app_name</string>
 
     <!-- Title -->
-    <string name="title_home">Flow</string>
+    <string name="title_home">Home</string>
     <string name="title_stack_over_flow">Saved</string>
     <string name="title_stack_over_flow_detail">StackOverFlowDetail</string>
     <string name="title_github">Github</string>
@@ -28,4 +28,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_sub">You can fill your spare time by reading thousands of the latest news that we provide</string>
     <string name="login_welcome">Find thousands of interesting news every day</string>
+    <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
+    <string name="search">Ara</string>
 </resources>

@@ -18,6 +18,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_newDetailsFragment"
+            app:destination="@id/newDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
@@ -30,5 +33,13 @@
         <action
             android:id="@+id/action_settingsFragment2_to_settingsFragment"
             app:destination="@id/settingsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/newDetailsFragment"
+        android:name="com.life4.feedz.features.newsdetails.NewsDetailsFragment"
+        android:label="NewDetailsFragment">
+        <argument
+            android:name="news"
+            app:argType="com.life4.feedz.models.Item" />
     </fragment>
 </navigation>
