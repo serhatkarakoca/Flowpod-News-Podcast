@@ -12,22 +12,19 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
 import android.text.style.QuoteSpan
 import android.text.style.URLSpan
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.R
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.databinding.FragmentNewDetailsBinding
-import com.life4.feedz.databinding.ViewImageBinding
 import com.life4.feedz.extensions.ImageGetter
 import com.life4.feedz.features.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +45,7 @@ class NewsDetailsFragment :
             if (pref.getBrowserInApp() == true)
                 setWebview(url = viewModel.args?.news?.url ?: "")
             else
-                openNewsExternal(viewModel.args?.news?.url ?: "")
+                redirectUsingCustomTab(viewModel.args?.news?.url ?: "")
         }
     }
 
@@ -65,22 +62,18 @@ class NewsDetailsFragment :
     }
 
     private fun displayHtml(html: String) {
-        // Creating object of ImageGetter class you just created
+
         val imageGetter = ImageGetter(resources, getBinding().htmlViewer, requireContext())
 
-        // Using Html framework to parse html
         val styledText =
             HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY, imageGetter, null)
 
-        Log.d("htmlFrom:styled", styledText.toString())
-
         replaceQuoteSpans(styledText as Spannable)
+
         imageClick(styledText as Spannable)
 
-        // setting the text after formatting html and downloading and setting images
         getBinding().htmlViewer.text = styledText
 
-        // to enable image/link clicking
         getBinding().htmlViewer.movementMethod = LinkMovementMethod.getInstance()
 
     }
@@ -109,7 +102,6 @@ class NewsDetailsFragment :
         }
     }
 
-    // Function to parse image tags and enable click events
     private fun imageClick(html: Spannable) {
         for (span in html.getSpans(0, html.length, ImageSpan::class.java)) {
             val flags = html.getSpanFlags(span)
@@ -182,23 +174,10 @@ class NewsDetailsFragment :
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    private fun showImageDialog(url: String) {
-        if (progressDialog == null) {
-            progressDialog = Dialog(requireContext()).apply {
-                val binding = DataBindingUtil.inflate<ViewImageBinding>(
-                    LayoutInflater.from(requireContext()),
-                    R.layout.view_image,
-                    null,
-                    false
-                )
-                binding.url = url
-                setCancelable(true)
-                setContentView(binding.root)
-
-            }
-        }
-        if (progressDialog?.isShowing == false) {
-            progressDialog?.show()
-        }
+    private fun redirectUsingCustomTab(url: String) {
+        val uri = Uri.parse(url)
+        val intentBuilder = CustomTabsIntent.Builder()
+        val customTabsIntent = intentBuilder.build()
+        customTabsIntent.launchUrl(requireContext(), uri)
     }
 }

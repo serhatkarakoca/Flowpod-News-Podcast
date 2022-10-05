@@ -30,4 +30,5 @@
     <string name="login_welcome">Find thousands of interesting news every day</string>
     <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
     <string name="search">Ara</string>
+    <string name="go_to_news">Haberin Detaylarına Git</string>
 </resources>

@@ -2,11 +2,16 @@ package com.life4.feedz.features.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.models.Item
 import com.life4.feedz.models.RssResponse
 import com.life4.feedz.remote.FeedzRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,29 +27,31 @@ class HomeViewModel @Inject constructor(
     val siteDataList: LiveData<List<Item?>>
         get() = _siteDataList
 
-    private val _siteDataListArray = arrayListOf<Item?>()
+    val siteDataListArray = arrayListOf<Item?>()
 
     private val breakingNews = arrayListOf(
         "https://www.ntv.com.tr/son-dakika.rss",
         "https://www.ensonhaber.com/rss/ensonhaber.xml"
     )
 
-    var index = 0
-    val url = breakingNews[index]
+    fun getBreakingNews() {
+        siteDataListArray.clear()
+        //_siteDataList.value = arrayListOf()
+        viewModelScope.launch {
+            (0..breakingNews.lastIndex).map {
+                async(Dispatchers.IO) { getSiteData(it) }
+            }.awaitAll()
+        }
+    }
 
-    fun getSiteData() {
-        _siteDataList.value = listOf()
-        _siteDataListArray.clear()
-
-        feedzRepository.getSiteData(url).handle(requestType = RequestType.ACTION, onComplete = {
-            _siteDataListArray.addAll(it.items ?: listOf())
-            if (index == breakingNews.lastIndex) {
-                index = 0
-                _siteDataList.value = _siteDataListArray
-            } else {
-                index++
-                getSiteData()
-            }
-        })
+    private fun getSiteData(index: Int) {
+        feedzRepository.getSiteData(breakingNews.get(index))
+            .handle(requestType = RequestType.ACTION, onComplete = {
+                siteDataListArray.addAll(it.items ?: listOf())
+                if (index == breakingNews.lastIndex)
+                    _siteDataList.value = siteDataListArray
+            }, onError = {
+                _siteDataList.value = siteDataListArray
+            })
     }
 }

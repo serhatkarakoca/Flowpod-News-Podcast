@@ -20,7 +20,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_newDetailsFragment"
-            app:destination="@id/newDetailsFragment" />
+            app:destination="@id/newDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
@@ -32,7 +36,11 @@
         android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment2_to_settingsFragment"
-            app:destination="@id/settingsFragment2" />
+            app:destination="@id/settingsFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/newDetailsFragment"

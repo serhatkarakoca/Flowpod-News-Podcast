@@ -22,13 +22,12 @@ class HomeFragment :
     override fun setupListener() {
         getBinding().rvBreakingNews.adapter = newsAdapter
         observe(viewModel.siteDataList) {
-            newsAdapter.submitList(it.shuffled())
+            newsAdapter.submitList(it)
         }
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        getViewModel().getSiteData()
     }
 
     private fun newsClickListener(item: Item) {
@@ -39,4 +38,12 @@ class HomeFragment :
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.siteDataList.value?.let {
+            newsAdapter.submitList(it)
+            return
+        }
+        getViewModel().getBreakingNews()
+    }
 }
