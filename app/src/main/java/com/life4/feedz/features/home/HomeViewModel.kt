@@ -7,6 +7,7 @@ import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.models.Item
 import com.life4.feedz.models.RssResponse
 import com.life4.feedz.remote.FeedzRepository
+import com.life4.feedz.remote.source.SourceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val feedzRepository: FeedzRepository
+    private val feedzRepository: FeedzRepository,
+    private val sourceRepository: SourceRepository
 ) : BaseViewModel() {
 
     private val _siteData = MutableLiveData<RssResponse>()
@@ -33,6 +35,12 @@ class HomeViewModel @Inject constructor(
         "https://www.ntv.com.tr/son-dakika.rss",
         "https://www.ensonhaber.com/rss/ensonhaber.xml"
     )
+
+    fun getBreakingNewsSource() {
+        sourceRepository.getBreakingNewsSource().handle(RequestType.ACTION, onComplete = {
+
+        })
+    }
 
     fun getBreakingNews() {
         siteDataListArray.clear()

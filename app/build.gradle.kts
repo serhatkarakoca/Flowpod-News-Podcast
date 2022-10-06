@@ -59,6 +59,11 @@ android {
                 "BASE_URL",
                 "\"${AppConfig.BASE_URL}\""
             )
+            this.buildConfigField(
+                "String",
+                "BASE_URL_GITLAB",
+                "\"${AppConfig.BASE_URL_GITLAB}\""
+            )
         }
         debug {
             this.resValue(

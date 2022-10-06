@@ -10,5 +10,7 @@ object AppConfig {
     const val defaultAndroidTestInstrumentation = "androidx.test.runner.AndroidJUnitRunner"
 
     const val BASE_URL = "https://www.toptal.com/developers/feed2json/"
+    const val BASE_URL_GITLAB =
+        "https://gitlab.com/-/ide/project/serhatkarakoca/rssfeeds/tree/main/-/"
 }
 

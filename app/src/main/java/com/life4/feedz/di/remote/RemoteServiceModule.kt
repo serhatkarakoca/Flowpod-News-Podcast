@@ -2,6 +2,7 @@ package com.life4.feedz.di.remote
 
 import com.life4.feedz.BuildConfig
 import com.life4.feedz.remote.ApiService
+import com.life4.feedz.remote.source.SourceApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +28,20 @@ object RemoteServiceModule {
             .client(client)
             .build()
             .create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSourceApiService(
+        builder: Retrofit.Builder,
+        converterFactory: Converter.Factory,
+        client: OkHttpClient
+    ): SourceApiService {
+        return builder
+            .baseUrl(BuildConfig.BASE_URL_GITLAB)
+            .addConverterFactory(converterFactory)
+            .client(client)
+            .build()
+            .create(SourceApiService::class.java)
     }
 }
