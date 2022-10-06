@@ -36,12 +36,6 @@ class HomeViewModel @Inject constructor(
         "https://www.ensonhaber.com/rss/ensonhaber.xml"
     )
 
-    fun getBreakingNewsSource() {
-        sourceRepository.getBreakingNewsSource().handle(RequestType.ACTION, onComplete = {
-
-        })
-    }
-
     fun getBreakingNews() {
         siteDataListArray.clear()
         //_siteDataList.value = arrayListOf()

@@ -1,5 +1,6 @@
 package com.life4.feedz.features.settings
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +23,8 @@ class SettingsFragment :
     @Inject
     lateinit var pref: MyPreference
 
-    override fun setupData() {
+    override fun setupDefinition(savedInstanceState: Bundle?) {
+        super.setupDefinition(savedInstanceState)
         setupViewModel(viewModel)
         auth = FirebaseAuth.getInstance()
     }
@@ -47,6 +49,10 @@ class SettingsFragment :
 
         getBinding().checkboxBrowser.setOnCheckedChangeListener { buttonView, isChecked ->
             pref.setBrowserInApp(isChecked)
+        }
+
+        getBinding().buttonGoToSources.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToSourceFragment())
         }
     }
 }

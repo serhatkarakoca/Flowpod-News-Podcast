@@ -4,25 +4,21 @@ import com.life4.core.data.remote.BaseDataSource
 import com.life4.core.models.Resource
 import com.life4.feedz.models.source.RssFeedResponse
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SourceRemoteDataSource @Inject constructor(
     private val apiService: SourceApiService
 ) : BaseDataSource() {
 
-    fun getBreakingNewsSource(): Flow<Resource<RssFeedResponse>> = flow {
-        val res = getResult { apiService.getBreakingNewsSource() }
-        emit(res)
+    fun getBreakingNewsSource(): Flow<Resource<RssFeedResponse>> {
+        return getResult { apiService.getBreakingNewsSource() }
     }
 
-    fun getTechNewsSource(): Flow<Resource<RssFeedResponse>> = flow {
-        val res = getResult { apiService.getTechNewsSource() }
-        emit(res)
+    fun getTechNewsSource(): Flow<Resource<RssFeedResponse>> {
+        return getResult { apiService.getTechNewsSource() }
     }
 
-    fun getSportNewsSource(): Flow<Resource<RssFeedResponse>> = flow {
-        val res = getResult { apiService.getSportNewsSource() }
-        emit(res)
+    fun getSportNewsSource(): Flow<Resource<RssFeedResponse>> {
+        return getResult { apiService.getSportNewsSource() }
     }
 }

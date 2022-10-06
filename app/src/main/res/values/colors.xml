@@ -21,4 +21,5 @@
     <color name="un_selected">#FFFFFFFF</color>
     <color name="purple">#B36CEA</color>
     <color name="orange_login">#ED9F67</color>
+    <color name="black80">#80000000</color>
 </resources>

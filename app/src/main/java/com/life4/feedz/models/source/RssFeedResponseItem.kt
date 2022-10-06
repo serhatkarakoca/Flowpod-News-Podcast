@@ -15,5 +15,6 @@ data class RssFeedResponseItem(
     @SerializedName("site_name")
     val siteName: String?,
     @SerializedName("site_url")
-    val siteUrl: String?
+    val siteUrl: String?,
+    var isSelected: Boolean = false
 )

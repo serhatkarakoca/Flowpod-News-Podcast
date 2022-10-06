@@ -1,23 +1,28 @@
 package com.life4.core.data.remote
 
 import com.life4.core.models.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 import retrofit2.Response
 import timber.log.Timber
 
 abstract class BaseDataSource {
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Resource<T> {
+    protected fun <T> getResult(call: suspend () -> Response<T>): Flow<Resource<T>> = flow {
         try {
-            val response = call()
+            val response = call.invoke()
             if (response.isSuccessful) {
                 val body = response.body()
-                return if (body != null) Resource.success(body)
-                else error(response.errorBody().toString())
-            }
-            return error(" ${response.code()} ${response.message()}")
+                if (body != null) emit(Resource.success(body))
+                else emit(error(response.errorBody().toString()))
+            } else
+                emit(error(" ${response.code()} ${response.message()}"))
         } catch (e: Exception) {
-            return error(e.message ?: e.toString())
+            emit(error(e.message ?: e.toString()))
         }
-    }
+    }.onStart { emit(Resource.loading()) }.flowOn(Dispatchers.IO)
 
     private fun <T> error(message: String?): Resource<T> {
         Timber.d(message)

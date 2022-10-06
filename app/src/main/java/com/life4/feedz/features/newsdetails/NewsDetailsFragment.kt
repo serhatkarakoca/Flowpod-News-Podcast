@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.net.http.SslError
+import android.os.Bundle
 import android.text.Spannable
 import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
@@ -49,8 +50,12 @@ class NewsDetailsFragment :
         }
     }
 
-    override fun setupData() {
+    override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+    }
+
+    override fun setupData() {
+        super.setupData()
         arguments?.let { args ->
             viewModel.args = NewsDetailsFragmentArgs.fromBundle(args)
             getBinding().item = NewsDetailsFragmentArgs.fromBundle(args).news

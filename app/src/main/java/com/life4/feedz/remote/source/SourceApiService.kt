@@ -6,13 +6,13 @@ import retrofit2.http.GET
 
 interface SourceApiService {
 
-    @GET("/rss_feeds.json/")
+    @GET("rss_feeds.json/")
     suspend fun getBreakingNewsSource(): Response<RssFeedResponse>
 
-    @GET("/rss_tech.json/")
+    @GET("rss_tech.json/")
     suspend fun getTechNewsSource(): Response<RssFeedResponse>
 
-    @GET("/rss_sport.json/")
+    @GET("rss_sport.json/")
     suspend fun getSportNewsSource(): Response<RssFeedResponse>
 
 }
