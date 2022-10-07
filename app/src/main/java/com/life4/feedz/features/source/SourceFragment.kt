@@ -1,9 +1,12 @@
 package com.life4.feedz.features.source
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
+import com.life4.core.extensions.observeOnce
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentSourcesBinding
 import com.life4.feedz.features.source.adapter.SourceAdapter
@@ -27,10 +30,24 @@ class SourceFragment :
         getBinding().rvBreakingNews.adapter = breakingAdapter
         getBinding().rvTechNews.adapter = techAdapter
         getBinding().rvSportNews.adapter = sportAdapter
+        getBinding().layoutSave.setOnClickListener {
+            viewModel.getSavedSource().observeOnce(this, Observer {
+                it?.let {
+                    Log.d("sourcesRoom", it.toString())
+                    viewModel.deleteSavedSource(it)
+                }
+            })
+            viewModel.insertSourceToRoom()
+        }
     }
 
     private fun addSourceToPreference(item: RssFeedResponseItem, isChecked: Boolean) {
+        if (isChecked)
+            viewModel.sourcePref.add(item)
+        else
+            viewModel.sourcePref.remove(item)
 
+        Log.d("sourcesRoomList", viewModel.sourcePref.toString())
     }
 
     private fun onStateChanged(state: SourceViewModel.State) {

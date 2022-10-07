@@ -16,7 +16,9 @@ import android.text.style.URLSpan
 import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_SYSTEM
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
@@ -180,9 +182,17 @@ class NewsDetailsFragment :
     }
 
     private fun redirectUsingCustomTab(url: String) {
+        val otherParams = CustomTabColorSchemeParams.Builder()
+            .setToolbarColor(requireContext().getColor(R.color.gray_chrome_tab))
+            .setNavigationBarColor(requireContext().getColor(R.color.gray_chrome_tab))
+            .build()
+
         val uri = Uri.parse(url)
         val intentBuilder = CustomTabsIntent.Builder()
-        val customTabsIntent = intentBuilder.build()
+        val customTabsIntent = intentBuilder
+            .setColorScheme(COLOR_SCHEME_SYSTEM)
+            .setDefaultColorSchemeParams(otherParams)
+            .build()
         customTabsIntent.launchUrl(requireContext(), uri)
     }
 }

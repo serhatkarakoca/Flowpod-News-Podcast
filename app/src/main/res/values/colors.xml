@@ -22,4 +22,6 @@
     <color name="purple">#B36CEA</color>
     <color name="orange_login">#ED9F67</color>
     <color name="black80">#80000000</color>
+
+    <color name="gray_chrome_tab">#FF212121</color>
 </resources>

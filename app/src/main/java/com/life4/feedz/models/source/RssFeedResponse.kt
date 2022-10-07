@@ -1,4 +1,9 @@
 package com.life4.feedz.models.source
 
+import com.google.gson.annotations.SerializedName
 
-class RssFeedResponse : ArrayList<RssFeedResponseItem>()
+
+data class RssFeedResponse(
+    @SerializedName("sources")
+    val sourceList: List<RssFeedResponseItem>
+)

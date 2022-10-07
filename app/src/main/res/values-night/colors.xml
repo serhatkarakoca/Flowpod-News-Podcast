@@ -19,4 +19,8 @@
 
     <color name="selected">#FFBABABA</color>
     <color name="un_selected">#FF121212</color>
+
+    <color name="gray_chrome_tab">#FFBABABA</color>
+
+
 </resources>

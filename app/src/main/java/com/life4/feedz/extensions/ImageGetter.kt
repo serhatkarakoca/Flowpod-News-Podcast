@@ -44,7 +44,7 @@ class ImageGetter(
                 val height = width / aspectRatio
                 drawable.setBounds(10, 20, width, height.toInt())
                 holder.setDrawable(drawable)
-                holder.setBounds(10, 20, width, height.toInt())
+                holder.setBounds(10, 20, width, height.toInt() + 50)
                 withContext(Dispatchers.Main) {
                     htmlTextView.text = htmlTextView.text
                 }
