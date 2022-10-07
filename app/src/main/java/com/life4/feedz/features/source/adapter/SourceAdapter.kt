@@ -22,6 +22,7 @@ class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
             binding.item = item
             binding.root.setOnClickListener {
                 binding.checkboxSource.isChecked = !binding.checkboxSource.isChecked
+                item.isSelected = binding.checkboxSource.isChecked
                 listener(item, binding.checkboxSource.isChecked)
             }
             binding.executePendingBindings()

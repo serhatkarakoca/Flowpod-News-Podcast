@@ -57,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:focusable="false"
+                    android:checked="@{item.selected}"
                     android:button="@drawable/circle_checkbox"
                     app:layout_constraintBottom_toBottomOf="@id/image_logo"
                     app:layout_constraintEnd_toEndOf="@id/image_logo"

@@ -36,37 +36,45 @@ class SourceViewModel @Inject constructor(
         get() = _liveData
 
     val sourcePref = arrayListOf<RssFeedResponseItem>()
+    var allSources: MutableMap<Int, List<RssFeedResponseItem>?>? = null
 
     fun getBreakingNewsSource() {
-        sourceRepository.getBreakingNewsSource().handle(RequestType.ACTION, onComplete = {
+        baseLiveData.value = BaseViewModel.State.ShowLoading()
+        sourceRepository.getBreakingNewsSource().handle(RequestType.CUSTOM, onComplete = {
             _siteDataListBreaking.value = it.sourceList
             getTechNewsSource()
-        }, onError = {})
+        }, onError = {
+            baseLiveData.value = BaseViewModel.State.ShowContent()
+        })
     }
 
-    fun getTechNewsSource() {
-        sourceRepository.getTechNewsSource().handle(RequestType.ACTION, onComplete = {
+    private fun getTechNewsSource() {
+        sourceRepository.getTechNewsSource().handle(RequestType.CUSTOM, onComplete = {
             _siteDataListTech.value = it.sourceList
             getSportNewsSource()
-        }, onError = {})
+        }, onError = {
+            baseLiveData.value = BaseViewModel.State.ShowContent()
+        })
     }
 
-    fun getSportNewsSource() {
-        sourceRepository.getSportNewsSource().handle(RequestType.ACTION, onComplete = {
+    private fun getSportNewsSource() {
+        sourceRepository.getSportNewsSource().handle(RequestType.CUSTOM, onComplete = {
             _siteDataListSports.value = it.sourceList
-            _liveData.value = State.OnSourceReady(
-                mutableMapOf(
-                    1 to _siteDataListBreaking.value,
-                    2 to _siteDataListTech.value,
-                    3 to _siteDataListSports.value,
-                )
+            allSources = mutableMapOf(
+                1 to _siteDataListBreaking.value,
+                2 to _siteDataListTech.value,
+                3 to _siteDataListSports.value
             )
-        }, onError = {})
+            baseLiveData.value = BaseViewModel.State.ShowContent()
+            _liveData.value = State.OnSourceReady(allSources ?: mutableMapOf())
+        }, onError = {
+            baseLiveData.value = BaseViewModel.State.ShowContent()
+        })
     }
 
-    fun deleteSavedSource(data: SourceModel) {
+    fun deleteSavedSource() {
         viewModelScope.launch {
-            sourceDao.deleteSources(data)
+            sourceDao.deleteSources()
         }
     }
 
@@ -77,10 +85,12 @@ class SourceViewModel @Inject constructor(
     fun insertSourceToRoom() {
         viewModelScope.launch {
             sourceDao.insertSource(SourceModel(sourceList = RssFeedResponse(sourcePref)))
+            _liveData.value = State.OnSourceAdded
         }
     }
 
     sealed class State {
         data class OnSourceReady(val listMap: MutableMap<Int, List<RssFeedResponseItem>?>) : State()
+        object OnSourceAdded : State()
     }
 }

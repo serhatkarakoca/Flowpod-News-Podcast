@@ -14,10 +14,11 @@
         tools:context=".features.source.SourceFragment">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:layout_marginBottom="75dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -106,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:clickable="true"
+            android:visibility="gone"
             android:background="@drawable/background_radius_top"
             android:layout_gravity="bottom">
 
