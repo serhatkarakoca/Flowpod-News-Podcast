@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
         //_siteDataList.value = arrayListOf()
         viewModelScope.launch {
             (0..breakingNews.lastIndex).map {
-                async(Dispatchers.IO) { getSiteData(it) }
+                async(Dispatchers.Main) { getSiteData(it) }
             }.awaitAll()
         }
     }

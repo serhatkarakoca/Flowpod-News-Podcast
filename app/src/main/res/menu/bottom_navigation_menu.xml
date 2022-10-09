@@ -14,6 +14,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/flowFragment"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/flow"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/saved_navigation"
         android:icon="@drawable/ic_round_bookmarks"
         android:title="@string/title_stack_over_flow"

@@ -37,4 +37,9 @@
     <string name="content_store">İçerik Mağazası</string>
     <string name="content_store_desc">İstediğiniz kaynakları seçerek, kendinize özel bir akış oluşturabilirsiniz</string>
     <string name="save_source">Kaynakları Kaydet</string>
+    <string name="flow">Akış</string>
+    <string name="your_flow">Akışınız</string>
+    <string name="tech">Teknoloji</string>
+    <string name="breaking">Gündem</string>
+    <string name="all">Tümü</string>
 </resources>

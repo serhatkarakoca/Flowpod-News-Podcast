@@ -37,7 +37,8 @@ class MainActivity :
         bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment -> toolbar.isVisible = false
+                R.id.homeFragment,
+                R.id.flowFragment -> toolbar.isVisible = false
                 else -> toolbar.isVisible = true
             }
         }
