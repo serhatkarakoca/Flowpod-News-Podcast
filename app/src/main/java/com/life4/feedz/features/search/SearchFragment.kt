@@ -49,11 +49,11 @@ class SearchFragment :
         }
         getBinding().cardView.setOnClickListener {
             val siteUrl = viewModel.confirmedUrl ?: return@setOnClickListener
-            val siteDataItems = viewModel.siteData.value?.items?.mapNotNull { it }
+            val siteDataItems = viewModel.siteData.value
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToNewsFragment(
-                    siteUrl,
-                    siteDataItems?.toTypedArray()
+                    siteDataItems,
+                    siteUrl
                 )
             )
 

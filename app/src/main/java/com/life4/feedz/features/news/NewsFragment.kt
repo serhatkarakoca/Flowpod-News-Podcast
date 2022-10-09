@@ -45,8 +45,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
         getBinding().rvNews.adapter = newsAdapter
         arguments?.let {
             val args = NewsFragmentArgs.fromBundle(it)
-            newsAdapter.submitList(args.siteData?.toList())
+            newsAdapter.submitList(args.siteData?.items?.toList())
             viewModel.siteUrl = args.siteUrl
+            viewModel.rssResponse = args.siteData
         }
     }
 

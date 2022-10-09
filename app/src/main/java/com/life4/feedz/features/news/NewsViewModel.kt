@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.life4.core.core.vm.BaseViewModel
+import com.life4.feedz.models.RssResponse
 import com.life4.feedz.models.source.RssFeedResponse
 import com.life4.feedz.models.source.RssFeedResponseItem
 import com.life4.feedz.models.source.SourceModel
@@ -18,6 +19,7 @@ class NewsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     var siteUrl: String? = null
+    var rssResponse: RssResponse? = null
     val userSources = MutableLiveData<SourceModel>()
     var siteAdded = MutableLiveData(false)
 
@@ -34,7 +36,7 @@ class NewsViewModel @Inject constructor(
                     categoryId = null,
                     language = null,
                     siteLogo = null,
-                    siteName = null,
+                    siteName = rssResponse?.title,
                     siteUrl = siteUrl,
                     isSelected = false
                 )

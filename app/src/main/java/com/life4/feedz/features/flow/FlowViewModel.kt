@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.models.Item
+import com.life4.feedz.models.source.RssFeedResponseItem
 import com.life4.feedz.models.source.SourceModel
 import com.life4.feedz.remote.FeedzRepository
 import com.life4.feedz.room.source.SourceDao
@@ -28,6 +29,9 @@ class FlowViewModel @Inject constructor(
     val liveData: LiveData<State>
         get() = _liveData
 
+    val selectedUserList = MutableLiveData<List<RssFeedResponseItem>>()
+    var fromFilter: Boolean = false
+
     fun getSources(): LiveData<SourceModel> {
         return sourceDao.getSources()
     }
@@ -46,25 +50,42 @@ class FlowViewModel @Inject constructor(
 
     fun getNews(category: Int? = 0) {
         viewModelScope.launch {
-            if (category == 0) {
-                userSources.value?.sourceList?.sourceList?.let { list ->
+            if (fromFilter) {
+                selectedUserList.value?.filter { it.isSelected }?.let { list ->
                     repeat(list.size) { index ->
                         getSiteData(list.get(index).siteUrl ?: "", list.lastIndex == index)
                     }
                 }
             } else {
-                userSources.value?.sourceList?.sourceList?.let { list ->
-                    val filteredList = list.filter { it.categoryId == category }
-                    if (filteredList.isEmpty())
-                        _liveData.value = State.OnNewsFetch(listOf())
-                    repeat(filteredList.size) { index ->
-                        getSiteData(
-                            filteredList.get(index).siteUrl ?: "",
-                            filteredList.lastIndex == index
-                        )
+                if (category == 0) {
+                    userSources.value?.sourceList?.sourceList?.let { list ->
+                        selectedUserList.value = list
+                        selectedUserList.value?.forEach {
+                            it.isSelected = true
+                        }
+                        repeat(list.size) { index ->
+                            getSiteData(list.get(index).siteUrl ?: "", list.lastIndex == index)
+                        }
+                    }
+                } else {
+                    userSources.value?.sourceList?.sourceList?.let { list ->
+                        val filteredList = list.filter { it.categoryId == category }
+                        if (filteredList.isEmpty())
+                            _liveData.value = State.OnNewsFetch(listOf())
+                        selectedUserList.value = filteredList
+                        selectedUserList.value?.forEach {
+                            it.isSelected = true
+                        }
+                        repeat(filteredList.size) { index ->
+                            getSiteData(
+                                filteredList.get(index).siteUrl ?: "",
+                                filteredList.lastIndex == index
+                            )
+                        }
                     }
                 }
             }
+
         }
     }
 

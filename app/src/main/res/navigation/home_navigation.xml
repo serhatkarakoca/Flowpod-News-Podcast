@@ -89,9 +89,8 @@
         android:label="NewsFragment">
         <argument
             android:name="siteData"
-            app:argType="com.life4.feedz.models.Item[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.life4.feedz.models.RssResponse"
+            app:nullable="true" />
         <argument
             android:name="siteUrl"
             app:argType="string" />
