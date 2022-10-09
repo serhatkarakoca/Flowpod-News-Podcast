@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.life4.feedz.features.news.NewsFragment"
-        android:label="NewsFragment">
+        android:label="@string/results">
         <argument
             android:name="siteData"
             app:argType="com.life4.feedz.models.RssResponse"
