@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
@@ -34,6 +35,11 @@ class SourceFragment :
         getBinding().rvBreakingNews.adapter = breakingAdapter
         getBinding().rvTechNews.adapter = techAdapter
         getBinding().rvSportNews.adapter = sportAdapter
+
+        getBinding().etSearch.setOnClickListener {
+            findNavController().navigate(SourceFragmentDirections.actionSourceFragmentToSearchFragment())
+        }
+
         getBinding().layoutSave.setOnClickListener {
             viewModel.getSavedSource().observeOnce(this, Observer {
                 it?.let {

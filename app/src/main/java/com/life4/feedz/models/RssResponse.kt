@@ -1,8 +1,11 @@
 package com.life4.feedz.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RssResponse(
     @SerializedName("description")
     val description: String?,
@@ -14,4 +17,4 @@ data class RssResponse(
     val title: String?,
     @SerializedName("version")
     val version: String?
-)
+) : Parcelable

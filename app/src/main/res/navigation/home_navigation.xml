@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.life4.feedz.features.settings.SettingsFragment"
-        android:label="SettingsFragment">
+        android:label="@string/title_settings">
         <action
             android:id="@+id/action_settingsFragment2_to_settingsFragment"
             app:destination="@id/settingsFragment2"
@@ -57,18 +57,46 @@
     <fragment
         android:id="@+id/sourceFragment"
         android:name="com.life4.feedz.features.source.SourceFragment"
-        android:label="SourceFragment"
+        android:label="@string/content_store"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right" />
+        app:popExitAnim="@anim/slide_out_right">
+        <action
+            android:id="@+id/action_sourceFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/flowFragment"
         android:name="com.life4.feedz.features.flow.FlowFragment"
-        android:label="FlowFragment">
+        android:label="@string/flow">
         <action
             android:id="@+id/action_flowFragment_to_newDetailsFragment"
+            app:destination="@id/newDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.life4.feedz.features.search.SearchFragment"
+        android:label="@string/search">
+        <action
+            android:id="@+id/action_searchFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.life4.feedz.features.news.NewsFragment"
+        android:label="NewsFragment">
+        <argument
+            android:name="siteData"
+            app:argType="com.life4.feedz.models.Item[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="siteUrl"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_newsFragment_to_newDetailsFragment"
             app:destination="@id/newDetailsFragment" />
     </fragment>
 
