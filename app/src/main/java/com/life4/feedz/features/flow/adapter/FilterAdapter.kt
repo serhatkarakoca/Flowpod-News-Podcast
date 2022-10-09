@@ -22,7 +22,6 @@ class FilterAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
             binding.item = item
             binding.root.setOnClickListener {
                 binding.checkBox.isChecked = !binding.checkBox.isChecked
-                item.isSelected = binding.checkBox.isChecked
                 listener(item, binding.checkBox.isChecked)
             }
             binding.executePendingBindings()

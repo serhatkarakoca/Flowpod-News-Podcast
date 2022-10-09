@@ -29,11 +29,12 @@
 
                 <ImageView
                     android:id="@+id/add_bookmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/ic_bookmark_add"
                     android:visibility="gone"
-                    android:padding="8dp"
+                    android:layout_marginEnd="16dp"
+                    tools:visibility="visible"
                     android:layout_gravity="end" />
 
             </com.google.android.material.appbar.MaterialToolbar>

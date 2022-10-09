@@ -26,7 +26,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
 
     override fun setupListener() {
         activity?.let {
-            (it as MainActivity).getBinding().addBookmark.visibility = View.VISIBLE
             (it as MainActivity).getBinding().addBookmark.setOnClickListener {
                 if (viewModel.siteAdded.value == false)
                     viewModel.addSiteToBookmark()
@@ -67,6 +66,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
                 viewModel.siteAdded.value =
                     it.sourceList?.sourceList?.firstOrNull { it.siteUrl == viewModel.siteUrl } != null
             }
+        }
+        activity?.let {
+            (it as MainActivity).getBinding().addBookmark.visibility = View.VISIBLE
         }
     }
 

@@ -34,6 +34,7 @@ class SearchFragment :
 
     private fun setSiteData(data: RssResponse) {
         getBinding().site = MutableLiveData(data)
+        getBinding().executePendingBindings()
     }
 
     override fun setupListener() {

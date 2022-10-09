@@ -32,7 +32,7 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
     }
 
     private fun filterListener(item: RssFeedResponseItem, isChecked: Boolean) {
-
+        item.isSelected = isChecked
     }
 
     override fun setupListener() {
@@ -44,7 +44,6 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
 
         getBinding().btnFilter.setOnClickListener {
             BottomSheetDialog(requireContext()).apply {
-                setCancelable(false)
                 val inflater = LayoutInflater.from(requireContext())
                 val binding = DataBindingUtil.inflate<BottomSheetFilterBinding>(
                     inflater,
@@ -124,6 +123,6 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
 
     override fun onResume() {
         super.onResume()
-        viewModel.getNews(viewModel.selectedCategory.value)
+        viewModel.getAndSetNews(viewModel.selectedCategory.value)
     }
 }

@@ -64,12 +64,15 @@ class SearchViewModel @Inject constructor(
             }
 
         }, onError = {
-            _siteData.value = RssResponse(
-                description = null,
-                homePageUrl = null,
-                items = listOf(),
-                title = "empty",
-                version = null
+            indexUrlPath = 0
+            _siteData.postValue(
+                RssResponse(
+                    description = null,
+                    homePageUrl = null,
+                    items = listOf(),
+                    title = "empty",
+                    version = null
+                )
             )
             progressStatus.value = false
         })
