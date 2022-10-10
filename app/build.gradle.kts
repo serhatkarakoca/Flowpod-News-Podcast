@@ -69,7 +69,7 @@ android {
             this.resValue(
                 "string",
                 "app_name",
-                "Feedz - Debug"
+                "Extrass - Debug"
             )
             // signingConfig = signingConfigs.getByName("debug")
             //applicationIdSuffix = ".debug"
@@ -78,7 +78,7 @@ android {
             this.resValue(
                 "string",
                 "app_name",
-                "Feedz"
+                "Extrass"
             )
             // signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
