@@ -1,6 +1,8 @@
 import models.Dependency
 
 object Libraries {
+    val splashView =
+        Dependency("androidx.core:core-splashscreen:${Versions.androidCoreSplashScreen}")
     val appcompat = Dependency("androidx.appcompat:appcompat:${Versions.androidxAppCompatVersion}")
     val archCoreRuntime = Dependency("androidx.arch.core:core-runtime:${Versions.androidxArchCoreVersion}")
     val archCoreTesting = Dependency("androidx.arch.core:core-testing:${Versions.androidxArchCoreVersion}")

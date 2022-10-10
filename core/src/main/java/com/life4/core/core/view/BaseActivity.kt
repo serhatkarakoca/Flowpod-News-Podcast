@@ -24,6 +24,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> constructor(
     private var progressDialog: Dialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        beforeOnCreated()
         binding = DataBindingUtil.setContentView(this, layoutId)
         setupDefinition(savedInstanceState)
         setupData()
@@ -148,6 +149,9 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> constructor(
     }
 
     fun getViewModel(): V {
-        return viewModel ?: throw java.lang.NullPointerException("Expression 'view model' must not be null")
+        return viewModel
+            ?: throw java.lang.NullPointerException("Expression 'view model' must not be null")
     }
+
+    open fun beforeOnCreated() {}
 }

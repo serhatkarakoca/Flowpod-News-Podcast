@@ -5,12 +5,13 @@ object Versions {
     const val kotlin = "1.6.10"
 
     // dependency level
+    const val androidCoreSplashScreen = "1.0.0-beta02"
     const val androidxAppCompatVersion = "1.4.1"
     const val androidxArchCoreVersion = "2.1.0"
     const val androidxConstraintLayoutVersion = "2.1.3"
     const val androidxCoreVersion = "1.7.0"
     const val androidxDataStoreVersion = "1.0.0"
-    const val androidxFragmentVersion = "1.4.1"
+    const val androidxFragmentVersion = "1.5.3"
     const val androidxHiltWorkVersion = "1.0.0"
     const val androidxLegacySupportVersion = "1.0.0"
     const val androidxLifeCycleExtensionsVersion = "2.2.0"
@@ -19,7 +20,7 @@ object Versions {
     const val androidxLifeCycleViewModelVersion = "2.4.1"
     const val androidxLifeCycleViewModelStateVersion = "2.4.1"
     const val androidxMultidexVersion = "2.0.1"
-    const val androidxNavigationVersion = "2.4.1"
+    const val androidxNavigationVersion = "2.5.2"
     const val androidxPagingVersion = "3.1.0"
     const val androidxPreferenceVersion = "1.2.0"
     const val androidxRoomVersion = "2.4.2"

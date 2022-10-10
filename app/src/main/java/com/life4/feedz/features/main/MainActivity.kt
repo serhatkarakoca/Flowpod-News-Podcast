@@ -2,6 +2,7 @@ package com.life4.feedz.features.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +23,10 @@ class MainActivity :
     override fun onBackPressed() {
         if (!onSupportNavigateUp())
             super.onBackPressed()
+    }
+
+    override fun beforeOnCreated() {
+        installSplashScreen()
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {

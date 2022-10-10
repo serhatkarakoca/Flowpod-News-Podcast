@@ -4,6 +4,7 @@ import models.Dependency
 
 object AppDependencies {
     val appLibraries = arrayListOf<Dependency>().apply {
+        add(Libraries.splashView)
         add(Libraries.appcompat)
         add(Libraries.archCoreRuntime)
         add(Libraries.constraintLayout)

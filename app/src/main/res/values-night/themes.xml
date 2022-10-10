@@ -19,5 +19,12 @@
         <item name="android:navigationBarColor">@color/dark_gray</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="textAllCaps">false</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+    </style>
+
+    <style name="Theme.Project.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/dark_gray</item>
+        <item name="postSplashScreenTheme">@style/Theme.Project.NoActionBar</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
     </style>
 </resources>
