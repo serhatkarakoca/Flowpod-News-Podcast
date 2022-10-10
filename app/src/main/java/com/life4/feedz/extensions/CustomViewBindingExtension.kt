@@ -22,7 +22,7 @@ fun ShapeableImageView.bindImage(res: String?) {
 
     val options = RequestOptions()
         .placeholder(placeHolderProgressBar(this.context))
-        .error(R.drawable.newspaper)
+        .error(R.drawable.placeholder_news)
 
     GlideApp
         .with(this.context)

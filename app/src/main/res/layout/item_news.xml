@@ -18,7 +18,6 @@
             android:id="@+id/img_news"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:src="@drawable/newspaper"
             android:scaleType="centerCrop"
             app:setImage="@{item.postImage}"
             app:layout_constraintTop_toTopOf="parent"
