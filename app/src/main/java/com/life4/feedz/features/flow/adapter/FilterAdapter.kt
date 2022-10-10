@@ -49,7 +49,7 @@ class FilterAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
                 oldItem: RssFeedResponseItem,
                 newItem: RssFeedResponseItem
             ): Boolean {
-                return true
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(
