@@ -19,5 +19,7 @@ data class RssFeedResponseItem(
     val siteName: String?,
     @SerializedName("site_url")
     val siteUrl: String?,
+    @SerializedName("description")
+    val description: String?,
     var isSelected: Boolean = false
 ) : Parcelable

@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_sourceFragment"
             app:destination="@id/sourceFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_userSourcesFragment"
+            app:destination="@id/userSourcesFragment" />
     </fragment>
     <fragment
         android:id="@+id/newDetailsFragment"
@@ -97,6 +100,14 @@
         <action
             android:id="@+id/action_newsFragment_to_newDetailsFragment"
             app:destination="@id/newDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userSourcesFragment"
+        android:name="com.life4.feedz.features.usersources.UserSourcesFragment"
+        android:label="@string/your_content_provider">
+        <action
+            android:id="@+id/action_userSourcesFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
 
 </navigation>

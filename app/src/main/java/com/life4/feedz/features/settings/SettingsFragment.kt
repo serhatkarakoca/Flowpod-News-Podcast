@@ -35,6 +35,10 @@ class SettingsFragment :
         getBinding().email = auth.currentUser?.email
         getBinding().browserCheck = pref.getBrowserInApp()
 
+        getBinding().buttonSelectedSources.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToUserSourcesFragment())
+        }
+
         getBinding().loginLogout.setOnClickListener {
             activity?.let {
                 if (auth.currentUser != null)

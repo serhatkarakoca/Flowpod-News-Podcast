@@ -38,6 +38,7 @@ class NewsViewModel @Inject constructor(
                     siteLogo = null,
                     siteName = rssResponse?.title,
                     siteUrl = siteUrl,
+                    description = rssResponse?.description,
                     isSelected = false
                 )
             )
@@ -68,6 +69,7 @@ class NewsViewModel @Inject constructor(
                     siteLogo = null,
                     siteName = null,
                     siteUrl = siteUrl,
+                    description = rssResponse?.description,
                     isSelected = false
                 )
             )
