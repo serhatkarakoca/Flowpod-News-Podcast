@@ -21,4 +21,8 @@ class SourceRemoteDataSource @Inject constructor(
     fun getSportNewsSource(): Flow<Resource<RssFeedResponse>> {
         return getResult { apiService.getSportNewsSource() }
     }
+
+    fun getHomePage(): Flow<Resource<RssFeedResponse>> {
+        return getResult { apiService.getHomePage() }
+    }
 }

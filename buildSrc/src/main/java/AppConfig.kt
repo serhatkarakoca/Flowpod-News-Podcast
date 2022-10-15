@@ -9,7 +9,7 @@ object AppConfig {
     const val androidTestInstrumentation = "com.life4.feedz.HiltTestRunner"
     const val defaultAndroidTestInstrumentation = "androidx.test.runner.AndroidJUnitRunner"
 
-    const val BASE_URL = "https://www.toptal.com/developers/feed2json/"
+    const val BASE_URL = "https://rss2jsonapi.vercel.app/"
     const val BASE_URL_GITLAB =
         "https://gitlab.com/serhatkarakoca/rssfeeds/-/raw/main/"
 }

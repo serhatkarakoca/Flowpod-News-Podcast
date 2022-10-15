@@ -5,5 +5,6 @@ import javax.inject.Inject
 class FeedzRepository @Inject constructor(
     private val remoteDataSource: FeedzRemoteDataSource
 ) {
-    fun getSiteData(url: String) = remoteDataSource.getSiteData(url)
+    fun searchSite(url: String) = remoteDataSource.searchSite(url)
+
 }

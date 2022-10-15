@@ -7,7 +7,7 @@
 
         <variable
             name="site"
-            type="androidx.lifecycle.MutableLiveData&lt;com.life4.feedz.models.RssResponse>" />
+            type="androidx.lifecycle.MutableLiveData&lt;com.life4.feedz.models.rss_.RssResponse>" />
 
         <variable
             name="progressStatus"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="16dp"
-            android:visibility="@{(!site.items.empty &amp;&amp; site.homePageUrl != null) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(!site.items.empty &amp;&amp; site.link != null) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search">
 
@@ -87,14 +87,25 @@
                     android:layout_height="match_parent"
                     android:padding="8dp">
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/logo"
+                        setImage="@{site.imageSite}"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:visibility="@{site.imageSite != null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/site_url"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
-                        android:text="@{site.title != null ? site.title : site.homePageUrl}"
+                        android:text="@{site.siteName != null ? site.siteName : site.link}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/logo"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="serhatkarakoca.com" />
 
@@ -110,7 +121,7 @@
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/img_arrow"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/logo"
                         app:layout_constraintTop_toBottomOf="@id/site_url"
                         tools:text="description" />
 

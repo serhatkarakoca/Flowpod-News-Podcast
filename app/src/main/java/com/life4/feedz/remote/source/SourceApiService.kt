@@ -15,4 +15,6 @@ interface SourceApiService {
     @GET("rss_sport.json/")
     suspend fun getSportNewsSource(): Response<RssFeedResponse>
 
+    @GET("rss_home.json/")
+    suspend fun getHomePage(): Response<RssFeedResponse>
 }

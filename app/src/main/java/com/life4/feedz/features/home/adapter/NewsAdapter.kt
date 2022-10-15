@@ -3,19 +3,19 @@ package com.life4.feedz.features.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
 import com.life4.feedz.databinding.ItemNewsBinding
-import com.life4.feedz.models.Item
+import com.life4.feedz.models.rss_.RssPaginationItem
 
-class NewsAdapter(val listener: (Item) -> Unit) :
-    ListAdapter<Item, NewsAdapter.NewsViewHolder>(DIFF_UTIL) {
+class NewsAdapter(val listener: (RssPaginationItem) -> Unit) :
+    PagingDataAdapter<RssPaginationItem, NewsAdapter.NewsViewHolder>(DIFF_UTIL) {
 
-    class NewsViewHolder(val binding: ItemNewsBinding, val listener: (Item) -> Unit) :
+    class NewsViewHolder(val binding: ItemNewsBinding, val listener: (RssPaginationItem) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Item) {
+        fun bind(item: RssPaginationItem) {
             binding.item = item
             binding.root.setOnClickListener {
                 listener(item)
@@ -32,16 +32,22 @@ class NewsAdapter(val listener: (Item) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        getItem(position)?.let { holder.bind(it) }
     }
 
     companion object {
-        val DIFF_UTIL = object : DiffUtil.ItemCallback<Item>() {
-            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<RssPaginationItem>() {
+            override fun areItemsTheSame(
+                oldItem: RssPaginationItem,
+                newItem: RssPaginationItem
+            ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+            override fun areContentsTheSame(
+                oldItem: RssPaginationItem,
+                newItem: RssPaginationItem
+            ): Boolean {
                 return true
             }
 

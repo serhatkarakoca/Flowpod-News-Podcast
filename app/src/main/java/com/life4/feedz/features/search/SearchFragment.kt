@@ -2,6 +2,7 @@ package com.life4.feedz.features.search
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -12,7 +13,7 @@ import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentSearchBinding
-import com.life4.feedz.models.RssResponse
+import com.life4.feedz.models.rss_.RssResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -33,6 +34,7 @@ class SearchFragment :
     }
 
     private fun setSiteData(data: RssResponse) {
+        Log.d("siteData", data.toString())
         getBinding().site = MutableLiveData(data)
         getBinding().executePendingBindings()
     }
@@ -50,11 +52,11 @@ class SearchFragment :
         }
         getBinding().cardView.setOnClickListener {
             val siteUrl = viewModel.confirmedUrl ?: return@setOnClickListener
-            val siteDataItems = viewModel.siteData.value
+            val siteDataItems = viewModel.siteData.value ?: return@setOnClickListener
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToNewsFragment(
-                    siteDataItems,
-                    siteUrl
+                    siteUrl,
+                    siteDataItems
                 )
             )
 

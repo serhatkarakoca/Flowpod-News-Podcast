@@ -13,6 +13,10 @@
             type="String" />
 
         <variable
+            name="name"
+            type="String" />
+
+        <variable
             name="browserCheck"
             type="Boolean" />
 
@@ -39,6 +43,17 @@
                 android:text='@{isLogin ? "Giriş Yapılan Hesap":"Giriş Yapmamış Görünüyorsunuz"}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@{name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibility="@{name != null ? View.VISIBLE : View.GONE}"
+                tools:text="serhatkarakoca@gmail.com" />
 
             <TextView
                 android:layout_width="match_parent"

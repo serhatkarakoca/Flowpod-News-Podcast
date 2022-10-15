@@ -3,7 +3,7 @@ package com.life4.feedz.features.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.life4.core.core.vm.BaseViewModel
-import com.life4.feedz.models.RssResponse
+import com.life4.feedz.models.rss_.RssResponse
 import com.life4.feedz.other.Constant
 import com.life4.feedz.remote.FeedzRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,8 +30,8 @@ class SearchViewModel @Inject constructor(
     private fun getSite(url: String, index: Int, tryToUrls: Boolean = false) {
         if (progressStatus.value != true)
             progressStatus.value = true
-        feedzRepository.getSiteData(url).handle(requestType = RequestType.CUSTOM, onComplete = {
-            if (it.homePageUrl != null && it.items.isNullOrEmpty().not()) {
+        feedzRepository.searchSite(url).handle(requestType = RequestType.CUSTOM, onComplete = {
+            if (it.link != null && it.items.isNullOrEmpty().not()) {
                 _siteData.value = it
                 confirmedUrl = url
                 progressStatus.value = false
@@ -39,20 +39,20 @@ class SearchViewModel @Inject constructor(
                 if (!tryToUrls) {
                     _siteData.value = RssResponse(
                         description = null,
-                        homePageUrl = null,
+                        image = null,
                         items = listOf(),
-                        title = "empty",
-                        version = null
+                        link = null,
+                        title = "empty", feedUrl = null, language = null, lastBuildDate = null
                     )
                     indexUrlPath = 0
                     progressStatus.value = false
                 } else if (tryToUrls && index == Constant.END_PREFIX.lastIndex) {
                     _siteData.value = RssResponse(
                         description = null,
-                        homePageUrl = null,
+                        image = null,
                         items = listOf(),
-                        title = "empty",
-                        version = null
+                        link = null,
+                        title = "empty", feedUrl = null, language = null, lastBuildDate = null
                     )
                     indexUrlPath = 0
                     progressStatus.value = false
@@ -68,10 +68,13 @@ class SearchViewModel @Inject constructor(
             _siteData.postValue(
                 RssResponse(
                     description = null,
-                    homePageUrl = null,
+                    image = null,
                     items = listOf(),
-                    title = "empty",
-                    version = null
+                    link = null,
+                    feedUrl = null,
+                    language = null,
+                    lastBuildDate = null,
+                    title = "empty"
                 )
             )
             progressStatus.value = false

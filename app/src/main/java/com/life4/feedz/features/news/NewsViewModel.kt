@@ -3,11 +3,17 @@ package com.life4.feedz.features.news
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.life4.core.core.vm.BaseViewModel
-import com.life4.feedz.models.RssResponse
+import com.life4.feedz.features.home.adapter.NewsDataSource
+import com.life4.feedz.models.request.RssRequest
+import com.life4.feedz.models.rss_.RssResponse
 import com.life4.feedz.models.source.RssFeedResponse
 import com.life4.feedz.models.source.RssFeedResponseItem
 import com.life4.feedz.models.source.SourceModel
+import com.life4.feedz.remote.ApiService
 import com.life4.feedz.room.source.SourceDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val sourceDao: SourceDao
+    private val sourceDao: SourceDao,
+    private val mApi: ApiService
 ) : BaseViewModel() {
 
     var siteUrl: String? = null
@@ -35,8 +42,8 @@ class NewsViewModel @Inject constructor(
                     category = null,
                     categoryId = null,
                     language = null,
-                    siteLogo = null,
-                    siteName = rssResponse?.title,
+                    siteLogo = rssResponse?.getImageSite(),
+                    siteName = rssResponse?.getSiteName(),
                     siteUrl = siteUrl,
                     description = rssResponse?.description,
                     isSelected = false
@@ -62,16 +69,7 @@ class NewsViewModel @Inject constructor(
                 newSource.addAll(it)
             }
             newSource.remove(
-                RssFeedResponseItem(
-                    category = null,
-                    categoryId = null,
-                    language = null,
-                    siteLogo = null,
-                    siteName = null,
-                    siteUrl = siteUrl,
-                    description = rssResponse?.description,
-                    isSelected = false
-                )
+                newSource.firstOrNull { it.siteUrl == siteUrl }
             )
 
             sourceDao.insertSource(SourceModel(sourceList = RssFeedResponse(newSource)))
@@ -82,4 +80,14 @@ class NewsViewModel @Inject constructor(
     fun getSources(): LiveData<SourceModel> {
         return sourceDao.getSources()
     }
+
+    fun getSiteData() = Pager(
+        config = PagingConfig(20, enablePlaceholders = false),
+        pagingSourceFactory = {
+            NewsDataSource(
+                mApi,
+                body = RssRequest(listOf(siteUrl ?: ""))
+            )
+        }
+    ).flow.cachedIn(viewModelScope)
 }

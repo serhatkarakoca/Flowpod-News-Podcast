@@ -8,4 +8,5 @@ class SourceRepository @Inject constructor(
     fun getBreakingNewsSource() = remoteDataSource.getBreakingNewsSource()
     fun getTechNewsSource() = remoteDataSource.getTechNewsSource()
     fun getSportNewsSource() = remoteDataSource.getSportNewsSource()
+    fun getHomePage() = remoteDataSource.getHomePage()
 }

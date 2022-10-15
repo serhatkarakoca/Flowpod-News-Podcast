@@ -33,6 +33,7 @@ class SettingsFragment :
         activity?.let { it.title = getString(R.string.title_settings) }
         getBinding().isLogin = auth.currentUser != null
         getBinding().email = auth.currentUser?.email
+        getBinding().name = auth.currentUser?.displayName
         getBinding().browserCheck = pref.getBrowserInApp()
 
         getBinding().buttonSelectedSources.setOnClickListener {

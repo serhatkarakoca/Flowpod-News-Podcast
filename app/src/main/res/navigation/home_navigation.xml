@@ -54,7 +54,7 @@
         android:label="NewDetailsFragment">
         <argument
             android:name="news"
-            app:argType="com.life4.feedz.models.Item" />
+            app:argType="com.life4.feedz.models.rss_.RssPaginationItem" />
     </fragment>
 
     <fragment
@@ -91,15 +91,14 @@
         android:name="com.life4.feedz.features.news.NewsFragment"
         android:label="@string/results">
         <argument
-            android:name="siteData"
-            app:argType="com.life4.feedz.models.RssResponse"
-            app:nullable="true" />
-        <argument
             android:name="siteUrl"
             app:argType="string" />
         <action
             android:id="@+id/action_newsFragment_to_newDetailsFragment"
             app:destination="@id/newDetailsFragment" />
+        <argument
+            android:name="rssResponse"
+            app:argType="com.life4.feedz.models.rss_.RssResponse" />
     </fragment>
     <fragment
         android:id="@+id/userSourcesFragment"

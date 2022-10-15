@@ -46,9 +46,9 @@ class NewsDetailsFragment :
     override fun setupListener() {
         getBinding().buttonGoNews.setOnClickListener {
             if (pref.getBrowserInApp() == true)
-                setWebview(url = viewModel.args?.news?.url ?: "")
+                setWebview(url = viewModel.args?.news?.link ?: "")
             else
-                redirectUsingCustomTab(viewModel.args?.news?.url ?: "")
+                redirectUsingCustomTab(viewModel.args?.news?.link ?: "")
         }
     }
 

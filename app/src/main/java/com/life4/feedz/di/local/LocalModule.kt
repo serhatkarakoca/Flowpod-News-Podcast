@@ -2,6 +2,7 @@ package com.life4.feedz.di.local
 
 import android.content.Context
 import androidx.room.Room
+import com.life4.feedz.room.news.NewsDatabase
 import com.life4.feedz.room.source.SourcesDatabase
 import dagger.Module
 import dagger.Provides
@@ -23,4 +24,13 @@ object LocalModule {
     @Singleton
     @Provides
     fun injectSourceDao(database: SourcesDatabase) = database.sourceDao()
+
+    @Singleton
+    @Provides
+    fun injectNewsRoomDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, NewsDatabase::class.java, "news_db").build()
+
+    @Singleton
+    @Provides
+    fun injectNewsDao(database: NewsDatabase) = database.newsDao()
 }

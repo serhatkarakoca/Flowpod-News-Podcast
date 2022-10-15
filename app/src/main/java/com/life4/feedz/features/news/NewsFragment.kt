@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
@@ -12,8 +13,10 @@ import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentNewsBinding
 import com.life4.feedz.features.main.MainActivity
 import com.life4.feedz.features.news.adapter.CardNewsAdapter
-import com.life4.feedz.models.Item
+import com.life4.feedz.models.rss_.RssPaginationItem
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.fragment_news) {
@@ -44,13 +47,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
         getBinding().rvNews.adapter = newsAdapter
         arguments?.let {
             val args = NewsFragmentArgs.fromBundle(it)
-            newsAdapter.submitList(args.siteData?.items?.toList())
             viewModel.siteUrl = args.siteUrl
-            viewModel.rssResponse = args.siteData
+            viewModel.rssResponse = args.rssResponse
         }
     }
 
-    private fun newsClickListener(item: Item) {
+    private fun newsClickListener(item: RssPaginationItem) {
         findNavController().navigate(
             NewsFragmentDirections.actionNewsFragmentToNewDetailsFragment(
                 item
@@ -69,6 +71,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
         }
         activity?.let {
             (it as MainActivity).getBinding().addBookmark.visibility = View.VISIBLE
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getSiteData().collectLatest {
+                newsAdapter.submitData(it)
+            }
         }
     }
 

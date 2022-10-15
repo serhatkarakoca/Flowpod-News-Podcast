@@ -1,11 +1,10 @@
 package com.life4.feedz.features.flow
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.life4.core.core.view.BaseFragment
@@ -16,19 +15,27 @@ import com.life4.feedz.databinding.BottomSheetFilterBinding
 import com.life4.feedz.databinding.FragmentFlowBinding
 import com.life4.feedz.features.flow.adapter.FilterAdapter
 import com.life4.feedz.features.home.adapter.NewsAdapter
-import com.life4.feedz.models.Item
+import com.life4.feedz.features.home.adapter.NewsLoadStateAdapter
+import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.models.source.RssFeedResponseItem
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.fragment_flow) {
     private val viewModel: FlowViewModel by viewModels()
     private val newsAdapter by lazy { NewsAdapter(::newsClickListener) }
     private val filterAdapter by lazy { FilterAdapter(::filterListener) }
+    private var pagingJob: Job? = null
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        observe(viewModel.liveData, ::onStateChanged)
         getNews()
+        observe(viewModel.liveData, ::onStateChanged)
+        observe(viewModel.selectedCategory) {
+            getAndSetNews()
+        }
     }
 
     private fun filterListener(item: RssFeedResponseItem, isChecked: Boolean) {
@@ -36,10 +43,12 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
     }
 
     override fun setupListener() {
-        getBinding().rvNews.adapter = newsAdapter
+        getBinding().rvNews.adapter =
+            newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
+
         getBinding().toolbar.setOnClickListener { findNavController().popBackStack() }
         getBinding().refreshLayout.setOnRefreshListener {
-            viewModel.getAndSetNews(viewModel.selectedCategory.value)
+            getBinding().refreshLayout.isRefreshing = false
         }
 
         getBinding().btnFilter.setOnClickListener {
@@ -55,7 +64,7 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
                 filterAdapter.submitList(viewModel.selectedUserList.value)
                 binding.btnDone.setOnClickListener {
                     viewModel.fromFilter = true
-                    viewModel.getAndSetNews(viewModel.selectedCategory.value)
+                    getAndSetNews()
                     dismiss()
                 }
                 setContentView(binding.root)
@@ -90,22 +99,11 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
 
     private fun onStateChanged(state: FlowViewModel.State) {
         when (state) {
-            is FlowViewModel.State.OnNewsFetch -> submitRecycler(state.news)
+            is FlowViewModel.State.OnNewsFetch -> {}
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun submitRecycler(res: List<Item?>) {
-        Log.d("listeSayi", res.size.toString())
-        if (res.isEmpty())
-            newsAdapter.submitList(listOf())
-        else
-            newsAdapter.submitList(res)
-        newsAdapter.notifyDataSetChanged()
-        getBinding().refreshLayout.isRefreshing = false
-    }
-
-    private fun newsClickListener(item: Item) {
+    private fun newsClickListener(item: RssPaginationItem) {
         findNavController().navigate(
             FlowFragmentDirections.actionFlowFragmentToNewDetailsFragment(
                 item
@@ -117,12 +115,22 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
         viewModel.getSources().observeOnce(this) {
             it?.let { source ->
                 viewModel.userSources.value = source
+                getAndSetNews()
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAndSetNews(viewModel.selectedCategory.value)
+    private fun getAndSetNews() {
+        pagingJob?.cancel()
+        pagingJob = viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getFilteredNews().collectLatest {
+                newsAdapter.submitData(it)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pagingJob = null
     }
 }
