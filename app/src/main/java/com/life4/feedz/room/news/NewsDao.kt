@@ -21,10 +21,10 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllRemoteKeys(list: List<NewsRemoteKey>)
 
-    @Query("SELECT * FROM NewsRemoteKey WHERE id = :id")
+    @Query("SELECT * FROM NewsRemoteKey WHERE id == :id")
     suspend fun getAllREmoteKey(id: String): NewsRemoteKey?
 
-    @Query("DELETE FROM NewsRemoteKey where id = :id")
+    @Query("DELETE FROM NewsRemoteKey where id == :id")
     suspend fun deleteRemoteKey(id: String)
 
     @Query("DELETE FROM NewsRemoteKey")

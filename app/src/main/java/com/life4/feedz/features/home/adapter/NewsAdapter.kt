@@ -48,7 +48,7 @@ class NewsAdapter(val listener: (RssPaginationItem) -> Unit) :
                 oldItem: RssPaginationItem,
                 newItem: RssPaginationItem
             ): Boolean {
-                return true
+                return oldItem.title == newItem.title
             }
 
         }

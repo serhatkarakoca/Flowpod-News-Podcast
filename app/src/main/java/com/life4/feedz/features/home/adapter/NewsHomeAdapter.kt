@@ -7,19 +7,19 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
-import com.life4.feedz.databinding.ItemNewsCardHorizontalBinding
+import com.life4.feedz.databinding.ItemNewsHomeBinding
 import com.life4.feedz.models.rss_.RssPaginationItem
 
-class NewsHorizontalAdapter(val listener: (RssPaginationItem) -> Unit) :
-    PagingDataAdapter<RssPaginationItem, NewsHorizontalAdapter.NewsViewHolder>(DIFF_UTIL) {
+class NewsHomeAdapter(val listener: (RssPaginationItem) -> Unit) :
+    PagingDataAdapter<RssPaginationItem, NewsHomeAdapter.NewsViewHolder>(DIFF_UTIL) {
 
     class NewsViewHolder(
-        val binding: ItemNewsCardHorizontalBinding,
+        val binding: ItemNewsHomeBinding,
         val listener: (RssPaginationItem) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RssPaginationItem) {
-            binding.item = item
+            binding.news = item
             binding.root.setOnClickListener {
                 listener(item)
             }
@@ -27,9 +27,9 @@ class NewsHorizontalAdapter(val listener: (RssPaginationItem) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val binding = DataBindingUtil.inflate<ItemNewsCardHorizontalBinding>(
+        val binding = DataBindingUtil.inflate<ItemNewsHomeBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_news_card_horizontal, parent, false
+            R.layout.item_news_home, parent, false
         )
         return NewsViewHolder(binding, listener)
     }

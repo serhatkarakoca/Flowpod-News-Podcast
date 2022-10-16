@@ -10,13 +10,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.life4.core.core.view.BaseFragment
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentHomeBinding
-import com.life4.feedz.features.home.adapter.NewsAdapter
-import com.life4.feedz.features.home.adapter.NewsHorizontalAdapter
+import com.life4.feedz.features.home.adapter.NewsHomeAdapter
+import com.life4.feedz.features.home.adapter.NewsLoadStateAdapter
 import com.life4.feedz.models.rss_.RssPaginationItem
-import com.life4.feedz.other.Constant
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagingApi::class)
@@ -25,38 +23,20 @@ class HomeFragment :
     BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
     private lateinit var settings: MenuItem
     private val viewModel: HomeViewModel by viewModels()
-    private val newsAdapter by lazy { NewsAdapter(::newsClickListener) }
-    private val newsHorizontalAdapter by lazy { NewsHorizontalAdapter(::newsClickListener) }
-    private val techNewsHorizontalAdapter by lazy { NewsHorizontalAdapter(::newsClickListener) }
-    private val sportNewsHorizontalAdapter by lazy { NewsHorizontalAdapter(::newsClickListener) }
-    private var pagingJob: Job? = null
-    private var pagingJobTech: Job? = null
-    private var pagingJobSport: Job? = null
+    private val newsAdapter by lazy { NewsHomeAdapter(::newsClickListener) }
+    private var pagingJobHome: Job? = null
     override fun setupListener() {
-        getBinding().rvBreakingNews.adapter = newsHorizontalAdapter
-        getBinding().rvTechNews.adapter = techNewsHorizontalAdapter
-        getBinding().rvSportNews.adapter = sportNewsHorizontalAdapter
+        getBinding().rvNews.adapter =
+            newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         getViewModel().getSources {
-            pagingJob?.cancel()
-            pagingJob = viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getFilteredNews(Constant.BREAKING_NEWS).collectLatest { bn ->
-                    newsHorizontalAdapter.submitData(bn)
-                }
-            }
-            pagingJobTech?.cancel()
-            pagingJobTech = viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getTechNews(Constant.TECH_NEWS).collectLatest { tn ->
-                    techNewsHorizontalAdapter.submitData(tn)
-                }
-            }
-            pagingJobSport?.cancel()
-            pagingJobSport = viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getSportNews(Constant.SPORT_NEWS).collectLatest { sn ->
-                    sportNewsHorizontalAdapter.submitData(sn)
+            pagingJobHome?.cancel()
+            pagingJobHome = viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.getHomeNews().collect { hn ->
+                    newsAdapter.submitData(hn)
                 }
             }
         }

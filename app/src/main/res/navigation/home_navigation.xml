@@ -13,18 +13,14 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_newDetailsFragment"
             app:destination="@id/newDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
@@ -36,11 +32,7 @@
         android:label="@string/title_settings">
         <action
             android:id="@+id/action_settingsFragment2_to_settingsFragment"
-            app:destination="@id/settingsFragment2"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/settingsFragment2" />
         <action
             android:id="@+id/action_settingsFragment_to_sourceFragment"
             app:destination="@id/sourceFragment" />
@@ -60,11 +52,7 @@
     <fragment
         android:id="@+id/sourceFragment"
         android:name="com.life4.feedz.features.source.SourceFragment"
-        android:label="@string/content_store"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right">
+        android:label="@string/content_store">
         <action
             android:id="@+id/action_sourceFragment_to_searchFragment"
             app:destination="@id/searchFragment" />

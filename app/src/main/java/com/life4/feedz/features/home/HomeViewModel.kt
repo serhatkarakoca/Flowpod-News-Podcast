@@ -2,13 +2,11 @@ package com.life4.feedz.features.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.life4.core.core.vm.BaseViewModel
-import com.life4.feedz.features.home.adapter.NewsDataSource
+import com.life4.feedz.data.MyPreference
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.source.RssFeedResponse
@@ -27,7 +25,8 @@ class HomeViewModel @Inject constructor(
     private val feedzRepository: FeedzRepository,
     private val sourceRepository: SourceRepository,
     private val mApi: ApiService,
-    private val newsDao: NewsDao
+    private val newsDao: NewsDao,
+    private val pref: MyPreference
 ) : BaseViewModel() {
 
     private val _siteData = MutableLiveData<RssFeedResponse>()
@@ -48,16 +47,22 @@ class HomeViewModel @Inject constructor(
         })
     }
 
-    fun getSiteData() = Pager(
-        config = PagingConfig(20, enablePlaceholders = false),
-        pagingSourceFactory = {
-            NewsDataSource(
-                mApi,
-                _siteDataList,
-                RssRequest(siteData.value?.sourceList?.mapNotNull { it.siteUrl } ?: listOf())
-            )
-        }
-    ).flow.cachedIn(viewModelScope)
+    fun getHomeNews() = Pager(
+        config = PagingConfig(10, enablePlaceholders = true),
+        remoteMediator =
+        NewsRemoteMediator(
+            mApi,
+            newsDao,
+            RssRequest(siteData.value?.sourceList?.filter { it.categoryId != Constant.SPORT_NEWS }
+                ?.mapNotNull { it.siteUrl } ?: listOf()),
+            Constant.HOME_NEWS.toString(),
+            pref,
+            _siteDataList
+        )
+
+    ) {
+        newsDao.getAllNews(Constant.HOME_NEWS.toString())
+    }.flow
 
     /*
     fun getFilteredNews(categoryId: Int) = Pager(
@@ -73,7 +78,7 @@ class HomeViewModel @Inject constructor(
         }
     ).flow.cachedIn(viewModelScope)
 
-     */
+
 
 
     fun getFilteredNews(categoryId: Int) = Pager(
@@ -119,8 +124,5 @@ class HomeViewModel @Inject constructor(
     ) {
         newsDao.getAllNews(Constant.SPORT_NEWS.toString())
     }.flow
-
-    sealed class State {
-
-    }
+   */
 }

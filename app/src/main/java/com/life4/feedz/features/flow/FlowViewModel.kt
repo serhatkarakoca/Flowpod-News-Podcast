@@ -7,6 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.life4.core.core.vm.BaseViewModel
+import com.life4.feedz.data.MyPreference
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.rss_.RssPaginationItem
@@ -27,14 +28,15 @@ class FlowViewModel @Inject constructor(
     private val feedzRepository: FeedzRepository,
     private val sourceDao: SourceDao,
     private val mApi: ApiService,
-    private val newsDao: NewsDao
+    private val newsDao: NewsDao,
+    private val pref: MyPreference
 ) : BaseViewModel() {
 
     val selectedCategory = MutableLiveData(0)
 
     val userSources = MutableLiveData<SourceModel>()
 
-    private val siteDataList = MutableLiveData<RssPagination?>()
+    val siteDataList = MutableLiveData<RssPagination?>()
 
     private val _liveData = MutableLiveData<State>()
     val liveData: LiveData<State>
@@ -64,7 +66,9 @@ class FlowViewModel @Inject constructor(
                 newsDao,
                 RssRequest(selectedUserList.value?.filter { if (fromFilter) it.isSelected else true }
                     ?.mapNotNull { it.siteUrl }),
-                Constant.FLOW.toString()
+                Constant.FLOW.toString(),
+                pref,
+                siteDataList
             )
 
         ) {
