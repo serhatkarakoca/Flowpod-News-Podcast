@@ -28,7 +28,7 @@ class NewsRemoteMediator(
     RemoteMediator<Int, RssPaginationItem>() {
 
     override suspend fun initialize(): InitializeAction {
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(5, TimeUnit.MINUTES)
+        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
         return if (System.currentTimeMillis() - pref.getTime() >= cacheTimeout && pref.getTime() != 0L)
             InitializeAction.SKIP_INITIAL_REFRESH
         else
