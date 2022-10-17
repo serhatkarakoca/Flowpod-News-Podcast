@@ -73,6 +73,7 @@ class FlowFragment : BaseFragment<FragmentFlowBinding, FlowViewModel>(R.layout.f
 
         getBinding().toolbar.setOnClickListener { findNavController().popBackStack() }
         getBinding().refreshLayout.setOnRefreshListener {
+            newsAdapter.refresh()
             getBinding().refreshLayout.isRefreshing = false
         }
 

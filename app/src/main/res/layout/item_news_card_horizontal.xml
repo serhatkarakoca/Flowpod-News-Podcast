@@ -57,7 +57,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        setImage="@{item.siteLogo}"
+                        setImage="@{item.logo}"
                         android:layout_width="30dp"
                         android:layout_height="20dp" />
 

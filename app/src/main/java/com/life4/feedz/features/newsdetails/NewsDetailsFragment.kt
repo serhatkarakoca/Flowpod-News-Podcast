@@ -24,12 +24,10 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.life4.core.core.view.BaseFragment
-import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.R
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.databinding.FragmentNewDetailsBinding
 import com.life4.feedz.extensions.ImageGetter
-import com.life4.feedz.features.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -152,15 +150,21 @@ class NewsDetailsFragment :
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                /*
                 activity?.let {
                     (it as MainActivity).showLoading(requestType = BaseViewModel.RequestType.ACTION)
                 }
+
+                 */
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
+                /*
                 activity?.let {
                     (it as MainActivity).showContent(requestType = BaseViewModel.RequestType.ACTION)
                 }
+
+                 */
             }
 
         }

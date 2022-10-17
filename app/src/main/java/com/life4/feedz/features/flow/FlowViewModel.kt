@@ -32,6 +32,10 @@ class FlowViewModel @Inject constructor(
     private val pref: MyPreference
 ) : BaseViewModel() {
 
+    init {
+        pref.saveTime(0)
+    }
+
     val selectedCategory = MutableLiveData(0)
 
     val userSources = MutableLiveData<SourceModel>()
@@ -68,7 +72,8 @@ class FlowViewModel @Inject constructor(
                     ?.mapNotNull { it.siteUrl }),
                 Constant.FLOW.toString(),
                 pref,
-                siteDataList
+                siteDataList,
+                baseLiveData
             )
 
         ) {

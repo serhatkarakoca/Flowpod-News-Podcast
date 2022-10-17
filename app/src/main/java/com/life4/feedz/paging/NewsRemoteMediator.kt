@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
@@ -14,7 +15,6 @@ import com.life4.feedz.room.news.NewsDao
 import com.life4.feedz.room.news.NewsRemoteKey
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 @ExperimentalPagingApi
 class NewsRemoteMediator(
@@ -23,17 +23,13 @@ class NewsRemoteMediator(
     private val siteList: RssRequest,
     private val newsType: String,
     private val pref: MyPreference,
-    private val rssResponse: MutableLiveData<RssPagination?>
+    private val rssResponse: MutableLiveData<RssPagination?>,
+    private val baseLiveData: MutableLiveData<BaseViewModel.State>? = null
 ) :
     RemoteMediator<Int, RssPaginationItem>() {
 
     override suspend fun initialize(): InitializeAction {
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
-        return if (System.currentTimeMillis() - pref.getTime() >= cacheTimeout && pref.getTime() != 0L)
-            InitializeAction.SKIP_INITIAL_REFRESH
-        else
-            InitializeAction.LAUNCH_INITIAL_REFRESH
-
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     override suspend fun load(
@@ -50,6 +46,9 @@ class NewsRemoteMediator(
         }
 
         try {
+            if (page == 1 && newsDao.getAllREmoteKey(newsType) == null) {
+                baseLiveData?.value = BaseViewModel.State.ShowLoading()
+            }
             val response =
                 mApi.getSiteData(page = page, siteList = siteList, perPage = state.config.pageSize)
 
@@ -70,7 +69,6 @@ class NewsRemoteMediator(
                 responseBody?.forEach { it.pKey = newsType }
                 newsDao.insertNews(responseBody ?: listOf())
                 newsDao.insertAllRemoteKeys(keys)
-                pref.saveTime(System.currentTimeMillis())
                 rssResponse.value = responseBody
 
                 return MediatorResult.Success(endOfPaginationReached = isEndOfList)
@@ -82,6 +80,8 @@ class NewsRemoteMediator(
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {
             return MediatorResult.Error(exception)
+        } finally {
+            baseLiveData?.value = BaseViewModel.State.ShowContent()
         }
     }
 

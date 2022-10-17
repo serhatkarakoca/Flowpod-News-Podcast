@@ -41,8 +41,8 @@ data class RssPaginationItem(
     @SerializedName("title")
     @PrimaryKey(autoGenerate = false)
     val title: String,
-    @Expose
-    var siteLogo: String?,
+    @SerializedName("imageLogo")
+    val siteImage: String?,
     @Expose
     var categoryId: Int?,
     var pKey: String? = "0"
@@ -71,6 +71,14 @@ data class RssPaginationItem(
 
     fun getHomePageUrl(): String? {
         return link?.substringAfter("://")?.substringBefore("/")?.trim()
+    }
+
+    fun getLogo(): String? {
+        siteImage ?: return null
+        return if (siteImage.startsWith("http") || siteImage.startsWith("https"))
+            siteImage
+        else
+            "https://" + siteImage.substringAfter("www.")
     }
 
     fun getSiteName(): String? {

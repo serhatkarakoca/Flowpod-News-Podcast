@@ -28,6 +28,10 @@ class HomeFragment :
     override fun setupListener() {
         getBinding().rvNews.adapter =
             newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
+        getBinding().refreshLayout.setOnRefreshListener {
+            newsAdapter.refresh()
+            getBinding().refreshLayout.isRefreshing = false
+        }
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {

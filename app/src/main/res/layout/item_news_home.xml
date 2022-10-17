@@ -8,6 +8,9 @@
         <variable
             name="news"
             type="com.life4.feedz.models.rss_.RssPaginationItem" />
+
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,9 +29,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
+                setImage="@{news.postImage}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                setImage="@{news.postImage}"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/placeholder_news" />
 
@@ -38,9 +41,9 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingVertical="8dp"
             android:layout_marginHorizontal="12dp"
             android:fontFamily="@font/roboto_bold"
+            android:paddingVertical="8dp"
             android:text="@{news.title}"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintBottom_toTopOf="@+id/tv_date"
@@ -49,18 +52,36 @@
             app:layout_constraintTop_toBottomOf="@id/card_image"
             tools:text="This is the headline of the news, which is a simple example of how it will look in the app." />
 
-        <TextView
-            android:id="@+id/tv_creater"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/meta_site"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="12dp"
-            android:fontFamily="@font/roboto_light"
-            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-            android:text="@{news.siteName}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="flowList" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                setImage="@{news.logo}"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:visibility="@{news.logo != null ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/tv_creater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:text="@{news.siteName}"
+                android:layout_gravity="bottom"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="flowList" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <TextView
             android:id="@+id/tv_date"
@@ -69,21 +90,21 @@
             android:layout_marginHorizontal="12dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/roboto_light"
-            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             android:text="@{news.dateOfContent}"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="16.12.2022" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingVertical="4dp"
             android:layout_marginHorizontal="12dp"
-            android:background="@color/gray" />
+            android:background="@color/gray"
+            android:paddingVertical="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
