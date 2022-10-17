@@ -26,11 +26,12 @@ class MainActivity :
     }
 
     override fun beforeOnCreated() {
-        installSplashScreen()
+       installSplashScreen().setKeepOnScreenCondition { viewModel.cachedData }
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+        viewModel.getCachedData()
         val toolbar = getBinding().toolbar
         val bottomNavigationView = getBinding().bottomNavigationView
         val navHostFragment =
