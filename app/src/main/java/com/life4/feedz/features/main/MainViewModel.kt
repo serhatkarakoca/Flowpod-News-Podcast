@@ -6,13 +6,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.models.request.RssRequest
+import com.life4.feedz.models.room.NewsRemoteKey
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.source.RssFeedResponse
 import com.life4.feedz.other.Constant
 import com.life4.feedz.remote.FeedzRepository
 import com.life4.feedz.remote.source.SourceRepository
 import com.life4.feedz.room.news.NewsDao
-import com.life4.feedz.room.news.NewsRemoteKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

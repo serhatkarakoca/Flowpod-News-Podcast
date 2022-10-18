@@ -8,11 +8,11 @@ import androidx.paging.RemoteMediator
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.models.request.RssRequest
+import com.life4.feedz.models.room.NewsRemoteKey
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.remote.ApiService
 import com.life4.feedz.room.news.NewsDao
-import com.life4.feedz.room.news.NewsRemoteKey
 import retrofit2.HttpException
 import java.io.IOException
 

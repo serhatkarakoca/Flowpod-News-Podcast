@@ -5,7 +5,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.life4.feedz.models.room.NewsRemoteKey
+import com.life4.feedz.models.room.SavedNews
 import com.life4.feedz.models.rss_.RssPaginationItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NewsDao {
@@ -29,4 +32,14 @@ interface NewsDao {
 
     @Query("DELETE FROM NewsRemoteKey")
     suspend fun deleteAllRemoteKeys()
+
+    @Query("SELECT * FROM savedNews")
+    fun getAllSavedNews(): Flow<List<SavedNews>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSavedNews(news: SavedNews)
+
+    @Query("DELETE FROM savedNews WHERE id == :newsId")
+    suspend fun deleteSavedNews(newsId: Long)
+
 }

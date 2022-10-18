@@ -2,13 +2,16 @@ package com.life4.feedz.features.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.models.request.RssRequest
+import com.life4.feedz.models.room.SavedNews
 import com.life4.feedz.models.rss_.RssPagination
+import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.models.source.RssFeedResponse
 import com.life4.feedz.other.Constant
 import com.life4.feedz.paging.NewsRemoteMediator
@@ -17,6 +20,8 @@ import com.life4.feedz.remote.FeedzRepository
 import com.life4.feedz.remote.source.SourceRepository
 import com.life4.feedz.room.news.NewsDao
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -37,6 +42,7 @@ class HomeViewModel @Inject constructor(
     val siteDataList: LiveData<RssPagination?>
         get() = _siteDataList
 
+    val savedNews = MutableLiveData<List<SavedNews>>()
 
     fun getSources(onComplete: () -> Unit) {
         sourceRepository.getHomePage().handle(requestType = RequestType.INIT, onComplete = {
@@ -64,65 +70,80 @@ class HomeViewModel @Inject constructor(
         newsDao.getAllNews(Constant.HOME_NEWS.toString())
     }.flow
 
-    /*
-    fun getFilteredNews(categoryId: Int) = Pager(
-        config = PagingConfig(10, enablePlaceholders = false),
-        pagingSourceFactory = {
-            NewsDataSource(
-                mApi,
-                _siteDataList,
-                RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
-                    ?.mapNotNull { it.siteUrl } ?: listOf()),
-                10
-            )
+    fun saveNews(item: RssPaginationItem, onComplete: () -> Unit) {
+        val news = SavedNews(newsItem = item)
+        viewModelScope.launch {
+            val daoItem = savedNews.value?.firstOrNull { it.newsItem == item }
+            if (daoItem?.newsItem?.isFavorite == true)
+                newsDao.deleteSavedNews(daoItem.id ?: 0)
+            else newsDao.insertSavedNews(news)
         }
-    ).flow.cachedIn(viewModelScope)
+        onComplete.invoke()
+    }
 
+    fun getAllSavedNews(): Flow<List<SavedNews>> {
+        return newsDao.getAllSavedNews()
+    }
 
-
-
-    fun getFilteredNews(categoryId: Int) = Pager(
-        config = PagingConfig(10, enablePlaceholders = true),
-        remoteMediator = NewsRemoteMediator(
+/*
+fun getFilteredNews(categoryId: Int) = Pager(
+    config = PagingConfig(10, enablePlaceholders = false),
+    pagingSourceFactory = {
+        NewsDataSource(
             mApi,
-            newsDao,
+            _siteDataList,
             RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
                 ?.mapNotNull { it.siteUrl } ?: listOf()),
-            Constant.BREAKING_NEWS.toString()
+            10
         )
-
-    ) {
-        newsDao.getAllNews(Constant.BREAKING_NEWS.toString())
-    }.flow
+    }
+).flow.cachedIn(viewModelScope)
 
 
-    fun getTechNews(categoryId: Int) = Pager(
-        config = PagingConfig(10, enablePlaceholders = true),
-        remoteMediator = NewsRemoteMediator(
-            mApi,
-            newsDao,
-            RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
-                ?.mapNotNull { it.siteUrl } ?: listOf()),
-            Constant.TECH_NEWS.toString()
-        )
-
-    ) {
-        newsDao.getAllNews(Constant.TECH_NEWS.toString())
-    }.flow
 
 
-    fun getSportNews(categoryId: Int) = Pager(
-        config = PagingConfig(10, enablePlaceholders = true),
-        remoteMediator = NewsRemoteMediator(
-            mApi,
-            newsDao,
-            RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
-                ?.mapNotNull { it.siteUrl } ?: listOf()),
-            Constant.SPORT_NEWS.toString()
-        )
+fun getFilteredNews(categoryId: Int) = Pager(
+    config = PagingConfig(10, enablePlaceholders = true),
+    remoteMediator = NewsRemoteMediator(
+        mApi,
+        newsDao,
+        RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
+            ?.mapNotNull { it.siteUrl } ?: listOf()),
+        Constant.BREAKING_NEWS.toString()
+    )
 
-    ) {
-        newsDao.getAllNews(Constant.SPORT_NEWS.toString())
-    }.flow
-   */
+) {
+    newsDao.getAllNews(Constant.BREAKING_NEWS.toString())
+}.flow
+
+
+fun getTechNews(categoryId: Int) = Pager(
+    config = PagingConfig(10, enablePlaceholders = true),
+    remoteMediator = NewsRemoteMediator(
+        mApi,
+        newsDao,
+        RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
+            ?.mapNotNull { it.siteUrl } ?: listOf()),
+        Constant.TECH_NEWS.toString()
+    )
+
+) {
+    newsDao.getAllNews(Constant.TECH_NEWS.toString())
+}.flow
+
+
+fun getSportNews(categoryId: Int) = Pager(
+    config = PagingConfig(10, enablePlaceholders = true),
+    remoteMediator = NewsRemoteMediator(
+        mApi,
+        newsDao,
+        RssRequest(siteData.value?.sourceList?.filter { it.categoryId == categoryId }
+            ?.mapNotNull { it.siteUrl } ?: listOf()),
+        Constant.SPORT_NEWS.toString()
+    )
+
+) {
+    newsDao.getAllNews(Constant.SPORT_NEWS.toString())
+}.flow
+*/
 }

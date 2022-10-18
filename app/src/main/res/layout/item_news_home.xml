@@ -18,6 +18,28 @@
         android:layout_height="340dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_fav"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:translationZ="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="32dp"
+            android:layout_margin="18dp"
+            app:cardUseCompatPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:layout_gravity="center"
+                android:src="@{news.favorite ? @drawable/ic_favorite :@drawable/ic_favorite_border}"
+                tools:src="@drawable/ic_favorite_border" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/card_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -72,9 +94,9 @@
                 android:id="@+id/tv_creater"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:fontFamily="@font/roboto_light"
                 android:text="@{news.siteName}"
-                android:layout_gravity="bottom"
                 android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

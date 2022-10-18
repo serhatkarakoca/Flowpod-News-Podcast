@@ -14,7 +14,7 @@ interface ApiService {
     @GET("api/search")
     suspend fun searchSite(@Query("url") url: String): Response<RssResponse>
 
-    @POST("api/feedPagination")
+    @POST("api/getFeed")
     suspend fun getSiteData(
         @Body siteList: RssRequest,
         @Query("page") page: Int = 1,

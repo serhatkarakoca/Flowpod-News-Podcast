@@ -1,59 +1,42 @@
-package com.life4.feedz.features.home.adapter
+package com.life4.feedz.features.saved
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
-import com.life4.feedz.databinding.ItemNewsHomeBinding
+import com.life4.feedz.databinding.ItemNewsCardBinding
 import com.life4.feedz.models.rss_.RssPaginationItem
 
-class NewsHomeAdapter(
+class CardNewsAdapter(
     val listener: (RssPaginationItem) -> Unit,
-    val favListener: (RssPaginationItem, Boolean) -> Unit
+    val favListener: (RssPaginationItem) -> Unit
 ) :
-    PagingDataAdapter<RssPaginationItem, NewsHomeAdapter.NewsViewHolder>(DIFF_UTIL) {
+    ListAdapter<RssPaginationItem, CardNewsAdapter.NewsViewHolder>(DIFF_UTIL) {
 
     class NewsViewHolder(
-        val binding: ItemNewsHomeBinding,
+        val binding: ItemNewsCardBinding,
         val listener: (RssPaginationItem) -> Unit,
-        val favListener: (RssPaginationItem, Boolean) -> Unit
+        val favListener: (RssPaginationItem) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RssPaginationItem) {
-            binding.news = item
+            binding.item = item
             binding.root.setOnClickListener {
                 listener(item)
             }
-            binding.cardFav.setOnClickListener {
-                item.isFavorite = !item.isFavorite
-                if (item.isFavorite)
-                    binding.imgFav.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_favorite
-                        )
-                    )
-                else
-                    binding.imgFav.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_favorite_border
-                        )
-                    )
-                binding.executePendingBindings()
-                favListener(item, item.isFavorite)
+            binding.imgFav.setOnClickListener {
+                favListener(item)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val binding = DataBindingUtil.inflate<ItemNewsHomeBinding>(
+        val binding = DataBindingUtil.inflate<ItemNewsCardBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_news_home, parent, false
+            R.layout.item_news_card, parent, false
         )
         return NewsViewHolder(binding, listener, favListener)
     }

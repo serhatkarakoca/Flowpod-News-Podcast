@@ -17,6 +17,6 @@ class FeedzRemoteDataSource @Inject constructor(
     }
 
     fun getSiteData(siteList: RssRequest): Flow<Resource<RssPagination>> {
-        return getResult { feedzService.getSiteData(siteList, 1, 20) }
+        return getResult { feedzService.getSiteData(siteList, 1, 5) }
     }
 }

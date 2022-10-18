@@ -1,4 +1,4 @@
-package com.life4.feedz.room.news
+package com.life4.feedz.models.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
