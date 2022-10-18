@@ -39,7 +39,7 @@ class HomeFragment :
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        getAllSavedNews()
+        //getAllSavedNews()
         getViewModel().getSources {
             pagingJobHome?.cancel()
             pagingJobHome = viewLifecycleOwner.lifecycleScope.launch {
@@ -51,13 +51,11 @@ class HomeFragment :
     }
 
     private fun getAllSavedNews() {
-        job?.cancel()
-        job = viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getAllSavedNews().collectLatest {
                 viewModel.savedNews.value = it
             }
         }
-
     }
 
     private fun newsClickListener(item: RssPaginationItem) {
@@ -72,14 +70,16 @@ class HomeFragment :
         viewModel.saveNews(item) {
             Snackbar.make(
                 requireView(),
-                getText(R.string.saved_success),
+                if (it) getText(R.string.saved_success) else getString(R.string.saved_removed),
                 Snackbar.ANIMATION_MODE_SLIDE
             ).show()
         }
+
     }
 
     override fun onResume() {
         super.onResume()
+        getAllSavedNews()
         getBinding().user =
             FirebaseAuth.getInstance().currentUser?.displayName?.substringBefore(" ")
 

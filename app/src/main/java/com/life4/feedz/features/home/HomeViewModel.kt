@@ -70,15 +70,20 @@ class HomeViewModel @Inject constructor(
         newsDao.getAllNews(Constant.HOME_NEWS.toString())
     }.flow
 
-    fun saveNews(item: RssPaginationItem, onComplete: () -> Unit) {
+    fun saveNews(item: RssPaginationItem, onComplete: (Boolean) -> Unit) {
         val news = SavedNews(newsItem = item)
+        val daoItem = savedNews.value?.firstOrNull { it.newsItem?.title == item.title }
         viewModelScope.launch {
-            val daoItem = savedNews.value?.firstOrNull { it.newsItem == item }
-            if (daoItem?.newsItem?.isFavorite == true)
-                newsDao.deleteSavedNews(daoItem.id ?: 0)
-            else newsDao.insertSavedNews(news)
+            if (daoItem != null && !item.isFavorite) {
+                newsDao.deleteSavedNews(daoItem.id)
+                onComplete.invoke(false)
+            } else if (item.isFavorite && daoItem == null) {
+                newsDao.insertSavedNews(news)
+                onComplete.invoke(true)
+            } else onComplete.invoke(true)
         }
-        onComplete.invoke()
+
+
     }
 
     fun getAllSavedNews(): Flow<List<SavedNews>> {

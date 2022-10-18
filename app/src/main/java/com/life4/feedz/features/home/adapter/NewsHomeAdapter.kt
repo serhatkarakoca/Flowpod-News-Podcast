@@ -44,7 +44,6 @@ class NewsHomeAdapter(
                             R.drawable.ic_favorite_border
                         )
                     )
-                binding.executePendingBindings()
                 favListener(item, item.isFavorite)
             }
         }

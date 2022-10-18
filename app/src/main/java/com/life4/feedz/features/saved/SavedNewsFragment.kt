@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
 import com.life4.feedz.R
@@ -66,6 +67,9 @@ class SavedNewsFragment :
     }
 
     private fun favClickListener(item: RssPaginationItem) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.are_u_sure_delete))
+        }
         viewModel.deleteSavedNews(item)
     }
 

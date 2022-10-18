@@ -50,4 +50,6 @@
     <string name="news">Haberler</string>
     <string name="saved_news">Kaydedilenler</string>
     <string name="saved_success">Haber Kaydedildi. İstediğiniz zaman okuyabilirsiniz.</string>
+    <string name="saved_removed">Haber Kaydedilenlerden Kaldırıldı.</string>
+    <string name="are_u_sure_delete">Are you sure you want to delete ?</string>
 </resources>
