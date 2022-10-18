@@ -68,9 +68,14 @@ class SavedNewsFragment :
 
     private fun favClickListener(item: RssPaginationItem) {
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle(getString(R.string.are_u_sure_delete))
-        }
-        viewModel.deleteSavedNews(item)
+            setTitle(getString(R.string.warning))
+            setMessage(getString(R.string.are_u_sure_delete))
+            setPositiveButton(getString(R.string.remove)) { dialog, _ ->
+                viewModel.deleteSavedNews(item)
+                dialog.dismiss()
+            }
+        }.show()
+
     }
 
 }

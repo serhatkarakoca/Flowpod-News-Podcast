@@ -52,4 +52,6 @@
     <string name="saved_success">Haber Kaydedildi. İstediğiniz zaman okuyabilirsiniz.</string>
     <string name="saved_removed">Haber Kaydedilenlerden Kaldırıldı.</string>
     <string name="are_u_sure_delete">Are you sure you want to delete ?</string>
+    <string name="warning">Uyarı</string>
+    <string name="remove">Sil</string>
 </resources>
