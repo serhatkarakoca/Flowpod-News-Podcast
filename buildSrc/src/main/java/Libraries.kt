@@ -82,9 +82,15 @@ object Libraries {
     const val firebaseFirestore = "com.google.firebase:firebase-firestore-ktx"
     const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
     const val firebaseUIAuth = "com.firebaseui:firebase-ui-auth:${Versions.firebaseUIVersion}"
-    const val firebaseUIDatabase = "com.firebaseui:firebase-ui-database:${Versions.firebaseUIVersion}"
+    const val firebaseUIDatabase =
+        "com.firebaseui:firebase-ui-database:${Versions.firebaseUIVersion}"
 
     // proto
-    val protobufProtoc = Dependency("com.google.protobuf:protoc:${Versions.protobufKotlinLiteVersion}")
-    val protobufJavaLite = Dependency("com.google.protobuf:protobuf-javalite:${Versions.protobufKotlinLiteVersion}")
+    val protobufProtoc =
+        Dependency("com.google.protobuf:protoc:${Versions.protobufKotlinLiteVersion}")
+    val protobufJavaLite =
+        Dependency("com.google.protobuf:protobuf-javalite:${Versions.protobufKotlinLiteVersion}")
+
+    //konfetti
+    val konfetti = Dependency("nl.dionsegijn:konfetti-xml:${Versions.konfetti}")
 }

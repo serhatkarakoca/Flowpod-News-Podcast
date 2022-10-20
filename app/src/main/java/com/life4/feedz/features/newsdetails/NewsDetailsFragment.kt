@@ -23,12 +23,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.life4.core.core.view.BaseFragment
 import com.life4.feedz.R
 import com.life4.feedz.data.MyPreference
 import com.life4.feedz.databinding.FragmentNewDetailsBinding
 import com.life4.feedz.extensions.ImageGetter
+import com.life4.feedz.utils.Presets
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -42,12 +46,26 @@ class NewsDetailsFragment :
     @Inject
     lateinit var pref: MyPreference
     override fun setupListener() {
+
+        getBinding().cardFav.setOnClickListener {
+            viewModel.args?.news?.let {
+                it.isFavorite = !it.isFavorite
+                viewModel.saveNews(it) {
+                    getBinding().isFavorite = it
+                    if (it) {
+                        getBinding().konfettiView.start(Presets.festive())
+                    }
+                }
+            }
+        }
+
         getBinding().buttonGoNews.setOnClickListener {
-            if (pref.getBrowserInApp() == true)
-                setWebview(url = viewModel.args?.news?.link ?: "")
+            if (pref.getBrowserInApp())
+                setWebView(url = viewModel.args?.news?.link ?: "")
             else
                 redirectUsingCustomTab(viewModel.args?.news?.link ?: "")
         }
+
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
@@ -121,7 +139,7 @@ class NewsDetailsFragment :
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun setWebview(url: String) {
+    private fun setWebView(url: String) {
 
         getBinding().nestedScrollview.isVisible = false
         getBinding().webView.isVisible = true
@@ -198,5 +216,19 @@ class NewsDetailsFragment :
             .setDefaultColorSchemeParams(otherParams)
             .build()
         customTabsIntent.launchUrl(requireContext(), uri)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getAllSavedNews().collectLatest {
+                if (it.firstOrNull { it.newsItem?.title == viewModel.args?.news?.title } != null) {
+                    getBinding().isFavorite = true
+                    viewModel.args?.news?.isFavorite = true
+                }
+                viewModel.savedNews.value = it
+            }
+        }
+
     }
 }

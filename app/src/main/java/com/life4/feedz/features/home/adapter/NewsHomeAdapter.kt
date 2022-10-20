@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
 import com.life4.feedz.databinding.ItemNewsHomeBinding
 import com.life4.feedz.models.rss_.RssPaginationItem
+import com.life4.feedz.utils.Presets
 
 class NewsHomeAdapter(
     val listener: (RssPaginationItem) -> Unit,
@@ -30,14 +31,15 @@ class NewsHomeAdapter(
             }
             binding.cardFav.setOnClickListener {
                 item.isFavorite = !item.isFavorite
-                if (item.isFavorite)
+                if (item.isFavorite) {
                     binding.imgFav.setImageDrawable(
                         ContextCompat.getDrawable(
                             binding.root.context,
                             R.drawable.ic_favorite
                         )
                     )
-                else
+                    binding.konfettiView.start(Presets.explode())
+                } else
                     binding.imgFav.setImageDrawable(
                         ContextCompat.getDrawable(
                             binding.root.context,

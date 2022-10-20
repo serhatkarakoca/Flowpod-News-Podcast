@@ -39,6 +39,7 @@ object AppDependencies {
         add(Libraries.retrofitConverterGson)
         add(Libraries.retrofitOkhttp)
         add(Libraries.retrofitLoggingInterceptor)
+        add(Libraries.konfetti)
     }
     val testLibraries = arrayListOf<Dependency>().apply {
         add(Libraries.truth)

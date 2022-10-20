@@ -59,4 +59,7 @@ object Versions {
     // proto
     const val protobufVersion = "0.8.18"
     const val protobufKotlinLiteVersion = "3.19.4"
+
+    //konfetti
+    const val konfetti = "2.0.2"
 }

@@ -82,8 +82,6 @@ class HomeViewModel @Inject constructor(
                 onComplete.invoke(true)
             } else onComplete.invoke(true)
         }
-
-
     }
 
     fun getAllSavedNews(): Flow<List<SavedNews>> {
