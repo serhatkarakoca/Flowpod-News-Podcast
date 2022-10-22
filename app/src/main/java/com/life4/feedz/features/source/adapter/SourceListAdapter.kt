@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
-import com.life4.feedz.databinding.ItemSourceBinding
+import com.life4.feedz.databinding.ItemSourceListBinding
 import com.life4.feedz.models.source.RssFeedResponseItem
 
-class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit, val limit: Int? = null) :
-    ListAdapter<RssFeedResponseItem, SourceAdapter.SourceViewHolder>(DIFF_UTIL) {
+class SourceListAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
+    ListAdapter<RssFeedResponseItem, SourceListAdapter.SourceViewHolder>(DIFF_UTIL) {
 
     class SourceViewHolder(
-        private val binding: ItemSourceBinding,
+        private val binding: ItemSourceListBinding,
         private val listener: (RssFeedResponseItem, Boolean) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,9 +31,9 @@ class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit, val li
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SourceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ItemSourceBinding>(
+        val binding = DataBindingUtil.inflate<ItemSourceListBinding>(
             inflater,
-            R.layout.item_source,
+            R.layout.item_source_list,
             parent,
             false
         )
@@ -44,10 +44,6 @@ class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit, val li
         holder.bind(currentList[position])
     }
 
-    override fun getItemCount(): Int {
-        val limit = limit ?: currentList.size
-        return currentList.size.coerceAtMost(limit)
-    }
 
     companion object {
         val DIFF_UTIL = object : DiffUtil.ItemCallback<RssFeedResponseItem>() {

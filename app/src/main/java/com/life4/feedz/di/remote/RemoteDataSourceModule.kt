@@ -1,5 +1,6 @@
 package com.life4.feedz.di.remote
 
+import com.life4.core.manager.language.MyLanguageManager
 import com.life4.feedz.remote.ApiService
 import com.life4.feedz.remote.FeedzRemoteDataSource
 import com.life4.feedz.remote.source.SourceApiService
@@ -15,8 +16,8 @@ import javax.inject.Singleton
 object RemoteDataSourceModule {
     @Provides
     @Singleton
-    fun provideRemoteDataSourceFeedz(service: ApiService) =
-        FeedzRemoteDataSource(service)
+    fun provideRemoteDataSourceFeedz(service: ApiService, languageManager: MyLanguageManager) =
+        FeedzRemoteDataSource(service, languageManager)
 
     @Provides
     @Singleton

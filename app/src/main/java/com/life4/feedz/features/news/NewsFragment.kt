@@ -36,6 +36,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
                     viewModel.deleteSource()
             }
         }
+
         observe(viewModel.siteAdded) {
             (activity as MainActivity).getBinding().addBookmark.setImageDrawable(
                 if (it) ContextCompat.getDrawable(
@@ -44,12 +45,15 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(R.layout.f
                 ) else ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark_add)
             )
         }
+
         getBinding().rvNews.adapter = newsAdapter
+
         arguments?.let {
             val args = NewsFragmentArgs.fromBundle(it)
             viewModel.siteUrl = args.siteUrl
             viewModel.rssResponse = args.rssResponse
         }
+
     }
 
     private fun newsClickListener(item: RssPaginationItem) {

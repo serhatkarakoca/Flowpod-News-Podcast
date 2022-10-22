@@ -31,6 +31,8 @@
     <string name="login_welcome">Find thousands of interesting news every day</string>
     <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
     <string name="search">Ara</string>
+    <string name="search_news">Haber Sitesi Adresi, RSS Linki ile Ara</string>
+    <string name="search_podcast">Podcast Ara</string>
     <string name="go_to_news">Haberin Detaylarına Git</string>
     <string name="breaking_news">Son Dakika / Gündem</string>
     <string name="tech_science">Teknoloji / Bilim</string>
@@ -48,4 +50,6 @@
     <string name="my_resources">İçerik Kaynaklarım</string>
     <string name="your_content_provider">İçerik Sağlayıcıların</string>
     <string name="news">Haberler</string>
+    <string name="podcasts">Podcast</string>
+    <string name="show_all">Tümünü Gör</string>
 </resources>

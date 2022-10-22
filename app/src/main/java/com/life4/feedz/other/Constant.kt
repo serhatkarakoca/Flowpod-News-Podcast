@@ -15,6 +15,7 @@ object Constant {
     const val HOME_NEWS = 6
 
     val END_PREFIX: List<String> = listOf(
+        "",
         "/rss",
         "/rss.xml",
         "/feed",

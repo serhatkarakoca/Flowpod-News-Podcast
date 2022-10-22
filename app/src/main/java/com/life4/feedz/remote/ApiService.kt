@@ -1,13 +1,12 @@
 package com.life4.feedz.remote
 
+import com.life4.feedz.BuildConfig
+import com.life4.feedz.models.podcast.PodcastResponse
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.rss_.RssResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -20,4 +19,15 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("perPage") perPage: Int? = 20
     ): Response<RssPagination>
+
+    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
+    @GET("api/searchPodcast")
+    suspend fun searchPodcast(@Query("query") query: String): Response<PodcastResponse>
+
+    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
+    @GET("/api/podcastFeed")
+    suspend fun getPodcastFeed(
+        @Query("lang") language: String,
+        @Query("max") maxSize: Int
+    ): Response<PodcastResponse>
 }

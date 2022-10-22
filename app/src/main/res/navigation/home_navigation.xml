@@ -6,6 +6,14 @@
     android:label="@string/title_home"
     app:startDestination="@id/homeFragment">
 
+    <action
+        android:id="@+id/action_global_sourcesListFragment"
+        app:destination="@id/sourcesListFragment" />
+
+    <action
+        android:id="@+id/action_global_podcastFragment"
+        app:destination="@id/podcastFragment" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.life4.feedz.features.home.HomeFragment"
@@ -73,6 +81,13 @@
         <action
             android:id="@+id/action_searchFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_podcastFragment"
+            app:destination="@id/podcastFragment" />
+        <argument
+            android:name="isPodcast"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -87,6 +102,10 @@
         <argument
             android:name="rssResponse"
             app:argType="com.life4.feedz.models.rss_.RssResponse" />
+        <argument
+            android:name="isPodcast"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/userSourcesFragment"
@@ -95,6 +114,38 @@
         <action
             android:id="@+id/action_userSourcesFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sourcesListFragment"
+        android:name="com.life4.feedz.features.source.sourcesList.SourcesListFragment"
+        android:label="SourcesListFragment">
+        <argument
+            android:name="sources"
+            app:argType="com.life4.feedz.models.source.RssFeedResponseItem[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsSourceFragment"
+        android:name="com.life4.feedz.features.source.newsSource.NewsSourceFragment"
+        android:label="NewsSourceFragment">
+        <action
+            android:id="@+id/action_newsSourceFragment_to_sourcesListFragment"
+            app:destination="@id/sourcesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/podcastFragment"
+        android:name="com.life4.feedz.features.podcast.PodcastFragment"
+        android:label="PodcastFragment">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/podcastSourceFragment"
+        android:name="com.life4.feedz.features.source.podcastSource.PodcastSourceFragment"
+        android:label="PodcastSourceFragment">
+        <action
+            android:id="@+id/action_podcastSourceFragment_to_podcastFragment"
+            app:destination="@id/podcastFragment" />
     </fragment>
 
 </navigation>

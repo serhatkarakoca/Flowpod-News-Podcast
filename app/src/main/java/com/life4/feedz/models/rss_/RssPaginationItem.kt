@@ -43,6 +43,10 @@ data class RssPaginationItem(
     val title: String,
     @SerializedName("imageLogo")
     val siteImage: String?,
+    @SerializedName("enclosure")
+    val enclosure: Enclosure?,
+    @SerializedName("itunes")
+    val itunes: Itunes?,
     @Expose
     var categoryId: Int?,
     var pKey: String? = "0"
