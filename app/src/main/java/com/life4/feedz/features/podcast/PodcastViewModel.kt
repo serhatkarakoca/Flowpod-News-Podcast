@@ -27,8 +27,9 @@ class PodcastViewModel @Inject constructor(
         feedzRepository.searchSite(url).handle(requestType = RequestType.ACTION, onComplete = {
             _podcastDetails.value = it
             _state.value = State.OnPodcastDetails(it)
-        })
+        }, onError = {})
     }
+
 
     sealed class State {
         data class OnPodcastDetails(val details: RssResponse) : State()

@@ -70,6 +70,15 @@ object Libraries {
     val chuckLibrary = Dependency("com.github.chuckerteam.chucker:library:${Versions.chuckVersion}")
     val chuckLibraryNoOp =
         Dependency("com.github.chuckerteam.chucker:library-no-op:${Versions.chuckVersion}")
+    val exoPlayerLibrary =
+        Dependency("androidx.media3:media3-exoplayer:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryCore =
+        Dependency("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryDash =
+        Dependency("androidx.media3:media3-exoplayer-dash:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryUI = Dependency("androidx.media3:media3-ui:${Versions.exoPlayerVersion}")
+    val exoPlayerLibrarySession =
+        Dependency("androidx.media3:media3-session:${Versions.exoPlayerVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"

@@ -6,6 +6,8 @@
     <string name="string_empty" translatable="false" />
     <string name="number_zero" translatable="false">0</string>
     <string name="notification_name" translatable="false">@string/app_name</string>
+    <string name="notification_channel_name" translatable="false">Music Channel</string>
+    <string name="notification_channel_description" translatable="false">Shows the currently playing music</string>
 
     <!-- Title -->
     <string name="title_home">Home</string>

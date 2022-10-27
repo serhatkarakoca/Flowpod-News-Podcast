@@ -12,5 +12,9 @@ object AppConfig {
     const val BASE_URL = "https://rss2jsonapi.vercel.app/"
     const val BASE_URL_GITLAB =
         "https://gitlab.com/serhatkarakoca/rssfeeds/-/raw/main/"
+
+    const val API_KEY = "GSXYCXEH3BPKFGRNMZN6"
+    const val API_SECRET = "MBSQAE#H4NNkd6DNTNVEGDN8g5WTGnftQL98PwbQ"
+
 }
 

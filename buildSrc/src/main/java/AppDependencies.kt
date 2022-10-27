@@ -39,6 +39,10 @@ object AppDependencies {
         add(Libraries.retrofitConverterGson)
         add(Libraries.retrofitOkhttp)
         add(Libraries.retrofitLoggingInterceptor)
+        //add(Libraries.exoPlayerLibrary)
+        //add(Libraries.exoPlayerLibrarySession)
+        //add(Libraries.exoPlayerLibraryDash)
+        //add(Libraries.exoPlayerLibraryUI)
     }
     val testLibraries = arrayListOf<Dependency>().apply {
         add(Libraries.truth)

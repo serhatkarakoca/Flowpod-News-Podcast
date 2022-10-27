@@ -1,5 +1,6 @@
 package com.life4.feedz.features.source.podcastSource
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.life4.core.core.view.BaseFragment
@@ -18,11 +19,11 @@ class PodcastSourceFragment :
     private val viewModel: PodcastSourceViewModel by viewModels()
     private val podcastAdapter by lazy { PodcastSourceAdapter(::podcastClickListener) }
 
-    override fun setupData() {
-        super.setupData()
+    override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         observe(viewModel.state, ::onStateChanged)
         getBinding().rvPodcasts.adapter = podcastAdapter
+
     }
 
     override fun setupListener() {

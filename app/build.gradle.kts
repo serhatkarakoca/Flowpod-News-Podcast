@@ -140,6 +140,9 @@ dependencies {
     kaptAndroidTest(AppDependencies.compilerAndroidTestLibraries)
     debugImplementation(AppDependencies.debugLibraries)
     releaseImplementation(AppDependencies.releaseLibraries)
+    implementation("androidx.media:media:1.5.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.17.0")
+    implementation("com.google.android.exoplayer:extension-mediasession:2.17.0")
 }
 enum class BuildType(val value: String) {
     DEBUG("debug"),

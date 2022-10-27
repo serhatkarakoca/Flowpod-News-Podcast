@@ -14,6 +14,15 @@ object Constant {
     const val FLOW = 5
     const val HOME_NEWS = 6
 
+    const val PODCAST_COLLECTION = "podcast_collection"
+    const val NOTIFICATION_CHANNEL_ID = "podcast"
+    const val NOTIFICATION_ID = 1
+    const val MEDIA_ROOT_ID = "root_id"
+    const val NETWORK_ERROR = "NETWORK_ERROR"
+    const val UPDATE_PLAYER_POSITION_INTERVAL = 100L
+    const val START_MEDIA_PLAYBACK_ACTION = "START_MEDIA_PLAYBACK_ACTION"
+    const val REFRESH_MEDIA_BROWSER_CHILDREN = "REFRESH_MEDIA_BROWSER_CHILDREN"
+
     val END_PREFIX: List<String> = listOf(
         "",
         "/rss",
