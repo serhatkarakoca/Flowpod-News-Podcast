@@ -4,6 +4,7 @@ import com.life4.core.data.remote.BaseDataSource
 import com.life4.core.manager.language.MyLanguageManager
 import com.life4.core.models.Resource
 import com.life4.feedz.models.podcast.PodcastResponse
+import com.life4.feedz.models.podcast.categories.PodcastCategories
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.rss_.RssResponse
@@ -32,7 +33,21 @@ class FeedzRemoteDataSource @Inject constructor(
         }
     }
 
+    fun getPodcastFeedByCategory(category: String): Flow<Resource<PodcastResponse>> {
+        return getResult {
+            feedzService.getPodcastFeedByCategory(
+                languageManager.getCurrentLanguage().languageCode,
+                75,
+                category
+            )
+        }
+    }
+
     fun getSiteData(siteList: RssRequest): Flow<Resource<RssPagination>> {
         return getResult { feedzService.getSiteData(siteList, 1, 5) }
+    }
+
+    fun getCategories(): Flow<Resource<PodcastCategories>> {
+        return getResult { feedzService.getCategories() }
     }
 }

@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import android.view.LayoutInflater
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
 import com.life4.feedz.R
@@ -78,6 +78,12 @@ class PodcastDetailsFragment :
         getBinding().cancelTimer.setOnClickListener {
             viewModel.cancelTimer()
             getBinding().layoutCountDown.isVisible = false
+            Snackbar.make(
+                requireView(),
+                getString(R.string.timer_cancelled_info),
+                Snackbar.ANIMATION_MODE_SLIDE
+            ).show()
+
         }
 
         getBinding().seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -149,7 +155,6 @@ class PodcastDetailsFragment :
             }
 
             binding.btnSet.setOnClickListener {
-                Toast.makeText(requireContext(), "$hour:$minute", Toast.LENGTH_SHORT).show()
                 viewModel.setTimer("$hour:$minute")
                 dismiss()
             }
@@ -193,7 +198,7 @@ class PodcastDetailsFragment :
             var formattedDate = dateFormat.format(it)
             if (formattedDate.startsWith("00:"))
                 formattedDate = formattedDate.substringAfter("00:")
-            getBinding().tvSongDuration.text = formattedDate
+            getBinding().songDuration = formattedDate
         }
     }
 

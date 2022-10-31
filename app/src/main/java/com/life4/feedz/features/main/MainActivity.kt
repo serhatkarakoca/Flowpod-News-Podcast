@@ -55,6 +55,7 @@ class MainActivity :
                 R.id.homeFragment,
                 R.id.podcastDetailsFragment,
                 R.id.podcastFragment,
+                R.id.podcastListFragment,
                 R.id.flowFragment -> toolbar.isVisible = false
                 else -> toolbar.isVisible = true
             }

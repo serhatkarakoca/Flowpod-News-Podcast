@@ -9,6 +9,10 @@ class FeedzRepository @Inject constructor(
     fun searchSite(url: String) = remoteDataSource.searchSite(url)
     fun searchPodcast(query: String) = remoteDataSource.searchPodcast(query)
     fun getPodcastFeed() = remoteDataSource.getPodcastFeed()
+    fun getPodcastFeedByCategory(category: String) =
+        remoteDataSource.getPodcastFeedByCategory(category)
+
     fun getSiteData(siteList: RssRequest) = remoteDataSource.getSiteData(siteList)
+    fun getCategories() = remoteDataSource.getCategories()
 
 }

@@ -5,19 +5,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
-import com.life4.feedz.HomeNavigationDirections
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentPodcastSourcesBinding
-import com.life4.feedz.features.source.podcastSource.adapter.PodcastSourceAdapter
-import com.life4.feedz.models.podcast.Feed
-import com.life4.feedz.models.podcast.PodcastResponse
+import com.life4.feedz.features.podcast.adapter.PodcastCategoryAdapter
+import com.life4.feedz.models.podcast.categories.Category
+import com.life4.feedz.models.podcast.categories.PodcastCategories
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PodcastSourceFragment :
     BaseFragment<FragmentPodcastSourcesBinding, PodcastSourceViewModel>(R.layout.fragment_podcast_sources) {
     private val viewModel: PodcastSourceViewModel by viewModels()
-    private val podcastAdapter by lazy { PodcastSourceAdapter(::podcastClickListener) }
+    private val podcastAdapter by lazy { PodcastCategoryAdapter(::podcastClickListener) }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
@@ -27,23 +26,27 @@ class PodcastSourceFragment :
     }
 
     override fun setupListener() {
-        viewModel.getPodcastFeed()
+        viewModel.getPodcastCategories()
     }
 
     private fun onStateChanged(state: PodcastSourceViewModel.State) {
         when (state) {
-            is PodcastSourceViewModel.State.OnPodcastSuccess -> setPodcastAdapter(state.source)
+            is PodcastSourceViewModel.State.OnPodcastCategorySuccess -> setPodcastAdapter(state.source)
         }
     }
 
-    private fun setPodcastAdapter(data: PodcastResponse) {
-        podcastAdapter.submitList(data.feeds?.distinct())
+
+    private fun setPodcastAdapter(data: PodcastCategories) {
+        val dataList =
+            data.feeds?.filter { viewModel.categoryList.contains(it?.name?.lowercase()) }
+
+        podcastAdapter.submitList(dataList)
     }
 
-    private fun podcastClickListener(item: Feed) {
+    private fun podcastClickListener(item: Category) {
         findNavController().navigate(
-            HomeNavigationDirections.actionGlobalPodcastFragment(
-                item.url ?: ""
+            PodcastSourceFragmentDirections.actionGlobalPodcastListFragment(
+                item.name ?: ""
             )
         )
     }

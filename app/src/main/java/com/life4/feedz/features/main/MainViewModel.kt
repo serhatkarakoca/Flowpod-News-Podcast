@@ -2,7 +2,6 @@ package com.life4.feedz.features.main
 
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -152,7 +151,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         } else {
-            Log.d("uriforasd", mediaItem?.enclosure?.url.toString())
             musicServiceConnection.transportControls.playFromMediaId(mediaItem.enclosure?.url, null)
         }
     }
