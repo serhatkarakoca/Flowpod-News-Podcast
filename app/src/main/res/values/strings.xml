@@ -6,6 +6,8 @@
     <string name="string_empty" translatable="false" />
     <string name="number_zero" translatable="false">0</string>
     <string name="notification_name" translatable="false">@string/app_name</string>
+    <string name="notification_channel_name" translatable="false">Music Channel</string>
+    <string name="notification_channel_description" translatable="false">Shows the currently playing music</string>
 
     <!-- Title -->
     <string name="title_home">Home</string>
@@ -31,6 +33,8 @@
     <string name="login_welcome">Find thousands of interesting news every day</string>
     <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
     <string name="search">Ara</string>
+    <string name="search_news">Haber Sitesi Adresi, RSS Linki ile Ara</string>
+    <string name="search_podcast">Podcast Ara</string>
     <string name="go_to_news">Haberin Detaylarına Git</string>
     <string name="breaking_news">Son Dakika / Gündem</string>
     <string name="tech_science">Teknoloji / Bilim</string>
@@ -54,4 +58,6 @@
     <string name="are_u_sure_delete">Are you sure you want to delete ?</string>
     <string name="warning">Uyarı</string>
     <string name="remove">Sil</string>
+    <string name="podcasts">Podcast</string>
+    <string name="show_all">Tümünü Gör</string>
 </resources>

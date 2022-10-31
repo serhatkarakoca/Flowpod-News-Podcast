@@ -1,117 +1,72 @@
 package com.life4.feedz.features.source
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.life4.core.core.view.BaseFragment
-import com.life4.core.extensions.observe
-import com.life4.core.extensions.observeOnce
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentSourcesBinding
-import com.life4.feedz.extensions.dp
-import com.life4.feedz.features.source.adapter.SourceAdapter
-import com.life4.feedz.models.source.RssFeedResponseItem
+import com.life4.feedz.features.source.adapter.ViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SourceFragment :
     BaseFragment<FragmentSourcesBinding, SourceViewModel>(R.layout.fragment_sources) {
     private val viewModel: SourceViewModel by viewModels()
-    private val breakingAdapter by lazy { SourceAdapter(::addSourceToPreference) }
-    private val techAdapter by lazy { SourceAdapter(::addSourceToPreference) }
-    private val sportAdapter by lazy { SourceAdapter(::addSourceToPreference) }
+    private var currentFragmentPosition = 0
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
     }
 
     override fun setupListener() {
-        observe(viewModel.liveData, ::onStateChanged)
-        getBinding().rvBreakingNews.adapter = breakingAdapter
-        getBinding().rvTechNews.adapter = techAdapter
-        getBinding().rvSportNews.adapter = sportAdapter
-
-        getBinding().etSearch.setOnClickListener {
-            findNavController().navigate(SourceFragmentDirections.actionSourceFragmentToSearchFragment())
-        }
-
-        getBinding().layoutSave.setOnClickListener {
-            viewModel.getSavedSource().observeOnce(this, Observer {
-                it?.let {
-                    viewModel.deleteSavedSource()
+        getBinding().viewPager.adapter =
+            ViewPagerAdapter(childFragmentManager, requireActivity().lifecycle)
+        TabLayoutMediator(getBinding().tabLayout, getBinding().viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = getString(R.string.news)
                 }
-                viewModel.insertSourceToRoom()
-            })
-        }
-    }
-
-    private fun addSourceToPreference(item: RssFeedResponseItem, isChecked: Boolean) {
-        if (isChecked) {
-            item.isSelected = false
-            viewModel.sourcePref.add(item)
-        } else
-            viewModel.sourcePref.remove(item)
-
-        if (viewModel.sourcePref.isEmpty()
-                .not() && getBinding().nestedScrollview.paddingBottom == 0
-        ) {
-            getBinding().nestedScrollview.setPadding(
-                0,
-                0,
-                0,
-                75.dp
-            )
-        } else if (viewModel.sourcePref.isEmpty()) {
-            getBinding().nestedScrollview.setPadding(
-                0,
-                0,
-                0,
-                0
-            )
-        }
-        getBinding().layoutSave.isVisible = viewModel.sourcePref.isEmpty().not()
-    }
-
-    private fun onStateChanged(state: SourceViewModel.State) {
-        when (state) {
-            is SourceViewModel.State.OnSourceReady -> sourcesReady(state.listMap)
-            is SourceViewModel.State.OnSourceAdded -> sourceChanged()
-        }
-    }
-
-    private fun sourceChanged() {
-        val snackbar = Snackbar.make(
-            requireView(),
-            "Haber Kaynaklarınız Güncellenmiştir.",
-            Snackbar.ANIMATION_MODE_SLIDE
-        )
-        snackbar.show()
-        getBinding().layoutSave.isVisible = false
-        getBinding().nestedScrollview.setPadding(
-            0,
-            0,
-            0,
-            0
-        )
-    }
-
-    private fun sourcesReady(map: MutableMap<Int, List<RssFeedResponseItem>?>) {
-        map?.forEach {
-            it.value?.forEach {
-                Log.d("bulunan", viewModel.sourcePref.toString())
-                if (viewModel.sourcePref.indexOf(it) != -1)
-                    it.isSelected = true
+                1 -> {
+                    tab.text = getString(R.string.podcasts)
+                }
             }
+        }.attach()
+        getBinding().viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                currentFragmentPosition = position
+                changeSearchBarHint()
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                currentFragmentPosition = position
+                changeSearchBarHint()
+            }
+        })
+        getBinding().etSearch.setOnClickListener {
+            findNavController().navigate(
+                SourceFragmentDirections.actionSourceFragmentToSearchFragment(
+                    currentFragmentPosition == 1
+                )
+            )
         }
-        breakingAdapter.submitList(map[1])
-        techAdapter.submitList(map[2])
-        sportAdapter.submitList(map[3])
-        getBinding().nestedScrollview.visibility = View.VISIBLE
+
+    }
+
+    private fun changeSearchBarHint() {
+        if (currentFragmentPosition == 0) {
+            getBinding().etSearch.hint = getString(R.string.search_news)
+        } else
+            getBinding().etSearch.hint = getString(R.string.search_podcast)
     }
 
     override fun onResume() {
@@ -119,18 +74,9 @@ class SourceFragment :
         activity?.let {
             it.title = getString(R.string.content_store)
         }
-        getViewModel().getSavedSource().observeOnce(this) { sourceModel ->
-            sourceModel?.sourceList?.let { source ->
-                viewModel.sourcePref.clear()
-                viewModel.sourcePref.addAll(source.sourceList)
-            }.also {
-                viewModel.allSources?.let {
-                    sourcesReady(it)
-                    return@observeOnce
-                }
-                getViewModel().getBreakingNewsSource()
-            }
+    }
 
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }

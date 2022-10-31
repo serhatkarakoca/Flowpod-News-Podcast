@@ -22,7 +22,9 @@ data class RssResponse(
     @SerializedName("link")
     val link: String?,
     @SerializedName("title")
-    val title: String?
+    val title: String?,
+    @SerializedName("itunes")
+    val itunes: Itunes?
 ) : Parcelable {
     fun getImageSite(): String? {
         if (image?.url?.startsWith("http") == true || image?.url?.startsWith("https") == true)

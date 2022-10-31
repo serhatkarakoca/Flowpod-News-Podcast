@@ -7,6 +7,8 @@ class FeedzRepository @Inject constructor(
     private val remoteDataSource: FeedzRemoteDataSource
 ) {
     fun searchSite(url: String) = remoteDataSource.searchSite(url)
+    fun searchPodcast(query: String) = remoteDataSource.searchPodcast(query)
+    fun getPodcastFeed() = remoteDataSource.getPodcastFeed()
     fun getSiteData(siteList: RssRequest) = remoteDataSource.getSiteData(siteList)
 
 }

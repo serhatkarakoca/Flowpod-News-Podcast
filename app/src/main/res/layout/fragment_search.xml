@@ -13,6 +13,10 @@
             name="progressStatus"
             type="androidx.lifecycle.MutableLiveData&lt;Boolean>" />
 
+        <variable
+            name="isPodcast"
+            type="Boolean" />
+
         <import type="android.view.View" />
     </data>
 
@@ -103,13 +107,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
-                        android:text="@{site.siteName != null ? site.siteName : site.link}"
+                        android:text="@{isPodcast ? site.title : site.siteName != null ? site.siteName : site.link}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/logo"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="serhatkarakoca.com" />
 
                     <TextView
+                        android:id="@+id/tv_description"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="8dp"
@@ -117,7 +122,6 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_light"
                         android:maxLines="2"
-                        android:text="@{site.description}"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/img_arrow"
@@ -125,12 +129,13 @@
                         app:layout_constraintTop_toBottomOf="@id/site_url"
                         tools:text="description" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back"
+                        android:tint="@color/primaryTextColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -138,6 +143,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_podcasts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search"
+            tools:listitem="@layout/item_podcast_result" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

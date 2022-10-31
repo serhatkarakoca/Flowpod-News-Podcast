@@ -3,6 +3,7 @@ package com.life4.feedz.features.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.life4.core.core.vm.BaseViewModel
+import com.life4.feedz.models.podcast.PodcastResponse
 import com.life4.feedz.models.rss_.RssResponse
 import com.life4.feedz.other.Constant
 import com.life4.feedz.remote.FeedzRepository
@@ -18,12 +19,24 @@ class SearchViewModel @Inject constructor(
     val siteData: LiveData<RssResponse>
         get() = _siteData
 
+    private val _state = MutableLiveData<State>()
+    val state: LiveData<State>
+        get() = _state
+
     var indexUrlPath = 0
     var confirmedUrl: String? = null
     var progressStatus = MutableLiveData(false)
+    var searchingBaseUrl: String? = null
+
+
+    fun searchPodcast(query: String) {
+        feedzRepository.searchPodcast(query).handle(RequestType.ACTION, onComplete = {
+            _state.value = State.OnPodcastSearchSuccess(it)
+        })
+    }
 
     fun tryToGetSite(url: String) {
-        val mUrl = getFormattedUrl(url, indexUrlPath)
+        val mUrl = getFormattedUrl(searchingBaseUrl ?: "", indexUrlPath)
         getSite(mUrl, indexUrlPath, mUrl != url)
     }
 
@@ -42,7 +55,11 @@ class SearchViewModel @Inject constructor(
                         image = null,
                         items = listOf(),
                         link = null,
-                        title = "empty", feedUrl = null, language = null, lastBuildDate = null
+                        title = "empty",
+                        feedUrl = null,
+                        language = null,
+                        lastBuildDate = null,
+                        itunes = null
                     )
                     indexUrlPath = 0
                     progressStatus.value = false
@@ -52,7 +69,11 @@ class SearchViewModel @Inject constructor(
                         image = null,
                         items = listOf(),
                         link = null,
-                        title = "empty", feedUrl = null, language = null, lastBuildDate = null
+                        title = "empty",
+                        feedUrl = null,
+                        language = null,
+                        lastBuildDate = null,
+                        itunes = null
                     )
                     indexUrlPath = 0
                     progressStatus.value = false
@@ -64,20 +85,39 @@ class SearchViewModel @Inject constructor(
             }
 
         }, onError = {
-            indexUrlPath = 0
-            _siteData.postValue(
-                RssResponse(
+            if (!tryToUrls) {
+                _siteData.value = RssResponse(
                     description = null,
                     image = null,
                     items = listOf(),
                     link = null,
+                    title = "empty",
                     feedUrl = null,
                     language = null,
                     lastBuildDate = null,
-                    title = "empty"
+                    itunes = null
                 )
-            )
-            progressStatus.value = false
+                indexUrlPath = 0
+                progressStatus.value = false
+            } else if (tryToUrls && index == Constant.END_PREFIX.lastIndex) {
+                _siteData.value = RssResponse(
+                    description = null,
+                    image = null,
+                    items = listOf(),
+                    link = null,
+                    title = "empty",
+                    feedUrl = null,
+                    language = null,
+                    lastBuildDate = null,
+                    itunes = null
+                )
+                indexUrlPath = 0
+                progressStatus.value = false
+            } else {
+                indexUrlPath++
+                tryToGetSite(url)
+            }
+
         })
     }
 
@@ -89,12 +129,12 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getFormattedUrl(url: String, index: Int): String {
-        var mUrl = getSiteUrl(url)
-        val endPrefix = Constant.END_PREFIX.firstOrNull { mUrl.endsWith(it) }
-        if (endPrefix != null) {
-            return mUrl
-        } else {
-            return mUrl + Constant.END_PREFIX.get(index)
-        }
+        val mUrl = getSiteUrl(url)
+        return mUrl + Constant.END_PREFIX.get(index)
+
+    }
+
+    sealed class State {
+        data class OnPodcastSearchSuccess(val podcastResult: PodcastResponse) : State()
     }
 }

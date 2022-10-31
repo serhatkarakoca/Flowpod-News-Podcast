@@ -64,6 +64,16 @@ android {
                 "BASE_URL_GITLAB",
                 "\"${AppConfig.BASE_URL_GITLAB}\""
             )
+            this.buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${AppConfig.API_KEY}\""
+            )
+            this.buildConfigField(
+                "String",
+                "API_SECRET",
+                "\"${AppConfig.API_SECRET}\""
+            )
         }
         debug {
             this.resValue(
@@ -130,6 +140,9 @@ dependencies {
     kaptAndroidTest(AppDependencies.compilerAndroidTestLibraries)
     debugImplementation(AppDependencies.debugLibraries)
     releaseImplementation(AppDependencies.releaseLibraries)
+    implementation("androidx.media:media:1.5.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.17.0")
+    implementation("com.google.android.exoplayer:extension-mediasession:2.17.0")
 }
 enum class BuildType(val value: String) {
     DEBUG("debug"),

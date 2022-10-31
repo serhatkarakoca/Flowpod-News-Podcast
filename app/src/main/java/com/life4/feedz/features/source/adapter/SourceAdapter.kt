@@ -10,7 +10,7 @@ import com.life4.feedz.R
 import com.life4.feedz.databinding.ItemSourceBinding
 import com.life4.feedz.models.source.RssFeedResponseItem
 
-class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
+class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit, val limit: Int? = null) :
     ListAdapter<RssFeedResponseItem, SourceAdapter.SourceViewHolder>(DIFF_UTIL) {
 
     class SourceViewHolder(
@@ -42,6 +42,11 @@ class SourceAdapter(val listener: (RssFeedResponseItem, Boolean) -> Unit) :
 
     override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {
         holder.bind(currentList[position])
+    }
+
+    override fun getItemCount(): Int {
+        val limit = limit ?: currentList.size
+        return currentList.size.coerceAtMost(limit)
     }
 
     companion object {
