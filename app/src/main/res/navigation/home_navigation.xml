@@ -7,6 +7,10 @@
     app:startDestination="@id/homeFragment">
 
     <action
+        android:id="@+id/action_global_podcastListFragment"
+        app:destination="@id/podcastListFragment" />
+
+    <action
         android:id="@+id/action_global_podcastDetailsFragment"
         app:destination="@id/podcastDetailsFragment" />
 
@@ -91,8 +95,8 @@
             app:destination="@id/podcastFragment" />
         <argument
             android:name="isPodcast"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -109,8 +113,8 @@
             app:argType="com.life4.feedz.models.rss_.RssResponse" />
         <argument
             android:name="isPodcast"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/userSourcesFragment"
@@ -159,6 +163,14 @@
         <argument
             android:name="podcast"
             app:argType="com.life4.feedz.models.rss_.RssPaginationItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/podcastListFragment"
+        android:name="com.life4.feedz.features.source.podcastSource.PodcastListFragment"
+        android:label="PodcastListFragment">
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
 
 </navigation>

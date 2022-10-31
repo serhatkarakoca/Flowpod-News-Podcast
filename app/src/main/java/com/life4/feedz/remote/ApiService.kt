@@ -2,6 +2,7 @@ package com.life4.feedz.remote
 
 import com.life4.feedz.BuildConfig
 import com.life4.feedz.models.podcast.PodcastResponse
+import com.life4.feedz.models.podcast.categories.PodcastCategories
 import com.life4.feedz.models.request.RssRequest
 import com.life4.feedz.models.rss_.RssPagination
 import com.life4.feedz.models.rss_.RssResponse
@@ -29,5 +30,18 @@ interface ApiService {
     suspend fun getPodcastFeed(
         @Query("lang") language: String,
         @Query("max") maxSize: Int
+    ): Response<PodcastResponse>
+
+    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
+    @GET("/api/categories")
+    suspend fun getCategories(
+    ): Response<PodcastCategories>
+
+    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
+    @GET("/api/podcastFeedByCat")
+    suspend fun getPodcastFeedByCategory(
+        @Query("lang") language: String,
+        @Query("max") maxSize: Int,
+        @Query("category") category: String
     ): Response<PodcastResponse>
 }

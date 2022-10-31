@@ -19,7 +19,7 @@
 
     <!-- EMPTY -->
     <string name="not_found">Not Found</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -31,33 +31,69 @@
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_sub">You can fill your spare time by reading thousands of the latest news that we provide</string>
     <string name="login_welcome">Find thousands of interesting news every day</string>
-    <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
-    <string name="search">Ara</string>
-    <string name="search_news">Haber Sitesi Adresi, RSS Linki ile Ara</string>
-    <string name="search_podcast">Podcast Ara</string>
-    <string name="go_to_news">Haberin Detaylarına Git</string>
-    <string name="breaking_news">Son Dakika / Gündem</string>
-    <string name="tech_science">Teknoloji / Bilim</string>
-    <string name="sport">Spor</string>
-    <string name="content_store">İçerik Mağazası</string>
-    <string name="content_store_desc">İstediğiniz kaynakları seçerek, kendinize özel bir akış oluşturabilirsiniz</string>
-    <string name="save_source">Kaynakları Kaydet</string>
-    <string name="flow">Akış</string>
-    <string name="your_flow">Akışınız</string>
-    <string name="tech">Teknoloji</string>
-    <string name="breaking">Gündem</string>
-    <string name="all">Tümü</string>
-    <string name="filter">Filtrele</string>
-    <string name="results">Sonuçlar</string>
-    <string name="my_resources">İçerik Kaynaklarım</string>
-    <string name="your_content_provider">İçerik Sağlayıcıların</string>
-    <string name="news">Haberler</string>
+    <string name="search">Search</string>
+    <string name="search_news">News Site Address, Search with RSS Link</string>
+    <string name="go_to_news">Go To News Details</string>
+    <string name="save_source">Save resources</string>
+    <string name="all">All</string>
+    <string name="my_resources">My Content Resources</string>
     <string name="podcasts">Podcast</string>
-    <string name="show_all">Tümünü Gör</string>
-    <string name="set_timer">Ayarla</string>
-    <string name="min_5">5 DK</string>
-    <string name="select_time">Zaman Seç</string>
-    <string name="min_10">10 DK</string>
-    <string name="min_15">15 DK</string>
-    <string name="min_20">20 DK</string>
+    <string name="min_10">10 Min</string>
+    <string name="min_15">15 Min</string>
+    <string name="min_20">20 Min</string>
+
+    <!-- Categories -->
+
+    <string name="arts">Arts</string>
+    <string name="books">Books</string>
+    <string name="design">Design</string>
+    <string name="fashion">Fashion</string>
+    <string name="beauty">Beauty"</string>
+    <string name="food">Food</string>
+    <string name="business">Business"</string>
+    <string name="careers">Careers</string>
+    <string name="investing">Investing</string>
+    <string name="management">Management</string>
+    <string name="marketing">Marketing</string>
+    <string name="comedy">Comedy</string>
+    <string name="education">Education</string>
+    <string name="language">Language</string>
+    <string name="self_improvement">Self-Improvement</string>
+    <string name="history">History</string>
+    <string name="health">Health</string>
+    <string name="stories">Stories</string>
+    <string name="manga">Manga</string>
+    <string name="automotive">Automotive</string>
+    <string name="games">Games</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="music">Music</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="science">Science</string>
+    <string name="astronomy">Astronomy</string>
+    <string name="sports">Sports</string>
+    <string name="technology">Technology</string>
+    <string name="film">Film</string>
+    <string name="cryptocurrency">Cryptocurrency</string>
+
+    <string name="browser_desc">For a faster experience, news opens in the in-app browser. You can deselect it if you want to open it in an external browser.</string>
+    <string name="search_podcast">Search Podcast</string>
+    <string name="breaking_news">Breaking News</string>
+    <string name="tech_science">Tech / Science</string>
+    <string name="sport">Sport</string>
+    <string name="content_store">Content Store</string>
+    <string name="content_store_desc">You can create your own custom stream by selecting the sources you want.</string>
+    <string name="flow">Flow</string>
+    <string name="your_flow">Your Flow</string>
+    <string name="tech">Technology</string>
+    <string name="breaking">Breaking News</string>
+    <string name="filter">Filter</string>
+    <string name="results">Results</string>
+    <string name="your_content_provider">Content Providers</string>
+    <string name="news">News</string>
+    <string name="show_all">Show All</string>
+    <string name="set_timer">Apply</string>
+    <string name="min_5">5 Min</string>
+    <string name="select_time">Select Time</string>
+    <string name="app_settings">App Settings</string>
+    <string name="timer_cancelled_info">Timer Cancelled</string>
 </resources>

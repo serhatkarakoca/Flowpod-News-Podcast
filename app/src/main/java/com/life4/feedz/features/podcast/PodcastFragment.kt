@@ -80,7 +80,6 @@ class PodcastFragment :
             getBinding().tvDescription.text =
                 Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY)
         }
-        podcastAdapter.submitList(data.items)
         val items = arrayListOf<RssPaginationItem>()
         data.items?.mapNotNull { it }?.let { mediaItems ->
             mediaItems.forEach {
@@ -111,6 +110,8 @@ class PodcastFragment :
                 }
             }
             mainViewModel.setMediaItems(items)
+            podcastAdapter.submitList(items)
+
         }
         activity?.let {
             it.title = data.title
