@@ -82,4 +82,10 @@
     <string name="cryptocurrency">Kripto Para</string>
     <string name="app_settings">Uygulama Ayarları</string>
     <string name="timer_cancelled_info">Geri Sayım İptal Edildi</string>
+    <string name="saved_news">Kaydedilenler</string>
+    <string name="saved_success">Haber Kaydedildi. İstediğiniz zaman okuyabilirsiniz.</string>
+    <string name="saved_removed">Haber Kaydedilenlerden Kaldırıldı.</string>
+    <string name="are_u_sure_delete">Silmek istediğine emin misin ?</string>
+    <string name="warning">Uyarı</string>
+    <string name="remove">Sil</string>
 </resources>
