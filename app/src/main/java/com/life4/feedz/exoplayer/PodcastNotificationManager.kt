@@ -45,7 +45,7 @@ class PodcastNotificationManager(
 
         with(notificationManager) {
             setMediaSessionToken(sessionToken)
-            setSmallIcon(R.drawable.ic_black_about)
+            setSmallIcon(R.drawable.ic_round_podcasts)
             setUseRewindAction(false)
             setUseFastForwardAction(false)
         }

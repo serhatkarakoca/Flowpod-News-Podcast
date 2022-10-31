@@ -43,6 +43,8 @@ class MainViewModel @Inject constructor(
     val networkError = musicServiceConnection.networkError
     val curPlayingSong = musicServiceConnection.curPlayingSong
     val playbackState = musicServiceConnection.playbackState
+    val countDownTimer = musicServiceConnection.countDownTimer
+
     val bottomPlayBackVisibility = MutableLiveData<Boolean>(true)
 
     private val _siteData = MutableLiveData<RssFeedResponse>()
@@ -122,11 +124,11 @@ class MainViewModel @Inject constructor(
     }
 
     fun fastForward() {
-        musicServiceConnection.transportControls.fastForward()
+        musicServiceConnection.fastForward()
     }
 
     fun rewind() {
-        musicServiceConnection.transportControls.rewind()
+        musicServiceConnection.rewind()
     }
 
     override fun onCleared() {

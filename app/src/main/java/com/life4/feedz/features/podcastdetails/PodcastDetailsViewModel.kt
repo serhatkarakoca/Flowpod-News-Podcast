@@ -14,9 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PodcastDetailsViewModel @Inject constructor(musicServiceConnection: MusicServiceConnection) :
+class PodcastDetailsViewModel @Inject constructor(private val musicServiceConnection: MusicServiceConnection) :
     BaseViewModel() {
     private val playbackState = musicServiceConnection.playbackState
+    val timerState = musicServiceConnection.countDownTimer
 
     private val _curSongDuration = MutableLiveData<Long>()
     val curSongDuration: LiveData<Long> = _curSongDuration
@@ -50,5 +51,13 @@ class PodcastDetailsViewModel @Inject constructor(musicServiceConnection: MusicS
                 delay(UPDATE_PLAYER_POSITION_INTERVAL)
             }
         }
+    }
+
+    fun setTimer(timer: String) {
+        musicServiceConnection.setTimer(timer)
+    }
+
+    fun cancelTimer() {
+        musicServiceConnection.cancelTimer()
     }
 }
