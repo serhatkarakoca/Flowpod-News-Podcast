@@ -79,7 +79,7 @@ android {
             this.resValue(
                 "string",
                 "app_name",
-                "Extrass - Debug"
+                "Flowpod - Debug"
             )
             // signingConfig = signingConfigs.getByName("debug")
             //applicationIdSuffix = ".debug"
@@ -88,7 +88,7 @@ android {
             this.resValue(
                 "string",
                 "app_name",
-                "Extrass"
+                "Flowpod"
             )
             // signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true

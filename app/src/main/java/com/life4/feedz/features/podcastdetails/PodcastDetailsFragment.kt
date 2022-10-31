@@ -2,13 +2,19 @@ package com.life4.feedz.features.podcastdetails
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
-import android.util.Log
+import android.view.LayoutInflater
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.life4.core.core.view.BaseFragment
+import com.life4.core.extensions.observe
 import com.life4.feedz.R
+import com.life4.feedz.databinding.BottomSheetTimerBinding
 import com.life4.feedz.databinding.FragmentPodcastDetailsBinding
 import com.life4.feedz.exoplayer.service.isPlaying
 import com.life4.feedz.exoplayer.toPodcast
@@ -37,6 +43,14 @@ class PodcastDetailsFragment :
     override fun setupListener() {
         subscribeToObservers()
 
+        observe(viewModel.timerState) {
+            if (it != null && (it == "0").not()) {
+                getBinding().tvCountDown.text = it
+                getBinding().layoutCountDown.isVisible = true
+            } else
+                getBinding().layoutCountDown.isVisible = false
+        }
+
         getBinding().ivPlayPauseDetail.setOnClickListener {
             mainViewModel.togglePlaybackState()
         }
@@ -55,6 +69,15 @@ class PodcastDetailsFragment :
 
         getBinding().ivForward10.setOnClickListener {
             mainViewModel.fastForward()
+        }
+
+        getBinding().btnSleepTimer.setOnClickListener {
+            showTimerDialog()
+        }
+
+        getBinding().cancelTimer.setOnClickListener {
+            viewModel.cancelTimer()
+            getBinding().layoutCountDown.isVisible = false
         }
 
         getBinding().seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -78,17 +101,76 @@ class PodcastDetailsFragment :
         })
     }
 
+    private fun showTimerDialog() {
+        BottomSheetDialog(requireContext()).apply {
+            val inflater = LayoutInflater.from(context)
+            val binding = DataBindingUtil.inflate<BottomSheetTimerBinding>(
+                inflater,
+                R.layout.bottom_sheet_timer,
+                null,
+                false
+            )
+
+            binding.layoutSelectYourTime.setOnClickListener {
+                binding.layoutTimeSelection.isVisible = true
+                binding.layoutDefaultTimes.isVisible = false
+            }
+
+            binding.layoutMin5.setOnClickListener {
+                viewModel.setTimer("00:05")
+                dismiss()
+            }
+
+            binding.layoutMin10.setOnClickListener {
+                viewModel.setTimer("00:10")
+                dismiss()
+            }
+
+            binding.layoutMin15.setOnClickListener {
+                viewModel.setTimer("00:15")
+                dismiss()
+            }
+
+            binding.layoutMin20.setOnClickListener {
+                viewModel.setTimer("00:20")
+                dismiss()
+            }
+
+            binding.timerSleep.setIs24HourView(true)
+            var hour = "00"
+            var minute = "00"
+
+            binding.timerSleep.hour = 0
+            binding.timerSleep.minute = 0
+
+            binding.timerSleep.setOnTimeChangedListener { view, hourOfDay, minuteOfDay ->
+                hour = if (hourOfDay < 10) "0$hourOfDay" else hourOfDay.toString()
+                minute = if (minuteOfDay < 10) "0$minuteOfDay" else minuteOfDay.toString()
+            }
+
+            binding.btnSet.setOnClickListener {
+                Toast.makeText(requireContext(), "$hour:$minute", Toast.LENGTH_SHORT).show()
+                viewModel.setTimer("$hour:$minute")
+                dismiss()
+            }
+
+            setContentView(binding.root)
+        }.show()
+    }
+
     private fun setCurPlayerTimeToTextView(ms: Long) {
         val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.ROOT)
         dateFormat.timeZone = TimeZone.getTimeZone("GMT")
-        getBinding().tvCurTime.text = dateFormat.format(ms)
+        var formattedDate = dateFormat.format(ms)
+        if (formattedDate.startsWith("00:"))
+            formattedDate = formattedDate.substringAfter("00:")
+        getBinding().tvCurTime.text = formattedDate
     }
 
     private fun subscribeToObservers() {
         mainViewModel.curPlayingSong.observe(viewLifecycleOwner) {
             if (it == null) return@observe
             getBinding().item = it.toPodcast()
-            Log.d("ResimPodcast", it.toPodcast()?.itunes?.image.toString())
             getBinding().executePendingBindings()
         }
         mainViewModel.playbackState.observe(viewLifecycleOwner) {
@@ -108,7 +190,10 @@ class PodcastDetailsFragment :
             getBinding().seekBar.max = it.toInt()
             val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.ROOT)
             dateFormat.timeZone = TimeZone.getTimeZone("GMT")
-            getBinding().tvSongDuration.text = dateFormat.format(it)
+            var formattedDate = dateFormat.format(it)
+            if (formattedDate.startsWith("00:"))
+                formattedDate = formattedDate.substringAfter("00:")
+            getBinding().tvSongDuration.text = formattedDate
         }
     }
 

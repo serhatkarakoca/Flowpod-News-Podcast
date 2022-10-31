@@ -3,6 +3,7 @@ package com.life4.feedz.exoplayer.service
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
@@ -16,6 +17,7 @@ import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.other.Constant
 import com.life4.feedz.other.Constant.NETWORK_ERROR
 import com.life4.feedz.other.Event
+import java.util.concurrent.TimeUnit
 
 class MusicServiceConnection(
     context: Context,
@@ -36,6 +38,11 @@ class MusicServiceConnection(
     lateinit var mediaController: MediaControllerCompat
 
     private val mediaBrowserConnectionCallback = MediaBrowserConnectionCallback(context)
+
+    private var countdown: CountDownTimer? = null
+
+    private val _countDownTimer = MutableLiveData<String?>()
+    val countDownTimer: LiveData<String?> = _countDownTimer
 
     private val mediaBrowser = MediaBrowserCompat(
         context,
@@ -77,6 +84,41 @@ class MusicServiceConnection(
 
     fun refreshMediaBrowserChildren() {
         mediaBrowser.sendCustomAction(Constant.REFRESH_MEDIA_BROWSER_CHILDREN, null, null)
+    }
+
+    fun setTimer(time: String) {
+        countdown?.cancel()
+        val minute = time.substringAfter(":").toInt()
+        val hours = time.substringBefore(":").toInt()
+        val totalSeconds = ((minute * 60) + (hours * 3600)) * 1000
+        countdown = object : CountDownTimer(totalSeconds.toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                var hms = String.format(
+                    "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % TimeUnit.HOURS.toMinutes(
+                        1
+                    ),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % TimeUnit.MINUTES.toSeconds(
+                        1
+                    )
+                )
+                if (hms.startsWith("00:"))
+                    hms = hms.substringAfter("00:")
+                _countDownTimer.value = hms
+            }
+
+            override fun onFinish() {
+                _countDownTimer.value = "0"
+                cancel()
+            }
+
+        }.start()
+
+    }
+
+    fun cancelTimer() {
+        countdown?.cancel()
+        _countDownTimer.value = null
     }
 
     private inner class MediaBrowserConnectionCallback(

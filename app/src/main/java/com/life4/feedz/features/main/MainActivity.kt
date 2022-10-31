@@ -54,6 +54,7 @@ class MainActivity :
             when (destination.id) {
                 R.id.homeFragment,
                 R.id.podcastDetailsFragment,
+                R.id.podcastFragment,
                 R.id.flowFragment -> toolbar.isVisible = false
                 else -> toolbar.isVisible = true
             }
@@ -80,6 +81,14 @@ class MainActivity :
                 if (it?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
             )
         }
+
+        observe(viewModel.countDownTimer) {
+            if (it == "0") {
+                if (viewModel.playbackState.value?.isPlaying == true)
+                    viewModel.togglePlaybackState()
+            }
+        }
+
 
         getBinding().podcastLayout.setOnClickListener {
             currentPodcast.value?.let {
