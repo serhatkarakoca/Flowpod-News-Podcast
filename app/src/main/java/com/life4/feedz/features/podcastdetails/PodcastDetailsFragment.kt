@@ -198,7 +198,7 @@ class PodcastDetailsFragment :
             var formattedDate = dateFormat.format(it)
             if (formattedDate.startsWith("00:"))
                 formattedDate = formattedDate.substringAfter("00:")
-            getBinding().tvSongDuration.text = formattedDate
+            getBinding().songDuration = formattedDate
         }
     }
 
