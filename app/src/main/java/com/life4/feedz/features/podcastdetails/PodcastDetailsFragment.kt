@@ -4,21 +4,26 @@ import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import android.view.LayoutInflater
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.work.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
 import com.life4.feedz.R
+import com.life4.feedz.databinding.BottomSheetMoreBinding
 import com.life4.feedz.databinding.BottomSheetTimerBinding
 import com.life4.feedz.databinding.FragmentPodcastDetailsBinding
 import com.life4.feedz.exoplayer.service.isPlaying
 import com.life4.feedz.exoplayer.toPodcast
 import com.life4.feedz.features.main.MainViewModel
+import com.life4.feedz.features.podcast.offline.DownloadService
+import com.life4.feedz.models.rss_.Enclosure
 import com.life4.feedz.models.rss_.RssPaginationItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -75,6 +80,10 @@ class PodcastDetailsFragment :
             showTimerDialog()
         }
 
+        getBinding().imgMore.setOnClickListener {
+            showMoreBottomSheet()
+        }
+
         getBinding().cancelTimer.setOnClickListener {
             viewModel.cancelTimer()
             getBinding().layoutCountDown.isVisible = false
@@ -105,6 +114,30 @@ class PodcastDetailsFragment :
             }
 
         })
+    }
+
+    private fun showMoreBottomSheet() {
+        BottomSheetDialog(requireContext()).apply {
+            val binding = DataBindingUtil.inflate<BottomSheetMoreBinding>(
+                LayoutInflater.from(context),
+                R.layout.bottom_sheet_more,
+                null,
+                false
+            )
+
+            binding.layoutDownload.setOnClickListener {
+                args.podcast.enclosure?.url ?: return@setOnClickListener
+                val fileName =
+                    args.podcast.itunes?.author + args.podcast.title.slice(0..10) + ".mp3".replace(
+                        " ",
+                        ""
+                    )
+                downloadFileFromUrl(args.podcast, fileName)
+                dismiss()
+            }
+
+            setContentView(binding.root)
+        }.show()
     }
 
     private fun showTimerDialog() {
@@ -200,6 +233,56 @@ class PodcastDetailsFragment :
                 formattedDate = formattedDate.substringAfter("00:")
             getBinding().songDuration = formattedDate
         }
+    }
+
+
+    private fun downloadFileFromUrl(podcast: RssPaginationItem, filename: String) {
+
+        val data = Data.Builder().putStringArray("url", arrayOf(podcast.enclosure?.url ?: ""))
+            .putStringArray("fileName", arrayOf(filename))
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val myWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<DownloadService>()
+                .setConstraints(constraints)
+                .setInputData(data)
+                .build()
+
+        WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
+        WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(myWorkRequest.id)
+            .observe(this) {
+                if (it.state == WorkInfo.State.SUCCEEDED) {
+                    val path = it.outputData.getString("path")
+                    viewModel.addPodcastDownloaded(
+                        podcast.copy(
+                            enclosure = Enclosure(
+                                length = null,
+                                type = null,
+                                url = path
+                            )
+                        )
+                    )
+                    Toast.makeText(requireContext(), "İndirme Tamamlandı.", Toast.LENGTH_SHORT)
+                        .show()
+
+                } else if (it.state == WorkInfo.State.FAILED) {
+
+                    Toast.makeText(requireContext(), "Hata oluştu.", Toast.LENGTH_SHORT).show()
+                    WorkManager.getInstance(requireContext()).cancelAllWork()
+
+                } else if (it.state == WorkInfo.State.RUNNING) {
+                    Toast.makeText(requireContext(), "İndirme başladı.", Toast.LENGTH_SHORT).show()
+                } else if (it.state == WorkInfo.State.ENQUEUED) {
+                    println("enqued")
+                    //viewModel.getImagesFromDatabase(this)
+                } else if (it.state == WorkInfo.State.CANCELLED) {
+                    println("cancelled")
+                }
+
+            }
     }
 
     override fun onResume() {

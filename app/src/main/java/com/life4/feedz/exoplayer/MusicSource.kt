@@ -1,6 +1,7 @@
 package com.life4.feedz.exoplayer
 
 import android.content.Context
+import android.net.Uri
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
 import android.support.v4.media.MediaDescriptionCompat
@@ -16,6 +17,7 @@ import com.life4.feedz.models.rss_.RssPaginationItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @Singleton
 class MusicSource @Inject constructor(
@@ -51,9 +53,17 @@ class MusicSource @Inject constructor(
     fun asMediaSource(dataSourceFactory: CacheDataSource.Factory): ConcatenatingMediaSource {
         val concatenatingMediaSource = ConcatenatingMediaSource()
         songs.forEach { mediaMetadataCompat ->
-            val mediaItem = MediaItem.fromUri(
-                mediaMetadataCompat.getString(METADATA_KEY_MEDIA_URI).toUri()
-            )
+            var fileUri: Uri? = null
+            val item = mediaMetadataCompat.getString(METADATA_KEY_MEDIA_URI)
+            if (item.contains(context.packageName)) {
+                val files = context.filesDir.listFiles()
+                files?.filter { it.canRead() && it.isFile && it.name.endsWith(".mp3") }
+                    ?.firstOrNull { it.absolutePath.contains(item.substringAfter("media/")) }?.let {
+                        fileUri = it.toUri()
+                    }
+            }
+
+            val mediaItem = MediaItem.fromUri(fileUri ?: item.toUri())
 
             val mediaSource = ProgressiveMediaSource
                 .Factory(dataSourceFactory)

@@ -1,12 +1,14 @@
 package com.life4.feedz.features.saved
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
+import com.life4.feedz.HomeNavigationDirections
 import com.life4.feedz.R
 import com.life4.feedz.databinding.FragmentSavedNewsBinding
 import com.life4.feedz.models.rss_.RssPaginationItem
@@ -30,9 +32,15 @@ class SavedNewsFragment :
 
     override fun setupListener() {
         getBinding().rvSavedNews.adapter = newsAdapter
+
         getBinding().refreshLayout.setOnRefreshListener {
             getAllSavedNews()
         }
+
+        getBinding().buttonGoNews.setOnClickListener {
+            findNavController().navigate(HomeNavigationDirections.actionGlobalHomeFragment())
+        }
+
         getAllSavedNews()
     }
 
@@ -54,13 +62,14 @@ class SavedNewsFragment :
     }
 
     private fun submitRecycler(itemList: List<RssPaginationItem>) {
+        getBinding().emptyLayout.isVisible = itemList.isEmpty()
         newsAdapter.submitList(itemList)
         getBinding().refreshLayout.isRefreshing = false
     }
 
     private fun newsClickListener(item: RssPaginationItem) {
         findNavController().navigate(
-            SavedNewsFragmentDirections.actionSavedNewsFragmentToNewDetailsFragment(
+            HomeNavigationDirections.actionGlobalNewsDetailsFragment(
                 item
             )
         )

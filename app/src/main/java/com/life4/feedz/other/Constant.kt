@@ -22,6 +22,14 @@ object Constant {
     const val UPDATE_PLAYER_POSITION_INTERVAL = 100L
     const val START_MEDIA_PLAYBACK_ACTION = "START_MEDIA_PLAYBACK_ACTION"
     const val REFRESH_MEDIA_BROWSER_CHILDREN = "REFRESH_MEDIA_BROWSER_CHILDREN"
+    const val DOWNLOAD_CHANNEL_NAME = "DOWNLOAD_CHANNEL_NAME"
+    const val DOWNLOAD_NOTIFICATION_ID = 2
+
+    const val KEY_FILE_TYPE = "KEY_FILE_TYPE"
+    const val KEY_FILE_URI = "KEY_FILE_URI"
+    const val KEY_FILE_URL = "KEY_FILE_URL"
+    const val KEY_FILE_NAME = "KEY_FILE_NAME"
+    const val CHANNEL_DESC = "CHANNEL_DESC"
 
     val END_PREFIX: List<String> = listOf(
         "",

@@ -7,14 +7,20 @@ import com.life4.core.core.vm.BaseViewModel
 import com.life4.feedz.exoplayer.service.MusicService
 import com.life4.feedz.exoplayer.service.MusicServiceConnection
 import com.life4.feedz.exoplayer.service.currentPlaybackPosition
+import com.life4.feedz.models.room.SavedPodcast
+import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.other.Constant.UPDATE_PLAYER_POSITION_INTERVAL
+import com.life4.feedz.room.podcast.PodcastDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PodcastDetailsViewModel @Inject constructor(private val musicServiceConnection: MusicServiceConnection) :
+class PodcastDetailsViewModel @Inject constructor(
+    private val musicServiceConnection: MusicServiceConnection,
+    private val podcastDao: PodcastDao
+) :
     BaseViewModel() {
     private val playbackState = musicServiceConnection.playbackState
     val timerState = musicServiceConnection.countDownTimer
@@ -59,5 +65,11 @@ class PodcastDetailsViewModel @Inject constructor(private val musicServiceConnec
 
     fun cancelTimer() {
         musicServiceConnection.cancelTimer()
+    }
+
+    fun addPodcastDownloaded(item: RssPaginationItem) {
+        viewModelScope.launch {
+            podcastDao.insertSavedPodcast(podcast = SavedPodcast(podcastItem = item))
+        }
     }
 }

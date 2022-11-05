@@ -79,6 +79,9 @@ object Libraries {
     val exoPlayerLibraryUI = Dependency("androidx.media3:media3-ui:${Versions.exoPlayerVersion}")
     val exoPlayerLibrarySession =
         Dependency("androidx.media3:media3-session:${Versions.exoPlayerVersion}")
+    val workManager = Dependency("androidx.work:work-runtime-ktx:${Versions.workVersion}")
+    val workManagerGcm = Dependency("androidx.work:work-gcm:${Versions.workVersion}")
+    val workManagerMulti = Dependency("androidx.work:work-multiprocess:${Versions.workVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"

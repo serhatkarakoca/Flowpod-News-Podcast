@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.life4.feedz.exoplayer.MusicSource
 import com.life4.feedz.exoplayer.service.MusicServiceConnection
 import com.life4.feedz.room.news.NewsDatabase
+import com.life4.feedz.room.podcast.PodcastDatabase
 import com.life4.feedz.room.source.SourcesDatabase
 import dagger.Module
 import dagger.Provides
@@ -35,6 +36,15 @@ object LocalModule {
     @Singleton
     @Provides
     fun injectNewsDao(database: NewsDatabase) = database.newsDao()
+
+    @Singleton
+    @Provides
+    fun injectPodcastRoomDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, PodcastDatabase::class.java, "podcast_db").build()
+
+    @Singleton
+    @Provides
+    fun injecpodcastDao(database: PodcastDatabase) = database.podcastDao()
 
     @Singleton
     @Provides

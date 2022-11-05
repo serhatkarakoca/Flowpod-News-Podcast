@@ -139,6 +139,7 @@ class MusicService : MediaBrowserServiceCompat() {
                     result.detach()
                 }
             }
+            else -> Unit
         }
     }
 
@@ -146,7 +147,6 @@ class MusicService : MediaBrowserServiceCompat() {
         super.onCustomAction(action, extras, result)
         when (action) {
             Constant.START_MEDIA_PLAYBACK_ACTION -> {
-                // notifyChildrenChanged(MEDIA_ROOT_ID)
                 podcastNotificationManager.showNotification(exoPlayer)
             }
             Constant.REFRESH_MEDIA_BROWSER_CHILDREN -> {
@@ -164,7 +164,7 @@ class MusicService : MediaBrowserServiceCompat() {
 
     private inner class MusicQueueNavigator : TimelineQueueNavigator(mediaSession) {
         override fun getMediaDescription(player: Player, windowIndex: Int): MediaDescriptionCompat {
-            return musicSource.songs.get(windowIndex).description
+            return musicSource.songs[windowIndex].description
         }
     }
 
@@ -189,9 +189,9 @@ class MusicService : MediaBrowserServiceCompat() {
     override fun onDestroy() {
         super.onDestroy()
         serviceScope.cancel()
-
         exoPlayer.removeListener(musicPlayerEventListener)
         exoPlayer.release()
+        dataSourceFactory.cache?.release()
     }
 }
 

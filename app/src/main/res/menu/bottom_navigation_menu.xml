@@ -20,7 +20,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/savedNewsFragment"
+        android:id="@+id/savedFragment"
         android:icon="@drawable/ic_round_bookmarks"
         android:title="@string/title_stack_over_flow"
         app:showAsAction="ifRoom" />

@@ -1,6 +1,7 @@
 package com.life4.feedz.features.source.podcastSource
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,7 +25,7 @@ class PodcastListFragment :
         setupViewModel(viewModel)
         observe(viewModel.state, ::onStateChanged)
         getBinding().rvPodcasts.adapter = podcastAdapter
-
+        getBinding().buttonGoNews.setOnClickListener { findNavController().popBackStack() }
     }
 
     override fun setupListener() {
@@ -38,6 +39,7 @@ class PodcastListFragment :
     }
 
     private fun setPodcastAdapter(data: PodcastResponse) {
+        getBinding().emptyLayout.isVisible = data.feeds.isNullOrEmpty()
         podcastAdapter.submitList(data.feeds?.distinct())
     }
 

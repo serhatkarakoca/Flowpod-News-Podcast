@@ -40,6 +40,7 @@ object Versions {
     const val squareupOkHttpVersion = "4.9.3"
     const val timberVersion = "5.0.1"
     const val exoPlayerVersion = "1.0.0-beta02"
+    const val workVersion = "2.7.1"
 
     // dependency level test
     const val testAndroidxTestJunitVersion = "1.1.2"

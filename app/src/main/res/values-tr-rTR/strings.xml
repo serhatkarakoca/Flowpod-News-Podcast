@@ -88,4 +88,10 @@
     <string name="are_u_sure_delete">Silmek istediğine emin misin ?</string>
     <string name="warning">Uyarı</string>
     <string name="remove">Sil</string>
+    <string name="empty_saved_news">Kaydedilen Haberiniz Bulunmuyor</string>
+    <string name="empty_podcast">Maalesef Podcast Bulamadık</string>
+    <string name="go_news">Haberlere Git</string>
+    <string name="go_back">Geri Git</string>
+    <string name="download_this_episode">Bölümü İndir</string>
+    <string name="downloading">İnidiriliyor</string>
 </resources>
