@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.life4.feedz.models.room.FlowPodcast
 import com.life4.feedz.models.room.SavedPodcast
 import kotlinx.coroutines.flow.Flow
 
@@ -19,4 +20,12 @@ interface PodcastDao {
     @Query("DELETE FROM savedPodcast WHERE id == :podcastId")
     suspend fun deleteSavedPodcast(podcastId: Long)
 
+    @Query("SELECT * FROM flowPodcast")
+    fun getAllFlowPodcasts(): Flow<List<FlowPodcast>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFlowPodcast(podcast: FlowPodcast)
+
+    @Query("DELETE FROM flowPodcast WHERE id == :podcastId")
+    suspend fun deleteFlowPodcast(podcastId: Long)
 }

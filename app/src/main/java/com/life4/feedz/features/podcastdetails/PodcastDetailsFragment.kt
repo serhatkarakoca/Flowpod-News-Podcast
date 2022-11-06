@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import android.view.LayoutInflater
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -54,6 +55,10 @@ class PodcastDetailsFragment :
 
     override fun setupListener() {
         subscribeToObservers()
+
+        observe(viewModel.isError) {
+            getBinding().isError = it
+        }
 
         observe(viewModel.timerState) {
             if (it != null && (it == "0").not()) {
@@ -268,13 +273,15 @@ class PodcastDetailsFragment :
             }
         }
         viewModel.curSongDuration.observe(viewLifecycleOwner) {
-            getBinding().seekBar.max = it.toInt()
-            val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.ROOT)
-            dateFormat.timeZone = TimeZone.getTimeZone("GMT")
-            var formattedDate = dateFormat.format(it)
-            if (formattedDate.startsWith("00:"))
-                formattedDate = formattedDate.substringAfter("00:")
-            getBinding().songDuration = formattedDate
+            if (it > 0) {
+                getBinding().seekBar.max = it.toInt()
+                val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.ROOT)
+                dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+                var formattedDate = dateFormat.format(it)
+                if (formattedDate.startsWith("00:"))
+                    formattedDate = formattedDate.substringAfter("00:")
+                getBinding().songDuration = formattedDate
+            }
         }
     }
 
@@ -299,14 +306,22 @@ class PodcastDetailsFragment :
             .observe(this) {
                 if (it.state == WorkInfo.State.SUCCEEDED) {
                     getBinding().lottieDownload.repeatCount = 1
+                    viewModel.isError.postValue(false)
 
                 } else if (it.state == WorkInfo.State.FAILED) {
                     WorkManager.getInstance(requireContext()).cancelAllWork()
                     getBinding().lottieDownload.repeatCount = 1
+                    viewModel.isError.postValue(true)
+                    Toast.makeText(
+                        requireContext(),
+                        getText(R.string.error_download),
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 } else if (it.state == WorkInfo.State.RUNNING) {
                     getBinding().lottieDownload.playAnimation()
                     getBinding().lottieDownload.repeatCount = ValueAnimator.INFINITE
+                    viewModel.isError.postValue(false)
 
                 } else if (it.state == WorkInfo.State.ENQUEUED) {
                     //enqued

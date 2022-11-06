@@ -4,21 +4,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.feedz.R
 import com.life4.feedz.databinding.ItemNewsHomeBinding
+import com.life4.feedz.models.room.SavedNews
 import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.utils.Presets
 
 class NewsHomeAdapter(
     val listener: (RssPaginationItem) -> Unit,
-    val favListener: (RssPaginationItem, Boolean) -> Unit
+    val favListener: (RssPaginationItem, Boolean) -> Unit,
+    val savedNews: MutableLiveData<List<SavedNews>>
 ) :
     PagingDataAdapter<RssPaginationItem, NewsHomeAdapter.NewsViewHolder>(DIFF_UTIL) {
 
-    class NewsViewHolder(
+    inner class NewsViewHolder(
         val binding: ItemNewsHomeBinding,
         val listener: (RssPaginationItem) -> Unit,
         val favListener: (RssPaginationItem, Boolean) -> Unit
@@ -26,9 +29,14 @@ class NewsHomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RssPaginationItem) {
             binding.news = item
+
+            item.isFavorite =
+                savedNews.value?.firstOrNull { it.newsItem?.title == item.title } != null
+
             binding.root.setOnClickListener {
                 listener(item)
             }
+
             binding.cardFav.setOnClickListener {
                 item.isFavorite = !item.isFavorite
                 if (item.isFavorite) {

@@ -2,9 +2,7 @@ package com.life4.feedz.room.news
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.life4.feedz.models.rss_.RssPaginationItem
-import com.life4.feedz.models.rss_.Enclosure
-import com.life4.feedz.models.rss_.Itunes
+import com.life4.feedz.models.rss_.*
 
 class NewsConverter {
     @TypeConverter
@@ -35,5 +33,25 @@ class NewsConverter {
     @TypeConverter
     fun toItunesHolder(sh: String?): Itunes? {
         return Gson().fromJson(sh, Itunes::class.java)
+    }
+
+    @TypeConverter
+    fun fromRssResponseHolder(sh: RssResponse?): String? {
+        return Gson().toJson(sh)
+    }
+
+    @TypeConverter
+    fun toRssResponseHolder(sh: String?): RssResponse? {
+        return Gson().fromJson(sh, RssResponse::class.java)
+    }
+
+    @TypeConverter
+    fun fromImageHolder(sh: Image?): String? {
+        return Gson().toJson(sh)
+    }
+
+    @TypeConverter
+    fun toImageHolder(sh: String?): Image? {
+        return Gson().fromJson(sh, Image::class.java)
     }
 }

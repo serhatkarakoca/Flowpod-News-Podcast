@@ -114,4 +114,6 @@
     <string name="episode_downloaded">Episode Downloaded</string>
     <string name="saved">Saved</string>
     <string name="cancel">Cancel</string>
+    <string name="error_download">An error occurred while downloading</string>
+    <string name="empty_flow_news">Your Flow Seems Empty</string>
 </resources>

@@ -5,6 +5,7 @@ import android.text.Html
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,6 +20,9 @@ import com.life4.feedz.models.rss_.Itunes
 import com.life4.feedz.models.rss_.RssPaginationItem
 import com.life4.feedz.models.rss_.RssResponse
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PodcastFragment :
@@ -26,6 +30,7 @@ class PodcastFragment :
     private val viewModel: PodcastViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
+    private var job: Job? = null
     private val podcastAdapter by lazy { PodcastAdapter(::podcastClickListener) }
     private val args: PodcastFragmentArgs by navArgs()
     private val itemDecorator by lazy {
@@ -38,6 +43,7 @@ class PodcastFragment :
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
         viewModel.getPodcastDetails(args.url)
+        getSavedPodcasts()
 
         observe(viewModel.state, ::onStateChanged)
         ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
@@ -48,7 +54,14 @@ class PodcastFragment :
     }
 
     override fun setupListener() {
-
+        getBinding().imgAddToFlow.setOnClickListener {
+            if (!viewModel.isSavedPodcast) {
+                viewModel.podcastDetails.value?.copy(feedUrl = args.url)
+                    ?.let { it1 -> viewModel.addPodcastToFlow(it1) }
+            } else {
+                viewModel.deletePodcastFromFlow()
+            }
+        }
     }
 
     private fun podcastClickListener(item: RssPaginationItem) {
@@ -74,6 +87,18 @@ class PodcastFragment :
         )
     }
 
+
+    private fun getSavedPodcasts() {
+        job?.cancel()
+        job = viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getSavedPodcasts().collectLatest {
+                viewModel.flowPodcasts.value = it
+                viewModel.isSavedPodcast =
+                    it.firstOrNull { it.podcastItem?.feedUrl == args.url } != null
+                getBinding().isSavedPodcast = viewModel.isSavedPodcast
+            }
+        }
+    }
 
     private fun onPodcastDetailsSuccess(data: RssResponse) {
         getBinding().item = data

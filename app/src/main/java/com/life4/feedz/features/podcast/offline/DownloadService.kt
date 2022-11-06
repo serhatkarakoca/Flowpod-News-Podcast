@@ -2,12 +2,10 @@ package com.life4.feedz.features.podcast.offline
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.life4.feedz.R
 import com.life4.feedz.models.room.SavedPodcast
 import com.life4.feedz.models.rss_.Enclosure
 import com.life4.feedz.models.rss_.RssPaginationItem
@@ -50,15 +48,10 @@ class DownloadService @AssistedInject constructor(
             if (path != null) {
                 podcast ?: Result.failure()
                 addPodcastDownloaded(podcast!!, path!!)
-
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.episode_downloaded),
-                    Toast.LENGTH_SHORT
-                ).show()
                 Result.success(workDataOf("path" to path))
-            } else
+            } else {
                 Result.failure()
+            }
 
         } catch (e: Exception) {
             e.printStackTrace()

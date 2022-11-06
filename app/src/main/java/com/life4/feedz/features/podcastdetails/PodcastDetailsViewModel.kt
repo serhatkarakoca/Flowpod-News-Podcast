@@ -25,6 +25,8 @@ class PodcastDetailsViewModel @Inject constructor(
     BaseViewModel() {
 
     var isDownloaded: Boolean = false
+    var isError = MutableLiveData<Boolean>(false)
+
     val downloadedPodcasts = MutableLiveData<List<SavedPodcast>>()
 
     private val playbackState = musicServiceConnection.playbackState
@@ -84,5 +86,6 @@ class PodcastDetailsViewModel @Inject constructor(
                 }
             }
         isDownloaded = false
+        isError.value = false
     }
 }

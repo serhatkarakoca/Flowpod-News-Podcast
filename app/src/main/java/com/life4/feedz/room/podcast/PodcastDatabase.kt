@@ -3,11 +3,12 @@ package com.life4.feedz.room.podcast
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.life4.feedz.models.room.FlowPodcast
 import com.life4.feedz.models.room.SavedPodcast
 import com.life4.feedz.room.news.NewsConverter
 
 @Database(
-    entities = [SavedPodcast::class],
+    entities = [SavedPodcast::class, FlowPodcast::class],
     version = 1,
     exportSchema = false
 )

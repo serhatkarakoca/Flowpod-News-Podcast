@@ -100,4 +100,6 @@
     <string name="cancel">Vazgeç</string>
     <string name="episode_downloaded">Bölüm İndirildi</string>
     <string name="delete_this_episode">Bölümü İndirilenlerden Sil</string>
+    <string name="error_download">İndirilirken Hata Meydana Geldi</string>
+    <string name="empty_flow_news">Akışın Boş Görünüyor !</string>
 </resources>

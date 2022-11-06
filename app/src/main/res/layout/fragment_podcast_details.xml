@@ -20,6 +20,10 @@
             name="isDownloaded"
             type="Boolean" />
 
+        <variable
+            name="isError"
+            type="Boolean" />
+
         <import type="android.view.View" />
 
     </data>
@@ -28,10 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:visibility="@{songDuration == null ? View.VISIBLE : View.GONE}"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_lottie"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:padding="16dp"
-                android:visibility="gone"
                 android:src="@drawable/ic_more_vert"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -205,10 +212,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="2dp"
-                app:lottie_colorFilter="@color/blue_grotto"
-                android:visibility="@{isDownloaded ? View.GONE:View.VISIBLE}"
+                android:visibility="@{isDownloaded ? View.GONE : isError ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:lottie_colorFilter="@color/blue_grotto"
                 app:lottie_rawRes="@raw/lottie_downloading"
                 tools:visibility="gone" />
 
@@ -218,8 +225,8 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="12dp"
-                android:src="@drawable/ic_round_check_circle_green"
-                android:visibility="@{isDownloaded ? View.VISIBLE:View.GONE}"
+                android:src="@{isDownloaded ? @drawable/ic_round_check_circle_green : @drawable/ic_round_error}"
+                android:visibility="@{isDownloaded ? View.VISIBLE: isError ? View.VISIBLE:View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

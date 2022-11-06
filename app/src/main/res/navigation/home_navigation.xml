@@ -88,8 +88,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/flowFragment"
-        android:name="com.life4.feedz.features.flow.FlowFragment"
+        android:id="@+id/newsFlowFragment"
+        android:name="com.life4.feedz.features.flow.NewsFlowFragment"
         android:label="@string/flow">
         <action
             android:id="@+id/action_flowFragment_to_newDetailsFragment"
@@ -201,5 +201,13 @@
         android:id="@+id/savedPodcastFragment"
         android:name="com.life4.feedz.features.saved.savedpodcast.SavedPodcastFragment"
         android:label="SavedPodcastFragment" />
+    <fragment
+        android:id="@+id/flowFragment"
+        android:name="com.life4.feedz.features.flow.FlowFragment"
+        android:label="FlowFragment" />
+    <fragment
+        android:id="@+id/podcastFlowFragment"
+        android:name="com.life4.feedz.features.flow.PodcastFlowFragment"
+        android:label="PodcastFlowFragment" />
 
 </navigation>

@@ -8,6 +8,10 @@
             name="item"
             type="com.life4.feedz.models.rss_.RssResponse" />
 
+        <variable
+            name="isSavedPodcast"
+            type="Boolean" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,6 +29,15 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll">
 
+
+                <ImageView
+                    android:id="@+id/img_add_to_flow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@{isSavedPodcast? @drawable/ic_library_add_check :@drawable/ic_library_add}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_margin="16dp" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/img_logo"

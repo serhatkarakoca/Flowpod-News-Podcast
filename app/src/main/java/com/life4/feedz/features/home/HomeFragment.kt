@@ -25,12 +25,20 @@ class HomeFragment :
     BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
     private lateinit var settings: MenuItem
     private val viewModel: HomeViewModel by viewModels()
-    private val newsAdapter by lazy { NewsHomeAdapter(::newsClickListener, ::favClickListener) }
+    private val newsAdapter by lazy {
+        NewsHomeAdapter(
+            ::newsClickListener,
+            ::favClickListener,
+            viewModel.savedNews
+        )
+    }
     private var pagingJobHome: Job? = null
     private var job: Job? = null
+
     override fun setupListener() {
         getBinding().rvNews.adapter =
             newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
+
         getBinding().refreshLayout.setOnRefreshListener {
             newsAdapter.refresh()
             getBinding().refreshLayout.isRefreshing = false
@@ -39,7 +47,7 @@ class HomeFragment :
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        //getAllSavedNews()
+        getAllSavedNews()
         getViewModel().getSources {
             pagingJobHome?.cancel()
             pagingJobHome = viewLifecycleOwner.lifecycleScope.launch {
@@ -51,7 +59,8 @@ class HomeFragment :
     }
 
     private fun getAllSavedNews() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        job?.cancel()
+        job = viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getAllSavedNews().collectLatest {
                 viewModel.savedNews.value = it
             }
@@ -79,9 +88,13 @@ class HomeFragment :
 
     override fun onResume() {
         super.onResume()
-        getAllSavedNews()
         getBinding().user =
             FirebaseAuth.getInstance().currentUser?.displayName?.substringBefore(" ")
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        job = null
     }
 }
