@@ -82,6 +82,8 @@ object Libraries {
     val workManager = Dependency("androidx.work:work-runtime-ktx:${Versions.workVersion}")
     val workManagerGcm = Dependency("androidx.work:work-gcm:${Versions.workVersion}")
     val workManagerMulti = Dependency("androidx.work:work-multiprocess:${Versions.workVersion}")
+    val workManagerHilt = Dependency("androidx.hilt:hilt-work:${Versions.workHiltVersion}")
+    val lottie = Dependency("com.airbnb.android:lottie:${Versions.lottieVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"

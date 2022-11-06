@@ -13,6 +13,7 @@ import com.life4.feedz.other.Constant.UPDATE_PLAYER_POSITION_INTERVAL
 import com.life4.feedz.room.podcast.PodcastDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +23,10 @@ class PodcastDetailsViewModel @Inject constructor(
     private val podcastDao: PodcastDao
 ) :
     BaseViewModel() {
+
+    var isDownloaded: Boolean = false
+    val downloadedPodcasts = MutableLiveData<List<SavedPodcast>>()
+
     private val playbackState = musicServiceConnection.playbackState
     val timerState = musicServiceConnection.countDownTimer
 
@@ -67,9 +72,17 @@ class PodcastDetailsViewModel @Inject constructor(
         musicServiceConnection.cancelTimer()
     }
 
-    fun addPodcastDownloaded(item: RssPaginationItem) {
-        viewModelScope.launch {
-            podcastDao.insertSavedPodcast(podcast = SavedPodcast(podcastItem = item))
-        }
+    fun getDownloadedPodcasts(): Flow<List<SavedPodcast>> {
+        return podcastDao.getAllSavedPodcasts()
+    }
+
+    fun deleteDownloadedPodcast(item: RssPaginationItem) {
+        downloadedPodcasts.value?.firstOrNull { item.title == it.podcastItem?.title }
+            ?.let {
+                viewModelScope.launch {
+                    podcastDao.deleteSavedPodcast(it.id)
+                }
+            }
+        isDownloaded = false
     }
 }

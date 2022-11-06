@@ -16,5 +16,7 @@ data class Itunes(
     @SerializedName("owner")
     val owner: Owner?,
     @SerializedName("summary")
-    val summary: String?
+    val summary: String?,
+    @SerializedName("duration")
+    val duration: String?
 ) : Parcelable

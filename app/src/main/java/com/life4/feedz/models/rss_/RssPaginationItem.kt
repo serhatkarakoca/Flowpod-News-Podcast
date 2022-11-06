@@ -50,7 +50,8 @@ data class RssPaginationItem(
     @Expose
     var categoryId: Int?,
     var pKey: String? = "0",
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var isDownloaded: Boolean = false
 ) : Parcelable {
     fun getHtmlContent(): String? {
         val content = contentEncoded ?: content

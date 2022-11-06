@@ -43,6 +43,8 @@ object AppDependencies {
         add(Libraries.workManager)
         add(Libraries.workManagerGcm)
         add(Libraries.workManagerMulti)
+        add(Libraries.workManagerHilt)
+        add(Libraries.lottie)
         //add(Libraries.exoPlayerLibrary)
         //add(Libraries.exoPlayerLibrarySession)
         //add(Libraries.exoPlayerLibraryDash)
@@ -64,6 +66,7 @@ object AppDependencies {
         add(Libraries.roomCompiler)
         add(Libraries.glideCompiler)
         add(Libraries.hiltAndroidCompiler)
+        add(Libraries.hiltWorkCompiler)
     }
     val compilerTestLibraries = arrayListOf<Dependency>().apply {
     }

@@ -18,7 +18,7 @@ fun MediaMetadataCompat.toPodcast(): RssPaginationItem? {
                 author = it.subtitle.toString(),
                 explicit = null,
                 owner = null,
-                summary = null
+                summary = null, duration = null
             ),
             author = null,
             comments = null,

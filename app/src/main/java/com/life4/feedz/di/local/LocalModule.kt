@@ -44,7 +44,7 @@ object LocalModule {
 
     @Singleton
     @Provides
-    fun injecpodcastDao(database: PodcastDatabase) = database.podcastDao()
+    fun injectPodcastDao(database: PodcastDatabase) = database.podcastDao()
 
     @Singleton
     @Provides

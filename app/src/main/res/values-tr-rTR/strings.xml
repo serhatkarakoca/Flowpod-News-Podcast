@@ -94,4 +94,10 @@
     <string name="go_back">Geri Git</string>
     <string name="download_this_episode">Bölümü İndir</string>
     <string name="downloading">İnidiriliyor</string>
+    <string name="saved">Kaydedilenler</string>
+    <string name="empty_download_podcast">İndirilen podcastiniz bulunmuyor</string>
+    <string name="go_podcast">Podcast\'leri Keşfedin</string>
+    <string name="cancel">Vazgeç</string>
+    <string name="episode_downloaded">Bölüm İndirildi</string>
+    <string name="delete_this_episode">Bölümü İndirilenlerden Sil</string>
 </resources>

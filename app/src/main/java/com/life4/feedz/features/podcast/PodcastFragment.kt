@@ -61,7 +61,8 @@ class PodcastFragment :
                     author = item.itunes?.author,
                     explicit = null,
                     owner = item.itunes?.owner,
-                    summary = null
+                    summary = null,
+                    duration = item.itunes?.duration
                 )
             )
         }
@@ -90,7 +91,8 @@ class PodcastFragment :
                             author = viewModel.podcastDetails.value?.title,
                             explicit = null,
                             owner = viewModel.podcastDetails.value?.itunes?.owner,
-                            summary = null
+                            summary = null,
+                            duration = it.itunes?.duration
                         )
                     )
                     items.add(copyItem)
@@ -101,7 +103,8 @@ class PodcastFragment :
                             author = viewModel.podcastDetails.value?.title,
                             explicit = null,
                             owner = viewModel.podcastDetails.value?.itunes?.owner,
-                            summary = null
+                            summary = null,
+                            duration = it.itunes?.duration
                         )
                     )
                     items.add(copyItem)

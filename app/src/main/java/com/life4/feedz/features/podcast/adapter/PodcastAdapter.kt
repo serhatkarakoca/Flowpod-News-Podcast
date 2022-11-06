@@ -10,19 +10,25 @@ import com.life4.feedz.R
 import com.life4.feedz.databinding.ItemPodcastBinding
 import com.life4.feedz.models.rss_.RssPaginationItem
 
-class PodcastAdapter(val listener: (RssPaginationItem) -> Unit) :
+class PodcastAdapter(
+    val listener: (RssPaginationItem) -> Unit,
+    val trashListener: ((RssPaginationItem) -> Unit)? = null
+) :
     ListAdapter<RssPaginationItem, PodcastAdapter.SourceViewHolder>(DIFF_UTIL) {
 
     class SourceViewHolder(
         private val binding: ItemPodcastBinding,
-        private val listener: (RssPaginationItem) -> Unit
+        private val listener: (RssPaginationItem) -> Unit,
+        val trashListener: ((RssPaginationItem) -> Unit)? = null
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RssPaginationItem) {
             binding.item = item
             binding.root.setOnClickListener {
-
                 listener(item)
+            }
+            binding.imgTrash.setOnClickListener {
+                trashListener?.let { it1 -> it1(item) }
             }
         }
     }
@@ -35,7 +41,7 @@ class PodcastAdapter(val listener: (RssPaginationItem) -> Unit) :
             parent,
             false
         )
-        return SourceViewHolder(binding, listener)
+        return SourceViewHolder(binding, listener, trashListener)
     }
 
     override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {

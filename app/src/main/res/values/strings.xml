@@ -103,9 +103,15 @@
     <string name="warning">Uyarı</string>
     <string name="remove">Remove</string>
     <string name="empty_saved_news">There is No News You Have Saved</string>
+    <string name="empty_download_podcast">No downloaded podcasts</string>
     <string name="empty_podcast">There is No Podcast</string>
     <string name="go_news">Go To News</string>
+    <string name="go_podcast">Explore Podcasts</string>
     <string name="go_back">Go Back</string>
     <string name="download_this_episode">Download this episode</string>
+    <string name="delete_this_episode">Delete this episode</string>
     <string name="downloading">Downloding</string>
+    <string name="episode_downloaded">Episode Downloaded</string>
+    <string name="saved">Saved</string>
+    <string name="cancel">Cancel</string>
 </resources>

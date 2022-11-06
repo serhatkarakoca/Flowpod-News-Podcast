@@ -2,6 +2,7 @@ package com.life4.feedz.features.saved
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.life4.core.core.view.BaseFragment
@@ -50,7 +51,9 @@ class SavedFragment :
                 currentFragmentPosition = position
             }
         })
-
+        getBinding().toolbar.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 }

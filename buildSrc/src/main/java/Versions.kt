@@ -41,6 +41,8 @@ object Versions {
     const val timberVersion = "5.0.1"
     const val exoPlayerVersion = "1.0.0-beta02"
     const val workVersion = "2.7.1"
+    const val workHiltVersion = "1.0.0"
+    const val lottieVersion = "5.2.0"
 
     // dependency level test
     const val testAndroidxTestJunitVersion = "1.1.2"

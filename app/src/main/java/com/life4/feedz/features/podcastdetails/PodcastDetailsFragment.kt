@@ -1,17 +1,19 @@
 package com.life4.feedz.features.podcastdetails
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import android.view.LayoutInflater
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.work.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
@@ -23,9 +25,12 @@ import com.life4.feedz.exoplayer.service.isPlaying
 import com.life4.feedz.exoplayer.toPodcast
 import com.life4.feedz.features.main.MainViewModel
 import com.life4.feedz.features.podcast.offline.DownloadService
-import com.life4.feedz.models.rss_.Enclosure
 import com.life4.feedz.models.rss_.RssPaginationItem
+import com.life4.feedz.utils.serializeToJson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,12 +41,14 @@ class PodcastDetailsFragment :
     private val viewModel: PodcastDetailsViewModel by viewModels()
     private val args: PodcastDetailsFragmentArgs by navArgs()
 
+    private var job: Job? = null
     private var curPlayingSong: RssPaginationItem? = null
     private var playbackState: PlaybackStateCompat? = null
     private var shouldUpdateSeekbar = true
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+        getDownloadedPodcasts()
         getBinding().item = args.podcast
     }
 
@@ -95,6 +102,38 @@ class PodcastDetailsFragment :
 
         }
 
+        getBinding().lottieDownload.setOnClickListener {
+            args.podcast.enclosure?.url ?: return@setOnClickListener
+            downloadFileFromUrl(args.podcast)
+        }
+
+        getBinding().iconDownloaded.setOnClickListener {
+            args.podcast.enclosure?.url ?: return@setOnClickListener
+            if (viewModel.isDownloaded) {
+                MaterialAlertDialogBuilder(requireContext()).apply {
+                    setTitle(getString(R.string.warning))
+                    setMessage(getString(R.string.are_u_sure_delete))
+                    setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+                    setPositiveButton(getString(R.string.remove)) { dialog, _ ->
+                        val files = requireContext().filesDir.listFiles()
+                        files?.let {
+                            files.filter { it.canRead() && it.isFile && it.name.endsWith(".mp3") }
+                                .firstOrNull {
+                                    it.absolutePath.contains(
+                                        args.podcast.enclosure?.url?.substringAfter("/media")
+                                            .toString()
+                                    )
+                                }?.delete()
+                        }
+                        viewModel.deleteDownloadedPodcast(args.podcast)
+                        getBinding().lottieDownload.repeatCount = 1
+                        getBinding().executePendingBindings()
+                        dialog.dismiss()
+                    }
+                }.show()
+            }
+        }
+
         getBinding().seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -125,14 +164,18 @@ class PodcastDetailsFragment :
                 false
             )
 
-            binding.layoutDownload.setOnClickListener {
+            binding.root.setOnClickListener {
                 args.podcast.enclosure?.url ?: return@setOnClickListener
-                val fileName =
-                    args.podcast.itunes?.author + args.podcast.title.slice(0..10) + ".mp3".replace(
-                        " ",
-                        ""
-                    )
-                downloadFileFromUrl(args.podcast, fileName)
+                val files = requireContext().filesDir.listFiles()
+                files?.let {
+                    files.filter { it.canRead() && it.isFile && it.name.endsWith(".mp3") }
+                        .firstOrNull {
+                            it.absolutePath.contains(
+                                args.podcast.enclosure?.url?.substringAfter("/media").toString()
+                            )
+                        }?.delete()
+                }
+                viewModel.deleteDownloadedPodcast(args.podcast)
                 dismiss()
             }
 
@@ -236,10 +279,10 @@ class PodcastDetailsFragment :
     }
 
 
-    private fun downloadFileFromUrl(podcast: RssPaginationItem, filename: String) {
+    private fun downloadFileFromUrl(podcast: RssPaginationItem) {
 
         val data = Data.Builder().putStringArray("url", arrayOf(podcast.enclosure?.url ?: ""))
-            .putStringArray("fileName", arrayOf(filename))
+            .putString("podcastItem", serializeToJson(podcast))
             .build()
 
         val constraints = Constraints.Builder()
@@ -255,34 +298,36 @@ class PodcastDetailsFragment :
         WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(myWorkRequest.id)
             .observe(this) {
                 if (it.state == WorkInfo.State.SUCCEEDED) {
-                    val path = it.outputData.getString("path")
-                    viewModel.addPodcastDownloaded(
-                        podcast.copy(
-                            enclosure = Enclosure(
-                                length = null,
-                                type = null,
-                                url = path
-                            )
-                        )
-                    )
-                    Toast.makeText(requireContext(), "İndirme Tamamlandı.", Toast.LENGTH_SHORT)
-                        .show()
+                    getBinding().lottieDownload.repeatCount = 1
 
                 } else if (it.state == WorkInfo.State.FAILED) {
-
-                    Toast.makeText(requireContext(), "Hata oluştu.", Toast.LENGTH_SHORT).show()
                     WorkManager.getInstance(requireContext()).cancelAllWork()
+                    getBinding().lottieDownload.repeatCount = 1
 
                 } else if (it.state == WorkInfo.State.RUNNING) {
-                    Toast.makeText(requireContext(), "İndirme başladı.", Toast.LENGTH_SHORT).show()
+                    getBinding().lottieDownload.playAnimation()
+                    getBinding().lottieDownload.repeatCount = ValueAnimator.INFINITE
+
                 } else if (it.state == WorkInfo.State.ENQUEUED) {
-                    println("enqued")
-                    //viewModel.getImagesFromDatabase(this)
+                    //enqued
                 } else if (it.state == WorkInfo.State.CANCELLED) {
-                    println("cancelled")
+                    WorkManager.getInstance(requireContext()).cancelAllWork()
+                    getBinding().lottieDownload.repeatCount = 1
                 }
 
             }
+    }
+
+    private fun getDownloadedPodcasts() {
+        job?.cancel()
+        job = viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getDownloadedPodcasts().collectLatest { it ->
+                viewModel.isDownloaded =
+                    it.firstOrNull { args.podcast.title == it.podcastItem?.title } != null
+                getBinding().isDownloaded = viewModel.isDownloaded
+                viewModel.downloadedPodcasts.value = it
+            }
+        }
     }
 
     override fun onResume() {
@@ -293,6 +338,5 @@ class PodcastDetailsFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         mainViewModel.bottomPlayBackVisibility.postValue(true)
-
     }
 }
