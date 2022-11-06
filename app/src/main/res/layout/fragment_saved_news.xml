@@ -23,12 +23,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
-                    <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:src="@drawable/placeholder_empty" />
+                        android:layout_marginHorizontal="42dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/lottie_news" />
 
                     <TextView
                         android:layout_width="match_parent"

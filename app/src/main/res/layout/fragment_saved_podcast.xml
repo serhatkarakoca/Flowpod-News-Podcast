@@ -11,12 +11,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
-            <ImageView
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_podcast"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:src="@drawable/placeholder_empty" />
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/lottie_podcast" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -46,6 +49,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="16dp"
+            tools:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintEnd_toEndOf="parent"
