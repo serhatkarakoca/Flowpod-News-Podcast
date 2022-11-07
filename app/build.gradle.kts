@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.*
+
 // /*
 // * Designed and developed by 2021 Batuhan Demir
 // *
@@ -38,20 +41,18 @@ android {
         dataBinding = true
         viewBinding = true
     }
-    // signingConfigs {
-    //     getByName("debug") {
-    //         storeFile = rootProject.file(gradleLocalProperties(rootDir).getProperty("keystore_path"))
-    //         storePassword = gradleLocalProperties(rootDir).getProperty("keystore_password")
-    //         keyAlias = gradleLocalProperties(rootDir).getProperty("key_alias")
-    //         keyPassword = gradleLocalProperties(rootDir).getProperty("key_alias_password")
-    //     }
-    //     create("release") {
-    //         storeFile = rootProject.file(gradleLocalProperties(rootDir).getProperty("keystore_path"))
-    //         storePassword = gradleLocalProperties(rootDir).getProperty("keystore_password")
-    //         keyAlias = gradleLocalProperties(rootDir).getProperty("key_alias")
-    //         keyPassword = gradleLocalProperties(rootDir).getProperty("key_alias_password")
-    //     }
-    // }
+
+    signingConfigs {
+        create("release") {
+            val properties = Properties()
+            properties.load(FileInputStream(project.rootProject.file("gradle.properties")))
+            storeFile = file(properties.getProperty("STORE_FILE"))
+            storePassword = properties.getProperty("STORE_PASSWORD")
+            keyPassword = properties.getProperty("KEY_PASSWORD")
+            keyAlias = properties.getProperty("KEY_ALIAS")
+        }
+    }
+
     buildTypes {
         all {
             this.buildConfigField(
@@ -81,8 +82,9 @@ android {
                 "app_name",
                 "Flowpod - Debug"
             )
-            // signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("debug")
             //applicationIdSuffix = ".debug"
+            isDebuggable = true
         }
         release {
             this.resValue(
@@ -90,7 +92,7 @@ android {
                 "app_name",
                 "Flowpod"
             )
-            // signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
@@ -126,7 +128,7 @@ dependencies {
     implementation(project.dependencies.platform(Libraries.firebaseCrashlytics))
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.annotation:annotation:1.2.0")
+    implementation("androidx.annotation:annotation:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
@@ -152,4 +154,9 @@ enum class BuildType(val value: String) {
 
 kotlin.sourceSets.all {
     languageSettings.optIn("kotlin.RequiresOptIn")
+}
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+    }
 }

@@ -1,2 +1,2 @@
 include("app", ":core")
-rootProject.name = "Template"
+rootProject.name = "FlowPod"

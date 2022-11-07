@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.LottieAnimationView
 import com.life4.core.R
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.core.extensions.await
@@ -24,8 +23,8 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> constructor(
     private var binding: B? = null
     private var progressDialog: Dialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         beforeOnCreated()
+        super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
         setupDefinition(savedInstanceState)
         setupData()
@@ -93,7 +92,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> constructor(
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 setCancelable(false)
                 setContentView(R.layout.view_progress)
-                val image = findViewById<LottieAnimationView>(R.id.progress)
+                //val image = findViewById<LottieAnimationView>(R.id.progress)
                 // Glide.with(this@BaseActivity).load(R.drawable.loading).into(image)
             }
         }

@@ -6,7 +6,7 @@
     app:startDestination="@id/home_navigation">
 
     <include
-        android:id="@+id/home_navigation"
+        android:id="@+id/homeNavigation"
         app:graph="@navigation/home_navigation" />
 
 </navigation>

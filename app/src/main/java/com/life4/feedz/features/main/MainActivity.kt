@@ -2,6 +2,7 @@ package com.life4.feedz.features.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
@@ -23,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
     private val viewModel: MainViewModel by viewModels()
+    private var splashScreen: SplashScreen? = null
     override fun onSupportNavigateUp(): Boolean =
         findNavController(R.id.navigation_host_fragment).navigateUp()
 
@@ -35,11 +37,12 @@ class MainActivity :
     }
 
     override fun beforeOnCreated() {
-        installSplashScreen().setKeepOnScreenCondition { viewModel.cachedData }
+        splashScreen = installSplashScreen()
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+        splashScreen?.setKeepOnScreenCondition { viewModel.cachedData }
         viewModel.getCachedData()
         val toolbar = getBinding().toolbar
         val bottomNavigationView = getBinding().bottomNavigationView

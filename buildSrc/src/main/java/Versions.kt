@@ -1,12 +1,12 @@
 // version constants for the Kotlin DSL dependencies
 object Versions {
     // app level
-    const val gradle = "7.1.2"
+    const val gradle = "7.1.3"
     const val kotlin = "1.6.10"
 
     // dependency level
     const val androidCoreSplashScreen = "1.0.0-beta02"
-    const val androidxAppCompatVersion = "1.4.1"
+    const val androidxAppCompatVersion = "1.5.1"
     const val androidxArchCoreVersion = "2.1.0"
     const val androidxConstraintLayoutVersion = "2.1.3"
     const val androidxCoreVersion = "1.7.0"
@@ -34,7 +34,7 @@ object Versions {
     const val githubLingverVersion = "1.3.0"
     const val githubMPAndroidChartVersion = "v3.1.0"
     const val googleMaterialVersion = "1.5.0"
-    const val googleHiltVersion = "2.41"
+    const val googleHiltVersion = "2.42"
     const val jetBrainsCoroutinesVersion = "1.6.0"
     const val squareupRetrofitVersion = "2.9.0"
     const val squareupOkHttpVersion = "4.9.3"

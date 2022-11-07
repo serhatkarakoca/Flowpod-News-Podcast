@@ -32,6 +32,7 @@ class PodcastSourceFragment :
     private fun onStateChanged(state: PodcastSourceViewModel.State) {
         when (state) {
             is PodcastSourceViewModel.State.OnPodcastCategorySuccess -> setPodcastAdapter(state.source)
+            else -> Unit
         }
     }
 
