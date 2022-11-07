@@ -4,13 +4,6 @@
     package="com.life4.core">
 
     <application>
-        <receiver
-            android:name="com.life4.core.manager.hdmi.MyHdmiReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.HDMI_PLUGGED" />
-            </intent-filter>
-        </receiver>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

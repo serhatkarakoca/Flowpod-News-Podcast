@@ -5,7 +5,6 @@ import android.support.v4.media.MediaMetadataCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.ExperimentalPagingApi
 import com.life4.core.core.vm.BaseViewModel
 import com.life4.core.models.Resource
 import com.life4.feedz.exoplayer.service.MusicServiceConnection
@@ -76,8 +75,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalPagingApi::class)
-    fun getHomeNews(onComplete: () -> Unit) {
+    private fun getHomeNews(onComplete: () -> Unit) {
         feedzRepository.getSiteData(RssRequest(siteData.value?.sourceList?.filter { it.categoryId != Constant.SPORT_NEWS }
             ?.mapNotNull { it.siteUrl } ?: listOf()))
             .handle(requestType = RequestType.CUSTOM, onComplete = {
