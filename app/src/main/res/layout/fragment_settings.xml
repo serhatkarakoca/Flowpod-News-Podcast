@@ -40,7 +40,7 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text='@{isLogin ? "Giriş Yapılan Hesap":"Giriş Yapmamış Görünüyorsunuz"}'
+                android:text='@{isLogin ? @string/login_account : @string/seems_unlogin}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +73,7 @@
                 android:layout_margin="24dp"
                 android:backgroundTint="@color/gray"
                 android:stateListAnimator="@null"
-                android:text='@{isLogin?"Çıkış Yap":"Giriş Yap"}'
+                android:text='@{isLogin? @string/logout : @string/login}'
                 tools:text="Çıkış Yap" />
 
             <CheckBox
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:checked="@{browserCheck}"
-                android:text="Haberleri Uygulama İçinde Aç" />
+                android:text="@string/news_open_in_app" />
 
             <TextView
                 android:layout_width="match_parent"

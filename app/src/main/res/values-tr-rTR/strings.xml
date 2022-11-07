@@ -102,4 +102,9 @@
     <string name="delete_this_episode">Bölümü İndirilenlerden Sil</string>
     <string name="error_download">İndirilirken Hata Meydana Geldi</string>
     <string name="empty_flow_news">Akışın Boş Görünüyor !</string>
+    <string name="login">Giriş Yap</string>
+    <string name="logout">Çıkış Yap</string>
+    <string name="news_open_in_app">Haberleri Uygulama İçinde Aç</string>
+    <string name="login_account">Giriş Yapılan Hesap</string>
+    <string name="seems_unlogin">Giriş Yapmamış Görünüyorsunuz</string>
 </resources>

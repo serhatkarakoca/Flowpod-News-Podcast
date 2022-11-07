@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Constant -->
-    <string name="domain" translatable="false">https://batdemir.com</string>
-    <string name="privacy_link" translatable="false">https://sites.google.com/view/agile-poker/home</string>
+    <string name="domain" translatable="false">https://serhatkarakoca.com</string>
+    <string name="privacy_link" translatable="false">https://sites.google.com/view/life4apps/</string>
     <string name="string_empty" translatable="false" />
     <string name="number_zero" translatable="false">0</string>
     <string name="notification_name" translatable="false">@string/app_name</string>
@@ -116,4 +116,9 @@
     <string name="cancel">Cancel</string>
     <string name="error_download">An error occurred while downloading</string>
     <string name="empty_flow_news">Your Flow Seems Empty</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="news_open_in_app">Open the News Within the Application</string>
+    <string name="login_account">Logged In Account</string>
+    <string name="seems_unlogin">You Seem Not Logged In</string>
 </resources>
