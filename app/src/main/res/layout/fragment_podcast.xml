@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.life4.feedz.models.rss_.RssResponse" />
+            type="com.life4.flowpod.models.rss_.RssResponse" />
 
         <variable
             name="isSavedPodcast"

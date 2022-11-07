@@ -7,7 +7,7 @@
 
         <variable
             name="site"
-            type="androidx.lifecycle.MutableLiveData&lt;com.life4.feedz.models.rss_.RssResponse>" />
+            type="androidx.lifecycle.MutableLiveData&lt;com.life4.flowpod.models.rss_.RssResponse>" />
 
         <variable
             name="progressStatus"

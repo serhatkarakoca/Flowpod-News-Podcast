@@ -7,7 +7,7 @@
 
         <variable
             name="podcast"
-            type="com.life4.feedz.models.rss_.RssPaginationItem" />
+            type="com.life4.flowpod.models.rss_.RssPaginationItem" />
 
         <import type="android.view.View" />
     </data>

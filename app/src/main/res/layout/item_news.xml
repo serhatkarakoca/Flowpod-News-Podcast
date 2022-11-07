@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.life4.feedz.models.rss_.RssPaginationItem" />
+            type="com.life4.flowpod.models.rss_.RssPaginationItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

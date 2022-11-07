@@ -25,8 +25,8 @@
 #-keep class junit.** { *; }
 
 #Model
--keep class com.life4.feedz.models.** { *; }
--keepclassmembers class com.life4.feedz.models.** { *; }
+-keep class com.life4.flowpod.models.** { *; }
+-keepclassmembers class com.life4.flowpod.models.** { *; }
 
 #Retrofit
 -keepattributes Signature, InnerClasses, EnclosingMethod

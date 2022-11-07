@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.life4.feedz.models.source.RssFeedResponseItem" />
+            type="com.life4.flowpod.models.source.RssFeedResponseItem" />
 
     </data>
 

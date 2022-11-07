@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.life4.feedz.features.home.HomeFragment"
+        android:name="com.life4.flowpod.features.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -57,7 +57,7 @@
         android:label="@string/title_settings" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.life4.feedz.features.settings.SettingsFragment"
+        android:name="com.life4.flowpod.features.settings.SettingsFragment"
         android:label="@string/title_settings">
         <action
             android:id="@+id/action_settingsFragment2_to_settingsFragment"
@@ -71,16 +71,16 @@
     </fragment>
     <fragment
         android:id="@+id/newDetailsFragment"
-        android:name="com.life4.feedz.features.newsdetails.NewsDetailsFragment"
+        android:name="com.life4.flowpod.features.newsdetails.NewsDetailsFragment"
         android:label="NewDetailsFragment">
         <argument
             android:name="news"
-            app:argType="com.life4.feedz.models.rss_.RssPaginationItem" />
+            app:argType="com.life4.flowpod.models.rss_.RssPaginationItem" />
     </fragment>
 
     <fragment
         android:id="@+id/sourceFragment"
-        android:name="com.life4.feedz.features.source.SourceFragment"
+        android:name="com.life4.flowpod.features.source.SourceFragment"
         android:label="@string/content_store">
         <action
             android:id="@+id/action_sourceFragment_to_searchFragment"
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/newsFlowFragment"
-        android:name="com.life4.feedz.features.flow.NewsFlowFragment"
+        android:name="com.life4.flowpod.features.flow.NewsFlowFragment"
         android:label="@string/flow">
         <action
             android:id="@+id/action_flowFragment_to_newDetailsFragment"
@@ -97,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.life4.feedz.features.search.SearchFragment"
+        android:name="com.life4.flowpod.features.search.SearchFragment"
         android:label="@string/search">
         <action
             android:id="@+id/action_searchFragment_to_newsFragment"
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.life4.feedz.features.news.NewsFragment"
+        android:name="com.life4.flowpod.features.news.NewsFragment"
         android:label="@string/results">
         <argument
             android:name="siteUrl"
@@ -122,7 +122,7 @@
             app:destination="@id/newDetailsFragment" />
         <argument
             android:name="rssResponse"
-            app:argType="com.life4.feedz.models.rss_.RssResponse" />
+            app:argType="com.life4.flowpod.models.rss_.RssResponse" />
         <argument
             android:name="isPodcast"
             android:defaultValue="false"
@@ -130,7 +130,7 @@
     </fragment>
     <fragment
         android:id="@+id/userSourcesFragment"
-        android:name="com.life4.feedz.features.usersources.UserSourcesFragment"
+        android:name="com.life4.flowpod.features.usersources.UserSourcesFragment"
         android:label="@string/your_content_provider">
         <action
             android:id="@+id/action_userSourcesFragment_to_newsFragment"
@@ -138,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="com.life4.feedz.features.saved.SavedNewsFragment"
+        android:name="com.life4.flowpod.features.saved.SavedNewsFragment"
         android:label="@string/saved_news"
         tools:layout="@layout/fragment_saved_news">
         <action
@@ -147,15 +147,15 @@
     </fragment>
     <fragment
         android:id="@+id/sourcesListFragment"
-        android:name="com.life4.feedz.features.source.sourcesList.SourcesListFragment"
+        android:name="com.life4.flowpod.features.source.sourcesList.SourcesListFragment"
         android:label="SourcesListFragment">
         <argument
             android:name="sources"
-            app:argType="com.life4.feedz.models.source.RssFeedResponseItem[]" />
+            app:argType="com.life4.flowpod.models.source.RssFeedResponseItem[]" />
     </fragment>
     <fragment
         android:id="@+id/newsSourceFragment"
-        android:name="com.life4.feedz.features.source.newsSource.NewsSourceFragment"
+        android:name="com.life4.flowpod.features.source.newsSource.NewsSourceFragment"
         android:label="NewsSourceFragment">
         <action
             android:id="@+id/action_newsSourceFragment_to_sourcesListFragment"
@@ -163,7 +163,7 @@
     </fragment>
     <fragment
         android:id="@+id/podcastFragment"
-        android:name="com.life4.feedz.features.podcast.PodcastFragment"
+        android:name="com.life4.flowpod.features.podcast.PodcastFragment"
         android:label="PodcastFragment">
         <argument
             android:name="url"
@@ -171,7 +171,7 @@
     </fragment>
     <fragment
         android:id="@+id/podcastSourceFragment"
-        android:name="com.life4.feedz.features.source.podcastSource.PodcastSourceFragment"
+        android:name="com.life4.flowpod.features.source.podcastSource.PodcastSourceFragment"
         android:label="PodcastSourceFragment">
         <action
             android:id="@+id/action_podcastSourceFragment_to_podcastFragment"
@@ -179,15 +179,15 @@
     </fragment>
     <fragment
         android:id="@+id/podcastDetailsFragment"
-        android:name="com.life4.feedz.features.podcastdetails.PodcastDetailsFragment"
+        android:name="com.life4.flowpod.features.podcastdetails.PodcastDetailsFragment"
         android:label="PodcastDetailsFragment">
         <argument
             android:name="podcast"
-            app:argType="com.life4.feedz.models.rss_.RssPaginationItem" />
+            app:argType="com.life4.flowpod.models.rss_.RssPaginationItem" />
     </fragment>
     <fragment
         android:id="@+id/podcastListFragment"
-        android:name="com.life4.feedz.features.source.podcastSource.PodcastListFragment"
+        android:name="com.life4.flowpod.features.source.podcastSource.PodcastListFragment"
         android:label="PodcastListFragment">
         <argument
             android:name="category"
@@ -195,19 +195,19 @@
     </fragment>
     <fragment
         android:id="@+id/savedFragment"
-        android:name="com.life4.feedz.features.saved.SavedFragment"
+        android:name="com.life4.flowpod.features.saved.SavedFragment"
         android:label="SavedFragment" />
     <fragment
         android:id="@+id/savedPodcastFragment"
-        android:name="com.life4.feedz.features.saved.savedpodcast.SavedPodcastFragment"
+        android:name="com.life4.flowpod.features.saved.savedpodcast.SavedPodcastFragment"
         android:label="SavedPodcastFragment" />
     <fragment
         android:id="@+id/flowFragment"
-        android:name="com.life4.feedz.features.flow.FlowFragment"
+        android:name="com.life4.flowpod.features.flow.FlowFragment"
         android:label="FlowFragment" />
     <fragment
         android:id="@+id/podcastFlowFragment"
-        android:name="com.life4.feedz.features.flow.PodcastFlowFragment"
+        android:name="com.life4.flowpod.features.flow.PodcastFlowFragment"
         android:label="PodcastFlowFragment" />
 
 </navigation>

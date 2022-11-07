@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.life4.feedz.models.rss_.RssPaginationItem" />
+            type="com.life4.flowpod.models.rss_.RssPaginationItem" />
 
         <variable
             name="mainViewModel"
-            type="com.life4.feedz.features.main.MainViewModel" />
+            type="com.life4.flowpod.features.main.MainViewModel" />
 
         <variable
             name="songDuration"

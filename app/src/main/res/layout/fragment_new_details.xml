@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
-            type="com.life4.feedz.models.rss_.RssPaginationItem" />
+            type="com.life4.flowpod.models.rss_.RssPaginationItem" />
 
         <variable
             name="isFavorite"
             type="Boolean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -79,6 +80,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
                     android:lineSpacingExtra="8dp"
+                    android:minHeight="48dp"
                     android:textIsSelectable="true"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@id/tv_reference"
