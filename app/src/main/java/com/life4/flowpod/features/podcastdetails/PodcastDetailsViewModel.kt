@@ -24,6 +24,7 @@ class PodcastDetailsViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
+    val podcastEpisode = MutableLiveData<RssPaginationItem>()
     var isDownloaded: Boolean = false
     var isError = MutableLiveData<Boolean>(false)
 

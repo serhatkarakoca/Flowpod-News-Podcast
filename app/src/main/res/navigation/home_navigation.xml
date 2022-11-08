@@ -7,6 +7,10 @@
     app:startDestination="@id/homeFragment">
 
     <action
+        android:id="@+id/action_global_sourcesFragment"
+        app:destination="@id/sourceFragment" />
+
+    <action
         android:id="@+id/action_global_podcastSourceFragment"
         app:destination="@id/podcastSourceFragment" />
 

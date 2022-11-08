@@ -121,4 +121,10 @@
     <string name="news_open_in_app">Open the News Within the Application</string>
     <string name="login_account">Logged In Account</string>
     <string name="seems_unlogin">You Seem Not Logged In</string>
+    <string name="read_more">Read More</string>
+    <string name="read_less">Read Less</string>
+    <string name="reference">Reference: %1$s</string>
+    <string name="empty_search_info">We couldn\'t find any search results</string>
+    <string name="go_home">Go Home</string>
+    <string name="empty_resource">You Have No Sources Saved</string>
 </resources>

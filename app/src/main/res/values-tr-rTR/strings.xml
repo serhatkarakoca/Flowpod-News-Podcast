@@ -107,4 +107,10 @@
     <string name="news_open_in_app">Haberleri Uygulama İçinde Aç</string>
     <string name="login_account">Giriş Yapılan Hesap</string>
     <string name="seems_unlogin">Giriş Yapmamış Görünüyorsunuz</string>
+    <string name="read_more">Daha Fazla Oku</string>
+    <string name="read_less">Daha Az Oku</string>
+    <string name="reference">Kaynak: %1$s</string>
+    <string name="empty_search_info">Herhangi bir arama sonucu bulamadık</string>
+    <string name="empty_resource">Kayıtlı Kaynağınız Bulunmuyor</string>
+    <string name="go_home">Ana Sayfaya Git</string>
 </resources>

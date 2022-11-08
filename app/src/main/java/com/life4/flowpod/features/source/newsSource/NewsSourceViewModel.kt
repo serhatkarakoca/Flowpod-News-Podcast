@@ -19,17 +19,9 @@ class NewsSourceViewModel @Inject constructor(
     private val sourceDao: SourceDao
 ) : BaseViewModel() {
 
-    private val _siteDataListBreaking = MutableLiveData<List<RssFeedResponseItem>>()
-    val siteDataListBreaking: LiveData<List<RssFeedResponseItem>>
-        get() = _siteDataListBreaking
-
-    private val _siteDataListTech = MutableLiveData<List<RssFeedResponseItem>>()
-    val siteDataListTech: LiveData<List<RssFeedResponseItem>>
-        get() = _siteDataListTech
-
-    private val _siteDataListSports = MutableLiveData<List<RssFeedResponseItem>>()
-    val siteDataListSports: LiveData<List<RssFeedResponseItem>>
-        get() = _siteDataListSports
+    private val _siteDataList = MutableLiveData<List<RssFeedResponseItem>>()
+    val siteDataList: LiveData<List<RssFeedResponseItem>>
+        get() = _siteDataList
 
     private val _liveData = MutableLiveData<State>()
     val liveData: LiveData<State>
@@ -38,37 +30,10 @@ class NewsSourceViewModel @Inject constructor(
     val sourcePref = arrayListOf<RssFeedResponseItem>()
     var allSources: MutableMap<Int, List<RssFeedResponseItem>?>? = null
 
-    fun getBreakingNewsSource() {
-        baseLiveData.value = BaseViewModel.State.ShowLoading()
-        sourceRepository.getBreakingNewsSource().handle(RequestType.CUSTOM, onComplete = {
-            _siteDataListBreaking.value = it.sourceList
-            getTechNewsSource()
-        }, onError = {
-            baseLiveData.value = BaseViewModel.State.ShowContent()
-        })
-    }
-
-    private fun getTechNewsSource() {
-        sourceRepository.getTechNewsSource().handle(RequestType.CUSTOM, onComplete = {
-            _siteDataListTech.value = it.sourceList
-            getSportNewsSource()
-        }, onError = {
-            baseLiveData.value = BaseViewModel.State.ShowContent()
-        })
-    }
-
-    private fun getSportNewsSource() {
-        sourceRepository.getSportNewsSource().handle(RequestType.CUSTOM, onComplete = {
-            _siteDataListSports.value = it.sourceList
-            allSources = mutableMapOf(
-                1 to _siteDataListBreaking.value,
-                2 to _siteDataListTech.value,
-                3 to _siteDataListSports.value
-            )
-            baseLiveData.value = BaseViewModel.State.ShowContent()
-            _liveData.value = State.OnSourceReady(allSources ?: mutableMapOf())
-        }, onError = {
-            baseLiveData.value = BaseViewModel.State.ShowContent()
+    fun getNewsSource() {
+        sourceRepository.getSources().handle(RequestType.ACTION, onComplete = {
+            _siteDataList.value = it.sourceList
+            _liveData.value = State.OnSourceReady(it.sourceList)
         })
     }
 
@@ -90,7 +55,7 @@ class NewsSourceViewModel @Inject constructor(
     }
 
     sealed class State {
-        data class OnSourceReady(val listMap: MutableMap<Int, List<RssFeedResponseItem>?>) : State()
+        data class OnSourceReady(val list: List<RssFeedResponseItem>) : State()
         object OnSourceAdded : State()
     }
 }

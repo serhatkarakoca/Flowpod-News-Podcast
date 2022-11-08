@@ -3,6 +3,7 @@ package com.life4.flowpod.features.podcastdetails
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
+import android.text.Html
 import android.view.LayoutInflater
 import android.widget.SeekBar
 import android.widget.Toast
@@ -51,6 +52,16 @@ class PodcastDetailsFragment :
         setupViewModel(viewModel)
         getDownloadedPodcasts()
         getBinding().item = args.podcast
+
+        viewModel.podcastEpisode.value = args.podcast
+
+        viewModel.podcastEpisode.value?.getHtmlContent()?.let {
+            getBinding().tvPodcastDescription.text =
+                Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
+            getBinding().tvPodcastDescriptionLong.text =
+                Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
+        }
+
     }
 
     override fun setupListener() {
@@ -66,6 +77,17 @@ class PodcastDetailsFragment :
                 getBinding().layoutCountDown.isVisible = true
             } else
                 getBinding().layoutCountDown.isVisible = false
+        }
+
+        getBinding().tvReadMore.setOnClickListener {
+            getBinding().tvReadMore.text =
+                if (getBinding().tvPodcastDescriptionLong.isVisible) getString(R.string.read_more) else getString(
+                    R.string.read_less
+                )
+            getBinding().tvPodcastDescriptionLong.isVisible =
+                !getBinding().tvPodcastDescriptionLong.isVisible
+            getBinding().tvPodcastDescription.isVisible =
+                !getBinding().tvPodcastDescription.isVisible
         }
 
         getBinding().ivPlayPauseDetail.setOnClickListener {

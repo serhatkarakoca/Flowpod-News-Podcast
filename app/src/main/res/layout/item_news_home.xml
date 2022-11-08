@@ -25,13 +25,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_fav"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:translationZ="10dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="32dp"
-            android:layout_margin="18dp"
-            app:cardUseCompatPadding="false"
+            app:cardCornerRadius="30dp"
+            android:layout_margin="8dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

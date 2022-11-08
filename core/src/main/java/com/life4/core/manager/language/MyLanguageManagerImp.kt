@@ -26,19 +26,20 @@ class MyLanguageManagerImp @Inject constructor(
             myResourceManager.getResources()
                 .getString(R.string.KEY_LANGUAGE)
         )
-        return if (languageName.isEmpty()) {
+        val lang = if (languageName.isEmpty()) {
             Languages.values()
-                .first { x ->
+                .firstOrNull { x ->
                     x.languageCode == Locale.getDefault()
                         .language
                 }
         } else {
             Languages.values()
-                .first { x ->
+                .firstOrNull { x ->
                     myResourceManager.getResources()
                         .getString(x.languageName) == languageName
                 }
         }
+        return lang ?: Languages.ENGLISH
     }
 
     override fun changeLanguage(

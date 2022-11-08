@@ -50,7 +50,7 @@ class SearchFragment :
     private fun setPodcastAdapter(data: PodcastResponse) {
         podcastAdapter.submitList(data.feeds)
         getBinding().rvPodcasts.isVisible = true
-
+        getBinding().layoutEmpty.isVisible = data.feeds.isNullOrEmpty()
     }
 
     private fun podcastClickListener(item: Feed) {

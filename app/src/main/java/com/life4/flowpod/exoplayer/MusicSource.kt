@@ -43,7 +43,10 @@ class MusicSource @Inject constructor(
                     .putString(METADATA_KEY_MEDIA_URI, song?.enclosure?.url)
                     .putString(METADATA_KEY_ALBUM_ART_URI, song?.enclosure?.url)
                     .putString(METADATA_KEY_DISPLAY_SUBTITLE, song?.itunes?.author)
-                    .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song?.contentSnippet)
+                    .putString(
+                        METADATA_KEY_DISPLAY_DESCRIPTION,
+                        song?.contentEncoded ?: song?.content
+                    )
                     .build()
             }
             state = STATE_INITIALIZED

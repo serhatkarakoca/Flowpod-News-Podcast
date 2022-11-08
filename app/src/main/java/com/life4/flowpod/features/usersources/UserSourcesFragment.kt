@@ -3,7 +3,9 @@ package com.life4.flowpod.features.usersources
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
@@ -29,6 +31,9 @@ class UserSourcesFragment :
         observe(viewModel.userSources) { resourcesAdapter.submitList(it.sourceList?.sourceList) }
         observe(viewModel.liveData, ::onStateChanged)
         getBinding().rvResources.adapter = resourcesAdapter
+        getBinding().buttonGoNews.setOnClickListener {
+            findNavController().navigate(UserSourcesFragmentDirections.actionGlobalHomeFragment())
+        }
     }
 
     private fun onStateChanged(state: UserSourcesViewModel.State) {
@@ -61,9 +66,11 @@ class UserSourcesFragment :
         //findNavController().navigate(UserSourcesFragmentDirections.actionUserSourcesFragmentToNewsFragment())
     }
 
-    fun getUserSources() {
+    private fun getUserSources() {
         viewModel.getUserResources().observeOnce(this) {
             viewModel.userSources.value = it
+            getBinding().layoutEmpty.isVisible = it?.sourceList?.sourceList.isNullOrEmpty()
+
         }
     }
 

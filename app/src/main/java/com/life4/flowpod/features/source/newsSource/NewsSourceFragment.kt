@@ -16,6 +16,7 @@ import com.life4.flowpod.databinding.FragmentNewsSourcesBinding
 import com.life4.flowpod.extensions.dp
 import com.life4.flowpod.features.source.adapter.SourceAdapter
 import com.life4.flowpod.models.source.RssFeedResponseItem
+import com.life4.flowpod.other.Constant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +40,8 @@ class NewsSourceFragment :
         getBinding().tvShowBreakingNews.setOnClickListener {
             findNavController().navigate(
                 HomeNavigationDirections.actionGlobalSourcesListFragment(
-                    viewModel.siteDataListBreaking.value?.toTypedArray() ?: arrayOf()
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.BREAKING_NEWS }
+                        ?.toTypedArray() ?: arrayOf()
                 )
             )
         }
@@ -47,7 +49,8 @@ class NewsSourceFragment :
         getBinding().tvShowTechNews.setOnClickListener {
             findNavController().navigate(
                 HomeNavigationDirections.actionGlobalSourcesListFragment(
-                    viewModel.siteDataListTech.value?.toTypedArray() ?: arrayOf()
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.TECH_NEWS }
+                        ?.toTypedArray() ?: arrayOf()
                 )
             )
         }
@@ -55,7 +58,8 @@ class NewsSourceFragment :
         getBinding().tvShowSportNews.setOnClickListener {
             findNavController().navigate(
                 HomeNavigationDirections.actionGlobalSourcesListFragment(
-                    viewModel.siteDataListSports.value?.toTypedArray() ?: arrayOf()
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.SPORT_NEWS }
+                        ?.toTypedArray() ?: arrayOf()
                 )
             )
         }
@@ -99,7 +103,7 @@ class NewsSourceFragment :
 
     private fun onStateChanged(state: NewsSourceViewModel.State) {
         when (state) {
-            is NewsSourceViewModel.State.OnSourceReady -> sourcesReady(state.listMap)
+            is NewsSourceViewModel.State.OnSourceReady -> sourcesReady(state.list)
             is NewsSourceViewModel.State.OnSourceAdded -> sourceChanged()
         }
     }
@@ -120,16 +124,15 @@ class NewsSourceFragment :
         )
     }
 
-    private fun sourcesReady(map: MutableMap<Int, List<RssFeedResponseItem>?>) {
+    private fun sourcesReady(map: List<RssFeedResponseItem>) {
         map.forEach {
-            it.value?.forEach {
-                if (viewModel.sourcePref.indexOf(it) != -1)
-                    it.isSelected = true
-            }
+            if (viewModel.sourcePref.indexOf(it) != -1)
+                it.isSelected = true
+
         }
-        breakingAdapter.submitList(map[1])
-        techAdapter.submitList(map[2])
-        sportAdapter.submitList(map[3])
+        breakingAdapter.submitList(map.filter { it.categoryId == Constant.BREAKING_NEWS })
+        techAdapter.submitList(map.filter { it.categoryId == Constant.TECH_NEWS })
+        sportAdapter.submitList(map.filter { it.categoryId == Constant.SPORT_NEWS })
         getBinding().nestedScrollview.visibility = View.VISIBLE
     }
 
@@ -143,11 +146,11 @@ class NewsSourceFragment :
                 viewModel.sourcePref.clear()
                 viewModel.sourcePref.addAll(source.sourceList)
             }.also {
-                viewModel.allSources?.let {
+                viewModel.siteDataList.value?.let {
                     sourcesReady(it)
                     return@observeOnce
                 }
-                getViewModel().getBreakingNewsSource()
+                getViewModel().getNewsSource()
             }
 
         }

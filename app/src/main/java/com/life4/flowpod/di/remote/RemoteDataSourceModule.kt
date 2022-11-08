@@ -21,6 +21,9 @@ object RemoteDataSourceModule {
 
     @Provides
     @Singleton
-    fun provideRemoteDataSourceSource(service: SourceApiService) =
-        SourceRemoteDataSource(service)
+    fun provideRemoteDataSourceSource(
+        service: SourceApiService,
+        languageManager: MyLanguageManager
+    ) =
+        SourceRemoteDataSource(service, languageManager)
 }

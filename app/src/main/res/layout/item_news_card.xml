@@ -34,7 +34,7 @@
                     android:translationZ="10dp"
                     android:layout_margin="4dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="50dp"
+                    app:cardCornerRadius="12dp"
                     app:cardUseCompatPadding="false"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

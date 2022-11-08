@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
-                    android:text='@{"Kaynak: "+item.homePageUrl}'
+                    android:text='@{@string/reference(item.homePageUrl)}'
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/html_viewer"
                     tools:text="reference" />

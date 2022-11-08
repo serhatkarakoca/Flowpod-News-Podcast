@@ -66,6 +66,8 @@ class NewsFlowFragment :
                 .filter { it.refresh is LoadState.NotLoading }
                 .collectLatest {
                     //getBinding().rvNews.scrollToPosition(0)
+                    getBinding().rvNews.isVisible =
+                        viewModel.siteDataList.value.isNullOrEmpty().not()
                     getBinding().emptyLayout.isVisible =
                         viewModel.siteDataList.value?.isEmpty() == true
                 }
@@ -94,6 +96,10 @@ class NewsFlowFragment :
                 }
                 setContentView(binding.root)
             }.show()
+        }
+
+        getBinding().buttonGoNews.setOnClickListener {
+            findNavController().navigate(HomeNavigationDirections.actionGlobalSourcesFragment())
         }
 
     }
