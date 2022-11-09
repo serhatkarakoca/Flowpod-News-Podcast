@@ -24,6 +24,9 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.life4.core.core.view.BaseFragment
 import com.life4.flowpod.R
 import com.life4.flowpod.data.MyPreference
@@ -42,6 +45,7 @@ class NewsDetailsFragment :
     private val viewModel: NewsDetailsViewModel by viewModels()
 
     private var progressDialog: Dialog? = null
+    lateinit var mAdView: AdView
 
     @Inject
     lateinit var pref: MyPreference
@@ -65,11 +69,13 @@ class NewsDetailsFragment :
             else
                 redirectUsingCustomTab(viewModel.args?.news?.link ?: "")
         }
-
     }
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+        MobileAds.initialize(requireContext()) {}
+        val adRequest = AdRequest.Builder().build()
+        getBinding().adView.loadAd(adRequest)
     }
 
     override fun setupData() {
@@ -220,6 +226,7 @@ class NewsDetailsFragment :
 
     override fun onResume() {
         super.onResume()
+        getBinding().adView.resume()
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getAllSavedNews().collectLatest {
                 if (it.firstOrNull { it.newsItem?.title == viewModel.args?.news?.title } != null) {
@@ -230,5 +237,15 @@ class NewsDetailsFragment :
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        getBinding().adView.destroy()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getBinding().adView.pause()
     }
 }

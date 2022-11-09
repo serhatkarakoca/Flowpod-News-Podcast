@@ -42,8 +42,9 @@ class MainActivity :
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        splashScreen?.setKeepOnScreenCondition { viewModel.cachedData }
+        splashScreen?.setKeepOnScreenCondition { viewModel.cachedData } //splashScreenCondition
         viewModel.getCachedData()
+
         val toolbar = getBinding().toolbar
         val bottomNavigationView = getBinding().bottomNavigationView
         val navHostFragment =

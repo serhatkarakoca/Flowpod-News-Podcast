@@ -35,6 +35,7 @@ class HomeFragment :
     private var pagingJobHome: Job? = null
     private var job: Job? = null
 
+
     override fun setupListener() {
         getBinding().rvNews.adapter =
             newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
