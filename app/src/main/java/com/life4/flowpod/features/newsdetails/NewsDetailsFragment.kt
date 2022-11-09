@@ -28,10 +28,12 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.life4.core.core.view.BaseFragment
+import com.life4.core.extensions.move
 import com.life4.flowpod.R
 import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.databinding.FragmentNewDetailsBinding
 import com.life4.flowpod.extensions.ImageGetter
+import com.life4.flowpod.features.login.LoginActivity
 import com.life4.flowpod.utils.Presets
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -52,6 +54,10 @@ class NewsDetailsFragment :
     override fun setupListener() {
 
         getBinding().cardFav.setOnClickListener {
+            if (!viewModel.isLogin()) {
+                requireActivity().move(LoginActivity::class.java, true)
+                return@setOnClickListener
+            }
             viewModel.args?.news?.let {
                 it.isFavorite = !it.isFavorite
                 viewModel.saveNews(it) {

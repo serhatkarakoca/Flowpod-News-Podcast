@@ -9,10 +9,12 @@ import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.life4.core.core.view.BaseFragment
+import com.life4.core.extensions.move
 import com.life4.flowpod.R
 import com.life4.flowpod.databinding.FragmentHomeBinding
 import com.life4.flowpod.features.home.adapter.NewsHomeAdapter
 import com.life4.flowpod.features.home.adapter.NewsLoadStateAdapter
+import com.life4.flowpod.features.login.LoginActivity
 import com.life4.flowpod.models.rss_.RssPaginationItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -29,7 +31,8 @@ class HomeFragment :
         NewsHomeAdapter(
             ::newsClickListener,
             ::favClickListener,
-            viewModel.savedNews
+            viewModel.savedNews,
+            viewModel.isLogin()
         )
     }
     private var pagingJobHome: Job? = null
@@ -76,7 +79,11 @@ class HomeFragment :
         )
     }
 
-    private fun favClickListener(item: RssPaginationItem, isFav: Boolean) {
+    private fun favClickListener(item: RssPaginationItem, isLogin: Boolean?) {
+        if (isLogin == false) {
+            requireActivity().move(LoginActivity::class.java, true)
+            return
+        }
         viewModel.saveNews(item) {
             Snackbar.make(
                 requireView(),

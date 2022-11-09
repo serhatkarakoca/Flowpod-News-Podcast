@@ -18,9 +18,11 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.life4.core.core.view.BaseActivity
 import com.life4.core.extensions.move
 import com.life4.flowpod.R
+import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.databinding.ActivityLoginBinding
 import com.life4.flowpod.features.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layout.activity_login) {
@@ -28,6 +30,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var myPref: MyPreference
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
@@ -89,6 +94,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
+                myPref.setUsername(FirebaseAuth.getInstance().currentUser?.email)
                 move(MainActivity::class.java)
             } else {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()

@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.life4.core.core.view.BaseFragment
+import com.life4.core.extensions.move
 import com.life4.core.extensions.observe
 import com.life4.flowpod.R
 import com.life4.flowpod.databinding.BottomSheetMoreBinding
@@ -25,6 +26,7 @@ import com.life4.flowpod.databinding.BottomSheetTimerBinding
 import com.life4.flowpod.databinding.FragmentPodcastDetailsBinding
 import com.life4.flowpod.exoplayer.service.isPlaying
 import com.life4.flowpod.exoplayer.toPodcast
+import com.life4.flowpod.features.login.LoginActivity
 import com.life4.flowpod.features.main.MainViewModel
 import com.life4.flowpod.features.podcast.offline.DownloadService
 import com.life4.flowpod.models.rss_.RssPaginationItem
@@ -131,7 +133,15 @@ class PodcastDetailsFragment :
 
         getBinding().lottieDownload.setOnClickListener {
             args.podcast.enclosure?.url ?: return@setOnClickListener
-            downloadFileFromUrl(args.podcast)
+            if (!viewModel.isLogin()) {
+                requireActivity().move(LoginActivity::class.java, true)
+                return@setOnClickListener
+            }
+            if (viewModel.isDownloading.value != true) {
+                downloadFileFromUrl(args.podcast)
+            } else {
+                WorkManager.getInstance(requireContext()).cancelAllWork()
+            }
         }
 
         getBinding().iconDownloaded.setOnClickListener {
@@ -329,6 +339,7 @@ class PodcastDetailsFragment :
                 if (it.state == WorkInfo.State.SUCCEEDED) {
                     getBinding().lottieDownload.repeatCount = 1
                     viewModel.isError.postValue(false)
+                    viewModel.isDownloading.postValue(false)
 
                 } else if (it.state == WorkInfo.State.FAILED) {
                     WorkManager.getInstance(requireContext()).cancelAllWork()
@@ -339,17 +350,25 @@ class PodcastDetailsFragment :
                         getText(R.string.error_download),
                         Toast.LENGTH_SHORT
                     ).show()
+                    viewModel.isDownloading.postValue(false)
 
                 } else if (it.state == WorkInfo.State.RUNNING) {
                     getBinding().lottieDownload.playAnimation()
                     getBinding().lottieDownload.repeatCount = ValueAnimator.INFINITE
                     viewModel.isError.postValue(false)
+                    viewModel.isDownloading.postValue(true)
 
                 } else if (it.state == WorkInfo.State.ENQUEUED) {
                     //enqued
                 } else if (it.state == WorkInfo.State.CANCELLED) {
                     WorkManager.getInstance(requireContext()).cancelAllWork()
                     getBinding().lottieDownload.repeatCount = 1
+                    viewModel.isDownloading.postValue(false)
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.exo_download_removing),
+                        Snackbar.ANIMATION_MODE_SLIDE
+                    ).show()
                 }
 
             }

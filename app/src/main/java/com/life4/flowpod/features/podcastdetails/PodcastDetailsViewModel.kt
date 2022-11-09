@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.life4.core.core.vm.BaseViewModel
+import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.exoplayer.service.MusicService
 import com.life4.flowpod.exoplayer.service.MusicServiceConnection
 import com.life4.flowpod.exoplayer.service.currentPlaybackPosition
@@ -20,13 +21,15 @@ import javax.inject.Inject
 @HiltViewModel
 class PodcastDetailsViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
-    private val podcastDao: PodcastDao
+    private val podcastDao: PodcastDao,
+    private val pref: MyPreference
 ) :
     BaseViewModel() {
 
     val podcastEpisode = MutableLiveData<RssPaginationItem>()
     var isDownloaded: Boolean = false
     var isError = MutableLiveData<Boolean>(false)
+    var isDownloading = MutableLiveData<Boolean>(false)
 
     val downloadedPodcasts = MutableLiveData<List<SavedPodcast>>()
 
@@ -52,6 +55,10 @@ class PodcastDetailsViewModel @Inject constructor(
 
     init {
         updateCurrentPlayerPosition()
+    }
+
+    fun isLogin(): Boolean {
+        return pref.getUsername() != null
     }
 
     private fun updateCurrentPlayerPosition() {

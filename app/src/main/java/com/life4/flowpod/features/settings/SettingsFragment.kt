@@ -42,9 +42,12 @@ class SettingsFragment :
 
         getBinding().loginLogout.setOnClickListener {
             activity?.let {
-                if (auth.currentUser != null)
+                if (auth.currentUser != null) {
+                    pref.setUsername(null)
                     auth.signOut()
+                }
                 it.move(LoginActivity::class.java)
+
             }
         }
 

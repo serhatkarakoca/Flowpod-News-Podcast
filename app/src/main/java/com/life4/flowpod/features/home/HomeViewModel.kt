@@ -44,6 +44,10 @@ class HomeViewModel @Inject constructor(
 
     val savedNews = MutableLiveData<List<SavedNews>>()
 
+    fun isLogin(): Boolean {
+        return pref.getUsername() != null
+    }
+
     fun getSources(onComplete: () -> Unit) {
         sourceRepository.getHomePage().handle(requestType = RequestType.INIT, onComplete = {
             _siteData.value = it

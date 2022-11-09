@@ -14,7 +14,7 @@ class MyPreference @Inject constructor(@ApplicationContext context: Context) {
     private val browserInApp = "KEY_BROWSER_IN_APP"
     private val preferences_time = "preferences_time"
 
-    fun setUsername(username: String) {
+    fun setUsername(username: String?) {
         prefs.edit().putString(this.username, username).apply()
     }
 

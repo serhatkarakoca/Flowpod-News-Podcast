@@ -3,6 +3,7 @@ package com.life4.flowpod.features.newsdetails
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.life4.core.core.vm.BaseViewModel
+import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.models.room.SavedNews
 import com.life4.flowpod.models.rss_.RssPaginationItem
 import com.life4.flowpod.room.news.NewsDao
@@ -12,11 +13,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsDetailsViewModel @Inject constructor(private val newsDao: NewsDao) : BaseViewModel() {
+class NewsDetailsViewModel @Inject constructor(
+    private val newsDao: NewsDao,
+    private val myPref: MyPreference
+) : BaseViewModel() {
     var args: NewsDetailsFragmentArgs? = null
 
     val savedNews = MutableLiveData<List<SavedNews>>()
 
+    fun isLogin(): Boolean {
+        return myPref.getUsername() != null
+    }
 
     fun saveNews(item: RssPaginationItem, onComplete: (Boolean) -> Unit) {
         val news = SavedNews(newsItem = item)

@@ -17,7 +17,8 @@ import com.life4.flowpod.utils.Presets
 class NewsHomeAdapter(
     val listener: (RssPaginationItem) -> Unit,
     val favListener: (RssPaginationItem, Boolean) -> Unit,
-    val savedNews: MutableLiveData<List<SavedNews>>
+    val savedNews: MutableLiveData<List<SavedNews>>,
+    val isLogin: Boolean
 ) :
     PagingDataAdapter<RssPaginationItem, NewsHomeAdapter.NewsViewHolder>(DIFF_UTIL) {
 
@@ -38,23 +39,26 @@ class NewsHomeAdapter(
             }
 
             binding.cardFav.setOnClickListener {
-                item.isFavorite = !item.isFavorite
-                if (item.isFavorite) {
-                    binding.imgFav.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_favorite
+                if (isLogin) {
+                    item.isFavorite = !item.isFavorite
+                    if (item.isFavorite) {
+                        binding.imgFav.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                binding.root.context,
+                                R.drawable.ic_favorite
+                            )
                         )
-                    )
-                    binding.konfettiView.start(Presets.explode())
+                        binding.konfettiView.start(Presets.explode())
+                    } else
+                        binding.imgFav.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                binding.root.context,
+                                R.drawable.ic_favorite_border
+                            )
+                        )
+                    favListener(item, true)
                 } else
-                    binding.imgFav.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            binding.root.context,
-                            R.drawable.ic_favorite_border
-                        )
-                    )
-                favListener(item, item.isFavorite)
+                    favListener(item, false)
             }
         }
     }
