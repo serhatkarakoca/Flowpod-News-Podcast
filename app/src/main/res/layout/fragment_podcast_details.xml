@@ -218,7 +218,7 @@
                         android:layout_height="75dp"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="62dp"
-                        android:src="@drawable/ic_play"
+                        android:src="@drawable/ic_round_play_circle_24"
                         app:layout_constraintBottom_toTopOf="@id/btn_sleep_timer"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -276,7 +276,7 @@
                         android:src="@drawable/ic_round_nightlight"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="@color/primaryTextColor" />
+                        app:tint="@color/gray_darker_button" />
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottie_download"
@@ -310,7 +310,7 @@
                         android:layout_marginBottom="12dp"
                         android:background="@drawable/background_stroke_6"
                         android:orientation="horizontal"
-                        android:padding="8dp"
+                        android:padding="6dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -323,18 +323,17 @@
                             android:id="@+id/cancel_timer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginEnd="4dp"
                             android:src="@drawable/ic_round_cancel" />
 
                         <TextView
                             android:id="@+id/tv_count_down"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
                             android:fontFamily="@font/roboto_bold"
+                            android:layout_marginEnd="2dp"
                             android:textSize="16sp"
-                            tools:text="00:02" />
+                            tools:text="05:02" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

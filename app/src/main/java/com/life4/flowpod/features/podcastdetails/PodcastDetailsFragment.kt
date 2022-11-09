@@ -63,7 +63,8 @@ class PodcastDetailsFragment :
             getBinding().tvPodcastDescriptionLong.text =
                 Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
         }
-
+        getBinding().tvReadMore.isVisible =
+            (viewModel.podcastEpisode.value?.getHtmlContent()?.trim()?.length ?: 0) > 10
     }
 
     override fun setupListener() {
@@ -265,6 +266,14 @@ class PodcastDetailsFragment :
             binding.timerSleep.setOnTimeChangedListener { view, hourOfDay, minuteOfDay ->
                 hour = if (hourOfDay < 10) "0$hourOfDay" else hourOfDay.toString()
                 minute = if (minuteOfDay < 10) "0$minuteOfDay" else minuteOfDay.toString()
+                binding.tvTotalTime.text = if (hourOfDay > 0 && minuteOfDay > 0) getString(
+                    R.string.total_time_hour_and_minute,
+                    hourOfDay.toString(),
+                    minuteOfDay.toString()
+                ) else if (hourOfDay > 0) getString(R.string.total_time_hour, hourOfDay.toString())
+                else if (minuteOfDay > 0) getString(R.string.total_time_min, minuteOfDay.toString())
+                else null
+
             }
 
             binding.btnSet.setOnClickListener {
@@ -294,7 +303,7 @@ class PodcastDetailsFragment :
         mainViewModel.playbackState.observe(viewLifecycleOwner) {
             playbackState = it
             getBinding().ivPlayPauseDetail.setImageResource(
-                if (playbackState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
+                if (playbackState?.isPlaying == true) R.drawable.ic_round_pause_circle_24 else R.drawable.ic_round_play_circle_24
             )
             getBinding().seekBar.progress = it?.position?.toInt() ?: 0
         }

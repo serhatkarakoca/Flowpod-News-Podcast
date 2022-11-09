@@ -114,4 +114,7 @@
     <string name="empty_resource">Kayıtlı Kaynağınız Bulunmuyor</string>
     <string name="go_home">Ana Sayfaya Git</string>
     <string name="ad_attribution">Reklam</string>
+    <string name="total_time_hour_and_minute">%1$s Saat Ve %2$s DK</string>
+    <string name="total_time_hour">%1$s Saat</string>
+    <string name="total_time_min">%1$s DK</string>
 </resources>

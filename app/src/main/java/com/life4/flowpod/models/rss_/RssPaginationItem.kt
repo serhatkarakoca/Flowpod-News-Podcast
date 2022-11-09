@@ -2,7 +2,6 @@ package com.life4.flowpod.models.rss_
 
 
 import android.os.Parcelable
-import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
@@ -58,21 +57,33 @@ data class RssPaginationItem(
         val html =
             content?.replace("\\/", "")?.replace("[", "")?.replace("]", "")?.replace("<!", "")
                 ?.replace("CDATA", "")
-        Log.d("htmlFrom", html.toString())
+        return html
+    }
+
+    fun getHtmlContentForImage(): String? {
+        val content = content
+        val html =
+            content?.replace("\\/", "")?.replace("[", "")?.replace("]", "")?.replace("<!", "")
+                ?.replace("CDATA", "")
         return html
     }
 
     fun getPostImage(): String? {
         val html = getHtmlContent()
-        Log.d(
-            "htmlFromImage",
+        val htmlContent = getHtmlContentForImage()
+
+        val imageFromEncoded =
             html?.substringAfter("src=")?.substringBefore("alt")?.substringBefore("height")
                 ?.substringBefore("href")?.substringBefore(" ", "")?.replace("\"", "")
-                ?.replace("'", "")?.trim().toString()
-        )
-        return html?.substringAfter("src=")?.substringBefore("alt")?.substringBefore("height")
-            ?.substringBefore("href")?.substringBefore(" ", "")?.replace("\"", "")?.replace("'", "")
-            ?.trim()
+                ?.replace("'", "")
+                ?.trim()
+
+        val imageFromContent =
+            htmlContent?.substringAfter("src=")?.substringBefore("alt")?.substringBefore("height")
+                ?.substringBefore("href")?.substringBefore(" ", "")?.replace("\"", "")
+                ?.replace("'", "")
+                ?.trim()
+        return imageFromEncoded ?: imageFromContent
     }
 
     fun getHomePageUrl(): String? {
