@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-
     <application
         android:name="com.life4.flowpod.app.MyApplication"
         android:allowBackup="true"
@@ -38,7 +37,6 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
-
         <activity
             android:name="com.life4.flowpod.features.main.MainActivity"
             android:exported="true"

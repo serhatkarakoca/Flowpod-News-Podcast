@@ -1,14 +1,24 @@
 package com.life4.flowpod.features.podcast.offline
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
-import android.util.Log
+import android.content.Intent
+import android.os.Build
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.life4.flowpod.R
+import com.life4.flowpod.features.main.MainActivity
 import com.life4.flowpod.models.room.SavedPodcast
 import com.life4.flowpod.models.rss_.Enclosure
 import com.life4.flowpod.models.rss_.RssPaginationItem
+import com.life4.flowpod.other.Constant.DOWNLOAD_CHANNEL_NAME
+import com.life4.flowpod.other.Constant.DOWNLOAD_NOTIFICATION_ID
 import com.life4.flowpod.room.podcast.PodcastDao
 import com.life4.flowpod.utils.deserializeFromJson
 import com.life4.flowpod.utils.saveFile
@@ -48,6 +58,7 @@ class DownloadService @AssistedInject constructor(
             if (path != null) {
                 podcast ?: Result.failure()
                 addPodcastDownloaded(podcast!!, path!!)
+                showNotification()
                 Result.success(workDataOf("path" to path))
             } else {
                 Result.failure()
@@ -71,7 +82,6 @@ class DownloadService @AssistedInject constructor(
     }
 
     private fun downloadImages(url: String, fileName: String): String? {
-        Log.d("WORK_MANAGER_SERVICE", "Downloading: " + url)
         var path: String? = null
         val client = OkHttpClient.Builder()
             .build()
@@ -83,11 +93,50 @@ class DownloadService @AssistedInject constructor(
             if (response.isSuccessful) {
                 val inputStream = response.body?.byteStream() ?: return null
                 path = saveFile(inputStream, fileName, context)
-                Log.d("WORK_MANAGER_SERVICE", "PATH: " + path)
+
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return path
+    }
+
+
+    private fun showNotification() {
+
+        val intent = Intent(applicationContext, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+
+        val notification = NotificationCompat.Builder(
+            applicationContext, DOWNLOAD_NOTIFICATION_ID.toString()
+        ).setSmallIcon(R.drawable.flowpod_logo)
+            .setContentTitle(context.getString(R.string.app_name))
+            .setContentText(context.getText(R.string.episode_downloaded))
+            .setPriority(NotificationCompat.PRIORITY_MAX).setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            val channel = NotificationChannel(
+                DOWNLOAD_NOTIFICATION_ID.toString(),
+                DOWNLOAD_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            val notificationManager = applicationContext.getSystemService(
+                Context.NOTIFICATION_SERVICE
+            ) as NotificationManager
+
+            notificationManager.createNotificationChannel(channel)
+        }
+        with(NotificationManagerCompat.from(applicationContext)) {
+            notify(DOWNLOAD_NOTIFICATION_ID, notification.build())
+        }
+
     }
 }
