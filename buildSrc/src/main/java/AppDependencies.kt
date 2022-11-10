@@ -46,6 +46,7 @@ object AppDependencies {
         add(Libraries.workManagerHilt)
         add(Libraries.lottie)
         add(Libraries.admobSdk)
+        //add(Libraries.reviewGoogle)
         //add(Libraries.exoPlayerLibrary)
         //add(Libraries.exoPlayerLibrarySession)
         //add(Libraries.exoPlayerLibraryDash)

@@ -14,8 +14,9 @@ import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.observe
 import com.life4.flowpod.R
 import com.life4.flowpod.databinding.FragmentPodcastBinding
+import com.life4.flowpod.features.home.adapter.NewsLoadStateAdapter
 import com.life4.flowpod.features.main.MainViewModel
-import com.life4.flowpod.features.podcast.adapter.PodcastAdapter
+import com.life4.flowpod.features.podcast.adapter.PodcastPaginationAdapter
 import com.life4.flowpod.models.rss_.Itunes
 import com.life4.flowpod.models.rss_.RssPaginationItem
 import com.life4.flowpod.models.rss_.RssResponse
@@ -31,7 +32,7 @@ class PodcastFragment :
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private var job: Job? = null
-    private val podcastAdapter by lazy { PodcastAdapter(::podcastClickListener) }
+    private val podcastAdapter by lazy { PodcastPaginationAdapter(::podcastClickListener) }
     private val args: PodcastFragmentArgs by navArgs()
     private val itemDecorator by lazy {
         DividerItemDecoration(
@@ -42,7 +43,8 @@ class PodcastFragment :
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        viewModel.getPodcastDetails(args.url)
+        getPodcastDetails()
+        //viewModel.getPodcastDetails(args.url)
         getSavedPodcasts()
 
         observe(viewModel.state, ::onStateChanged)
@@ -51,6 +53,8 @@ class PodcastFragment :
         }
         getBinding().rvPodcasts.addItemDecoration(itemDecorator)
         getBinding().rvPodcasts.adapter = podcastAdapter
+        getBinding().rvPodcasts.adapter =
+            podcastAdapter.withLoadStateFooter(NewsLoadStateAdapter { podcastAdapter.retry() })
     }
 
     override fun setupListener() {
@@ -100,6 +104,15 @@ class PodcastFragment :
         }
     }
 
+    private fun getPodcastDetails() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getPodcastDetails(args.url).collectLatest { it ->
+                podcastAdapter.submitData(it)
+            }
+        }
+
+    }
+
     private fun onPodcastDetailsSuccess(data: RssResponse) {
         getBinding().item = data
         data.description?.let {
@@ -137,9 +150,9 @@ class PodcastFragment :
                     items.add(it)
                 }
             }
-            mainViewModel.setMediaItems(items)
-            podcastAdapter.submitList(items)
-
+        }
+        viewModel.mediaItems.value?.let {
+            mainViewModel.setMediaItems(it)
         }
         activity?.let {
             it.title = data.title

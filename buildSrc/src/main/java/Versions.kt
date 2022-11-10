@@ -44,6 +44,7 @@ object Versions {
     const val workHiltVersion = "1.0.0"
     const val lottieVersion = "5.2.0"
     const val admobVersion = "21.3.0"
+    const val reviewVersion = "2.0.1"
 
     // dependency level test
     const val testAndroidxTestJunitVersion = "1.1.2"

@@ -47,6 +47,10 @@ class FeedzRemoteDataSource @Inject constructor(
         return getResult { feedzService.getSiteData(siteList, 1, 5) }
     }
 
+    fun getFeedFull(siteList: RssRequest): Flow<Resource<RssResponse>> {
+        return getResult { feedzService.getFeedFull(siteList, 1, 10) }
+    }
+
     fun getCategories(): Flow<Resource<PodcastCategories>> {
         return getResult { feedzService.getCategories() }
     }

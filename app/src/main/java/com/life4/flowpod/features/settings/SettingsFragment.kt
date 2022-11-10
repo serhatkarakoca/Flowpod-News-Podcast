@@ -1,8 +1,10 @@
 package com.life4.flowpod.features.settings
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.life4.core.core.view.BaseFragment
 import com.life4.core.extensions.move
@@ -61,6 +63,26 @@ class SettingsFragment :
 
         getBinding().buttonGoToSources.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToSourceFragment())
+        }
+
+        getBinding().buttonReview.setOnClickListener {
+            val manager = ReviewManagerFactory.create(requireContext())
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val reviewInfo = task.result
+                    val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+                    flow.addOnCompleteListener { _ ->
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.feedback),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    // error
+                }
+            }
         }
     }
 }

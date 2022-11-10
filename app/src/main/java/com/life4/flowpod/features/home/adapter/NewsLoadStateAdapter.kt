@@ -3,7 +3,6 @@ package com.life4.flowpod.features.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,6 @@ class NewsLoadStateAdapter(private val retry: () -> Unit) :
             }
         }
 
-        @OptIn(ExperimentalPagingApi::class)
         fun bind(loadState: LoadState) {
             binding.apply {
                 progressBar.isVisible = loadState is LoadState.Loading

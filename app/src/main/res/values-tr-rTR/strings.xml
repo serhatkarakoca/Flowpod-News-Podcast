@@ -117,4 +117,6 @@
     <string name="total_time_hour_and_minute">%1$s Saat Ve %2$s DK</string>
     <string name="total_time_hour">%1$s Saat</string>
     <string name="total_time_min">%1$s DK</string>
+    <string name="rate_us">Bizi Değerlendir</string>
+    <string name="feedback">Geri bildiriminiz için teşekkür ederiz :)</string>
 </resources>

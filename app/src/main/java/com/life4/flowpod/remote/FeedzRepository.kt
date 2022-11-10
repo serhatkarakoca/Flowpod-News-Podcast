@@ -13,6 +13,7 @@ class FeedzRepository @Inject constructor(
         remoteDataSource.getPodcastFeedByCategory(category)
 
     fun getSiteData(siteList: RssRequest) = remoteDataSource.getSiteData(siteList)
+    fun getFeedFull(siteList: RssRequest) = remoteDataSource.getFeedFull(siteList)
     fun getCategories() = remoteDataSource.getCategories()
 
 }

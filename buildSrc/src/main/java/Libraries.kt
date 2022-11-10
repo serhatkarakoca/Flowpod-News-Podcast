@@ -85,6 +85,7 @@ object Libraries {
     val workManagerHilt = Dependency("androidx.hilt:hilt-work:${Versions.workHiltVersion}")
     val lottie = Dependency("com.airbnb.android:lottie:${Versions.lottieVersion}")
     val admobSdk = Dependency("com.google.android.gms:play-services-ads:${Versions.admobVersion}")
+    //val reviewGoogle = Dependency("com.google.android.play:review-ktx:${Versions.reviewVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"

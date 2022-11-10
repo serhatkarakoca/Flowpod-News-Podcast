@@ -21,6 +21,13 @@ interface ApiService {
         @Query("perPage") perPage: Int? = 20
     ): Response<RssPagination>
 
+    @POST("api/getFeedFull")
+    suspend fun getFeedFull(
+        @Body siteList: RssRequest,
+        @Query("page") page: Int = 1,
+        @Query("perPage") perPage: Int? = 10
+    ): Response<RssResponse>
+
     @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
     @GET("api/searchPodcast")
     suspend fun searchPodcast(@Query("query") query: String): Response<PodcastResponse>

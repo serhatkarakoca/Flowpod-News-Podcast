@@ -131,4 +131,6 @@
     <string name="total_time_hour">%1$s Hrs</string>
     <string name="total_time_min">%1$s Min</string>
     <string name="total_time_hour_and_minute">%1$s Hrs and %2$s Min</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="feedback">Thanks for your feedback :)</string>
 </resources>

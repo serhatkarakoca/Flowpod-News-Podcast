@@ -5,7 +5,7 @@ object AppConfig {
     const val minSdk = 26
     const val targetSdk = 32
     const val versionCode = 1
-    const val versionName = "0.0.0.1"
+    const val versionName = "0.0.0.2"
     const val androidTestInstrumentation = "com.life4.flowpod.HiltTestRunner"
     const val defaultAndroidTestInstrumentation = "androidx.test.runner.AndroidJUnitRunner"
 
