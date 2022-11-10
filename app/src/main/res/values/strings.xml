@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Constant -->
-    <string name="domain" translatable="false">https://batdemir.com</string>
-    <string name="privacy_link" translatable="false">https://sites.google.com/view/agile-poker/home</string>
+    <string name="domain" translatable="false">https://serhatkarakoca.com</string>
+    <string name="privacy_link" translatable="false">https://sites.google.com/view/life4apps/</string>
     <string name="string_empty" translatable="false" />
     <string name="number_zero" translatable="false">0</string>
     <string name="notification_name" translatable="false">@string/app_name</string>
+    <string name="notification_channel_name" translatable="false">Music Channel</string>
+    <string name="notification_channel_description" translatable="false">Shows the currently playing music</string>
 
     <!-- Title -->
     <string name="title_home">Home</string>
-    <string name="title_stack_over_flow">StackOverFlow</string>
+    <string name="title_stack_over_flow">Saved</string>
     <string name="title_stack_over_flow_detail">StackOverFlowDetail</string>
     <string name="title_github">Github</string>
     <string name="title_github_detail">GithubDetail</string>
@@ -17,4 +19,118 @@
 
     <!-- EMPTY -->
     <string name="not_found">Not Found</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome !</string>
+    <string name="welcome_user">Welcome %1$s,</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="welcome_sub">You can fill your spare time by reading thousands of the latest news that we provide</string>
+    <string name="login_welcome">Find thousands of interesting news every day</string>
+    <string name="search">Search</string>
+    <string name="search_news">News Site Address, Search with RSS Link</string>
+    <string name="go_to_news">Go To News Details</string>
+    <string name="save_source">Save resources</string>
+    <string name="all">All</string>
+    <string name="my_resources">My Content Resources</string>
+    <string name="saved_success">News Saved. You can read whenever you want.</string>
+    <string name="are_u_sure_delete">Are you sure you want to delete ?</string>
+    <string name="podcasts">Podcast</string>
+    <string name="min_10">10 Min</string>
+    <string name="min_15">15 Min</string>
+    <string name="min_20">20 Min</string>
+
+    <!-- Categories -->
+
+    <string name="arts">Arts</string>
+    <string name="books">Books</string>
+    <string name="design">Design</string>
+    <string name="fashion">Fashion</string>
+    <string name="beauty">Beauty"</string>
+    <string name="food">Food</string>
+    <string name="business">Business"</string>
+    <string name="careers">Careers</string>
+    <string name="investing">Investing</string>
+    <string name="management">Management</string>
+    <string name="marketing">Marketing</string>
+    <string name="comedy">Comedy</string>
+    <string name="education">Education</string>
+    <string name="language">Language</string>
+    <string name="self_improvement">Self-Improvement</string>
+    <string name="history">History</string>
+    <string name="health">Health</string>
+    <string name="stories">Stories</string>
+    <string name="manga">Manga</string>
+    <string name="automotive">Automotive</string>
+    <string name="games">Games</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="music">Music</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="science">Science</string>
+    <string name="astronomy">Astronomy</string>
+    <string name="sports">Sports</string>
+    <string name="technology">Technology</string>
+    <string name="film">Film</string>
+    <string name="cryptocurrency">Cryptocurrency</string>
+
+    <string name="browser_desc">For a faster experience, news opens in the in-app browser. You can deselect it if you want to open it in an external browser.</string>
+    <string name="search_podcast">Search Podcast</string>
+    <string name="breaking_news">Breaking News</string>
+    <string name="tech_science">Tech / Science</string>
+    <string name="sport">Sport</string>
+    <string name="content_store">Content Store</string>
+    <string name="content_store_desc">You can create your own custom stream by selecting the sources you want.</string>
+    <string name="flow">Flow</string>
+    <string name="your_flow">Your Flow</string>
+    <string name="tech">Technology</string>
+    <string name="breaking">Breaking News</string>
+    <string name="filter">Filter</string>
+    <string name="results">Results</string>
+    <string name="your_content_provider">Content Providers</string>
+    <string name="news">News</string>
+    <string name="show_all">Show All</string>
+    <string name="set_timer">Apply</string>
+    <string name="min_5">5 Min</string>
+    <string name="select_time">Select Time</string>
+    <string name="app_settings">App Settings</string>
+    <string name="timer_cancelled_info">Timer Cancelled</string>
+    <string name="saved_news">Saved News</string>
+    <string name="saved_removed">News Removed from Saved.</string>
+    <string name="warning">Uyarı</string>
+    <string name="remove">Remove</string>
+    <string name="empty_saved_news">There is No News You Have Saved</string>
+    <string name="empty_download_podcast">No downloaded podcasts</string>
+    <string name="empty_podcast">There is No Podcast</string>
+    <string name="go_news">Go To News</string>
+    <string name="go_podcast">Explore Podcasts</string>
+    <string name="go_back">Go Back</string>
+    <string name="download_this_episode">Download this episode</string>
+    <string name="delete_this_episode">Delete this episode</string>
+    <string name="downloading">Downloding</string>
+    <string name="episode_downloaded">Episode Downloaded</string>
+    <string name="saved">Saved</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_download">An error occurred while downloading</string>
+    <string name="empty_flow_news">Your Flow Seems Empty</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="news_open_in_app">Open the News Within the Application</string>
+    <string name="login_account">Logged In Account</string>
+    <string name="seems_unlogin">You Seem Not Logged In</string>
+    <string name="read_more">Read More</string>
+    <string name="read_less">Read Less</string>
+    <string name="reference">Reference: %1$s</string>
+    <string name="empty_search_info">We couldn\'t find any search results</string>
+    <string name="go_home">Go Home</string>
+    <string name="empty_resource">You Have No Sources Saved</string>
+    <string name="ad_attribution">Ad</string>
+    <string name="total_time_hour">%1$s Hrs</string>
+    <string name="total_time_min">%1$s Min</string>
+    <string name="total_time_hour_and_minute">%1$s Hrs and %2$s Min</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="feedback">Thanks for your feedback :)</string>
 </resources>

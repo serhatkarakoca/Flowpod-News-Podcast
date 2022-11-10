@@ -1,6 +1,8 @@
 import models.Dependency
 
 object Libraries {
+    val splashView =
+        Dependency("androidx.core:core-splashscreen:${Versions.androidCoreSplashScreen}")
     val appcompat = Dependency("androidx.appcompat:appcompat:${Versions.androidxAppCompatVersion}")
     val archCoreRuntime = Dependency("androidx.arch.core:core-runtime:${Versions.androidxArchCoreVersion}")
     val archCoreTesting = Dependency("androidx.arch.core:core-testing:${Versions.androidxArchCoreVersion}")
@@ -49,18 +51,41 @@ object Libraries {
     val timber = Dependency("com.jakewharton.timber:timber:${Versions.timberVersion}")
     val kotlinxCoroutinesCore = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.jetBrainsCoroutinesVersion}")
     val kotlinxCoroutinesAndroid = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.jetBrainsCoroutinesVersion}")
-    val kotlinxCoroutinesPlayServices = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.jetBrainsCoroutinesVersion}")
-    val kotlinxCoroutinesTest = Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testJetBrainsCoroutinesVersion}")
+    val kotlinxCoroutinesPlayServices =
+        Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.jetBrainsCoroutinesVersion}")
+    val kotlinxCoroutinesTest =
+        Dependency("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testJetBrainsCoroutinesVersion}")
     val retrofit = Dependency("com.squareup.retrofit2:retrofit:${Versions.squareupRetrofitVersion}")
-    val retrofitConverterGson = Dependency("com.squareup.retrofit2:converter-gson:${Versions.squareupRetrofitVersion}")
+    val retrofitConverterGson =
+        Dependency("com.squareup.retrofit2:converter-gson:${Versions.squareupRetrofitVersion}")
     val retrofitOkhttp = Dependency("com.squareup.okhttp3:okhttp:${Versions.squareupOkHttpVersion}")
-    val retrofitLoggingInterceptor = Dependency("com.squareup.okhttp3:logging-interceptor:${Versions.squareupOkHttpVersion}")
+    val retrofitLoggingInterceptor =
+        Dependency("com.squareup.okhttp3:logging-interceptor:${Versions.squareupOkHttpVersion}")
     val truth = Dependency("com.google.truth:truth:${Versions.testGoogleTruthVersion}")
     val junit = Dependency("junit:junit:${Versions.testJunitVersion}")
-    val espressoCore = Dependency("androidx.test.espresso:espresso-core:${Versions.testAndroidxTestEspressoVersion}")
-    val extJunit = Dependency("androidx.test.ext:junit-ktx:${Versions.testAndroidxTestJunitVersion}")
-    val chuckLibrary = Dependency("com.readystatesoftware.chuck:library:${Versions.chuckVersion}")
-    val chuckLibraryNoOp = Dependency("com.readystatesoftware.chuck:library-no-op:${Versions.chuckVersion}")
+    val espressoCore =
+        Dependency("androidx.test.espresso:espresso-core:${Versions.testAndroidxTestEspressoVersion}")
+    val extJunit =
+        Dependency("androidx.test.ext:junit-ktx:${Versions.testAndroidxTestJunitVersion}")
+    val chuckLibrary = Dependency("com.github.chuckerteam.chucker:library:${Versions.chuckVersion}")
+    val chuckLibraryNoOp =
+        Dependency("com.github.chuckerteam.chucker:library-no-op:${Versions.chuckVersion}")
+    val exoPlayerLibrary =
+        Dependency("androidx.media3:media3-exoplayer:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryCore =
+        Dependency("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryDash =
+        Dependency("androidx.media3:media3-exoplayer-dash:${Versions.exoPlayerVersion}")
+    val exoPlayerLibraryUI = Dependency("androidx.media3:media3-ui:${Versions.exoPlayerVersion}")
+    val exoPlayerLibrarySession =
+        Dependency("androidx.media3:media3-session:${Versions.exoPlayerVersion}")
+    val workManager = Dependency("androidx.work:work-runtime-ktx:${Versions.workVersion}")
+    val workManagerGcm = Dependency("androidx.work:work-gcm:${Versions.workVersion}")
+    val workManagerMulti = Dependency("androidx.work:work-multiprocess:${Versions.workVersion}")
+    val workManagerHilt = Dependency("androidx.hilt:hilt-work:${Versions.workHiltVersion}")
+    val lottie = Dependency("com.airbnb.android:lottie:${Versions.lottieVersion}")
+    val admobSdk = Dependency("com.google.android.gms:play-services-ads:${Versions.admobVersion}")
+    //val reviewGoogle = Dependency("com.google.android.play:review-ktx:${Versions.reviewVersion}")
 
     // google-firebase
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"
@@ -73,9 +98,15 @@ object Libraries {
     const val firebaseFirestore = "com.google.firebase:firebase-firestore-ktx"
     const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
     const val firebaseUIAuth = "com.firebaseui:firebase-ui-auth:${Versions.firebaseUIVersion}"
-    const val firebaseUIDatabase = "com.firebaseui:firebase-ui-database:${Versions.firebaseUIVersion}"
+    const val firebaseUIDatabase =
+        "com.firebaseui:firebase-ui-database:${Versions.firebaseUIVersion}"
 
     // proto
-    val protobufProtoc = Dependency("com.google.protobuf:protoc:${Versions.protobufKotlinLiteVersion}")
-    val protobufJavaLite = Dependency("com.google.protobuf:protobuf-javalite:${Versions.protobufKotlinLiteVersion}")
+    val protobufProtoc =
+        Dependency("com.google.protobuf:protoc:${Versions.protobufKotlinLiteVersion}")
+    val protobufJavaLite =
+        Dependency("com.google.protobuf:protobuf-javalite:${Versions.protobufKotlinLiteVersion}")
+
+    //konfetti
+    val konfetti = Dependency("nl.dionsegijn:konfetti-xml:${Versions.konfetti}")
 }

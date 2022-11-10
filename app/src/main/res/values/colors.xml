@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#ef6c00</color>
-    <color name="primaryLightColor">#ff9d3f</color>
-    <color name="primaryDarkColor">#b53d00</color>
-    <color name="secondaryColor">#ef6c00</color>
-    <color name="secondaryLightColor">#ff9d3f</color>
-    <color name="secondaryDarkColor">#b53d00</color>
+    <color name="primaryColor">#DC1A21</color>
+    <color name="primaryLightColor">#ff5b4b</color>
+    <color name="primaryDarkColor">#a20000</color>
+    <color name="secondaryColor">#DC1A21</color>
+    <color name="secondaryLightColor">#ff5b4b</color>
+    <color name="secondaryDarkColor">#a20000</color>
 
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
@@ -13,9 +13,18 @@
     <color name="black">#FF000000</color>
     <color name="gray">#FFBABABA</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_background">#FFFFFFFF</color>
     <color name="light_dark">#FF212121</color>
     <color name="dark_gray">#FF121212</color>
+    <color name="gray_darker">#FF212121</color>
+    <color name="gray_darker_button">#1A1818</color>
 
     <color name="selected">#FFBABABA</color>
     <color name="un_selected">#FFFFFFFF</color>
+    <color name="purple">#B36CEA</color>
+    <color name="orange_login">#ED9F67</color>
+    <color name="black80">#80000000</color>
+
+    <color name="gray_chrome_tab">#FF212121</color>
+    <color name="blue_grotto">#0476D0</color>
 </resources>

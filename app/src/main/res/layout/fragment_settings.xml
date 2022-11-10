@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isLogin"
+            type="Boolean" />
+
+        <variable
+            name="email"
+            type="String" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="browserCheck"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/app_settings"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text='@{isLogin ? @string/login_account : @string/seems_unlogin}'
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@{name}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:visibility="@{name != null ? View.VISIBLE : View.GONE}"
+                        tools:text="serhatkarakoca@gmail.com" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@{email}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:visibility="@{email != null ? View.VISIBLE : View.GONE}"
+                        tools:text="serhatkarakoca@gmail.com" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/login_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp"
+                        android:backgroundTint="@color/gray_darker_button"
+                        android:stateListAnimator="@null"
+                        android:text='@{isLogin? @string/logout : @string/login}'
+                        tools:text="Çıkış Yap" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_browser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:checked="@{browserCheck}"
+                        android:text="@string/news_open_in_app" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:text="@string/browser_desc"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button_go_to_sources"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/background_gray_line"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingHorizontal="18dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/content_store"
+                        android:textColor="@color/gray_darker" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button_selected_sources"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/background_gray_line"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingHorizontal="18dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/my_resources"
+                        android:textColor="@color/gray_darker" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="16dp"
+                        android:visibility="gone"
+                        android:background="@drawable/background_gray_line"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingHorizontal="18dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/rate_us"
+                        android:textColor="@color/gray_darker" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/app_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="@color/gray_darker_button"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/app_settings"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

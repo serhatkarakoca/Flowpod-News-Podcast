@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Constant -->
     <string name="domain" tools:ignore="MissingTranslation" />
-    <string name="privacy_link" tools:ignore="MissingTranslation" />
+    <string name="privacy_link" tools:ignore="MissingTranslation" translatable="false">https://sites.google.com/view/life4apps/</string>
     <string name="notification_name" tools:ignore="MissingTranslation" />
     <string name="app_name" tools:ignore="MissingTranslation" />
 

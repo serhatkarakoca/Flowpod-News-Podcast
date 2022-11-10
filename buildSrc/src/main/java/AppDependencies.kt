@@ -4,6 +4,7 @@ import models.Dependency
 
 object AppDependencies {
     val appLibraries = arrayListOf<Dependency>().apply {
+        add(Libraries.splashView)
         add(Libraries.appcompat)
         add(Libraries.archCoreRuntime)
         add(Libraries.constraintLayout)
@@ -38,6 +39,18 @@ object AppDependencies {
         add(Libraries.retrofitConverterGson)
         add(Libraries.retrofitOkhttp)
         add(Libraries.retrofitLoggingInterceptor)
+        add(Libraries.konfetti)
+        add(Libraries.workManager)
+        add(Libraries.workManagerGcm)
+        add(Libraries.workManagerMulti)
+        add(Libraries.workManagerHilt)
+        add(Libraries.lottie)
+        add(Libraries.admobSdk)
+        //add(Libraries.reviewGoogle)
+        //add(Libraries.exoPlayerLibrary)
+        //add(Libraries.exoPlayerLibrarySession)
+        //add(Libraries.exoPlayerLibraryDash)
+        //add(Libraries.exoPlayerLibraryUI)
     }
     val testLibraries = arrayListOf<Dependency>().apply {
         add(Libraries.truth)
@@ -55,6 +68,7 @@ object AppDependencies {
         add(Libraries.roomCompiler)
         add(Libraries.glideCompiler)
         add(Libraries.hiltAndroidCompiler)
+        add(Libraries.hiltWorkCompiler)
     }
     val compilerTestLibraries = arrayListOf<Dependency>().apply {
     }

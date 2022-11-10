@@ -60,6 +60,7 @@ android {
 dependencies {
     implementation(Libraries.appcompat.path)
     implementation(Libraries.hiltAndroid.path)
+    implementation(Libraries.lottie.path)
     kapt(Libraries.hiltAndroidCompiler.path)
     implementation(Libraries.kotlinxCoroutinesAndroid.path)
     implementation(Libraries.lifecycleLivedata.path)
