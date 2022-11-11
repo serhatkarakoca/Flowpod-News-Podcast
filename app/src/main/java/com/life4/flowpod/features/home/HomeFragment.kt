@@ -44,7 +44,7 @@ class HomeFragment :
             newsAdapter.withLoadStateFooter(NewsLoadStateAdapter { newsAdapter.retry() })
 
         getBinding().refreshLayout.setOnRefreshListener {
-            newsAdapter.refresh()
+            //newsAdapter.refresh()
             getBinding().refreshLayout.isRefreshing = false
         }
     }

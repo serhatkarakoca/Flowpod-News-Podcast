@@ -98,7 +98,7 @@ class NewsRemoteMediator(
                 val remoteKeys = getLastRemoteKey(state)
                 val nextKey = remoteKeys?.next
                 return nextKey
-                    ?: MediatorResult.Success(endOfPaginationReached = remoteKeys == null)
+                    ?: MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getFirstRemoteKey(state)

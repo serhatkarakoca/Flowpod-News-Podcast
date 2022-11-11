@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.life4.flowpod.R
-import com.life4.flowpod.databinding.ItemNewsCardBinding
+import com.life4.flowpod.databinding.ItemNewsCardHomeBinding
 import com.life4.flowpod.models.rss_.RssPaginationItem
 
 class CardNewsAdapter(
@@ -17,7 +17,7 @@ class CardNewsAdapter(
     ListAdapter<RssPaginationItem, CardNewsAdapter.NewsViewHolder>(DIFF_UTIL) {
 
     class NewsViewHolder(
-        val binding: ItemNewsCardBinding,
+        val binding: ItemNewsCardHomeBinding,
         val listener: (RssPaginationItem) -> Unit,
         val favListener: (RssPaginationItem) -> Unit
     ) :
@@ -34,9 +34,9 @@ class CardNewsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val binding = DataBindingUtil.inflate<ItemNewsCardBinding>(
+        val binding = DataBindingUtil.inflate<ItemNewsCardHomeBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_news_card, parent, false
+            R.layout.item_news_card_home, parent, false
         )
         return NewsViewHolder(binding, listener, favListener)
     }
