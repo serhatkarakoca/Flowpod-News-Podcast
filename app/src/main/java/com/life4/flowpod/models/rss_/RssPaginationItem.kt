@@ -60,30 +60,23 @@ data class RssPaginationItem(
         return html
     }
 
-    fun getHtmlContentForImage(): String? {
-        val content = content
-        val html =
-            content?.replace("\\/", "")?.replace("[", "")?.replace("]", "")?.replace("<!", "")
-                ?.replace("CDATA", "")
-        return html
-    }
-
     fun getPostImage(): String? {
-        val html = getHtmlContent()
-        val htmlContent = getHtmlContentForImage()
-
+        val html = contentEncoded
+        val htmlContent = content
         val imageFromEncoded =
-            html?.substringAfter("src=")?.substringBefore("alt")?.substringBefore("height")
-                ?.substringBefore("href")?.substringBefore(" ", "")?.replace("\"", "")
+            html?.substringAfter("<img")?.substringAfter("<IMG")?.substringAfter("src=\"")
+                ?.replace("\\/", "")?.substringBefore("\"")
                 ?.replace("'", "")
+                ?.replace("\\/", "")
                 ?.trim()
 
         val imageFromContent =
-            htmlContent?.substringAfter("src=")?.substringBefore("alt")?.substringBefore("height")
-                ?.substringBefore("href")?.substringBefore(" ", "")?.replace("\"", "")
+            htmlContent?.substringAfter("<img")?.substringAfter("<IMG")?.substringAfter("src=\"")
+                ?.replace("\\/", "")?.substringBefore("\"")
                 ?.replace("'", "")
+                ?.replace("\\/", "")
                 ?.trim()
-        return imageFromEncoded ?: imageFromContent
+        return enclosure?.url ?: imageFromEncoded ?: imageFromContent
     }
 
     fun getHomePageUrl(): String? {
