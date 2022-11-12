@@ -1,5 +1,6 @@
 package com.life4.flowpod.features.home.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,8 @@ class NewsAdapter(val listener: (RssPaginationItem) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RssPaginationItem) {
             binding.item = item
+            binding.description.text =
+                Html.fromHtml(item.getHtmlContent(), Html.FROM_HTML_MODE_LEGACY)
             binding.root.setOnClickListener {
                 listener(item)
             }

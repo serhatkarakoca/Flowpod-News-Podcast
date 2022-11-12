@@ -29,6 +29,7 @@
             android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -61,7 +62,7 @@
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="18dp"
                     android:fontFamily="@font/robotoslab_bold"

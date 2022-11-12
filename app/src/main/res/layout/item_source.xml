@@ -35,6 +35,7 @@
                     android:layout_height="100dp"
                     setImage="@{item.siteLogo}"
                     tools:src="@drawable/newspaper"
+                    android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     app:layout_constraintTop_toTopOf="parent" />
 

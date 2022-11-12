@@ -76,7 +76,12 @@ data class RssPaginationItem(
                 ?.replace("'", "")
                 ?.replace("\\/", "")
                 ?.trim()
-        return enclosure?.url ?: imageFromEncoded ?: imageFromContent
+        val urlList = listOf(enclosure?.url, imageFromEncoded, imageFromContent)
+        val isValidUrl =
+            urlList.any { it?.contains("http") == true || it?.contains("https") == true }
+        return if (isValidUrl)
+            enclosure?.url ?: imageFromEncoded ?: imageFromContent
+        else null
     }
 
     fun getHomePageUrl(): String? {

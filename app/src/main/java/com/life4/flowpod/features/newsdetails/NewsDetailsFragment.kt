@@ -82,10 +82,6 @@ class NewsDetailsFragment :
         MobileAds.initialize(requireContext()) {}
         val adRequest = AdRequest.Builder().build()
         getBinding().adView.loadAd(adRequest)
-    }
-
-    override fun setupData() {
-        super.setupData()
         arguments?.let { args ->
             viewModel.args = NewsDetailsFragmentArgs.fromBundle(args)
             getBinding().item = NewsDetailsFragmentArgs.fromBundle(args).news

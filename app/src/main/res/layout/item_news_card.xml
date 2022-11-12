@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
             type="com.life4.flowpod.models.rss_.RssPaginationItem" />
+
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -31,8 +32,8 @@
                     android:id="@+id/img_fav"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:translationZ="10dp"
                     android:layout_margin="4dp"
+                    android:translationZ="10dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="12dp"
                     app:cardUseCompatPadding="false"
@@ -42,8 +43,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
                         android:layout_gravity="center"
+                        android:padding="4dp"
                         android:src="@{item.favorite ?@drawable/ic_favorite : @drawable/ic_favorite_border}"
                         tools:src="@drawable/ic_favorite_border" />
                 </androidx.cardview.widget.CardView>
@@ -53,9 +54,10 @@
                     android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:layout_marginStart="6dp"
+                    android:layout_marginTop="6dp"
+                    android:visibility="@{item.postImage != null ? View.VISIBLE : View.GONE}"
                     app:cardCornerRadius="6dp"
                     app:cardElevation="0dp"
-                    android:layout_marginTop="6dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -68,43 +70,54 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/tv_date"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:visibility="@{item.dateOfContent != null ? View.VISIBLE : View.GONE}"
-                    android:text="@{item.dateOfContent}"
-                    android:scaleType="fitEnd"
-                    tools:text="11/33/23"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center|start"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    app:layout_constraintTop_toBottomOf="@id/image"
-                    app:layout_constraintEnd_toEndOf="@id/image"
+                    android:text="@{item.dateOfContent}"
+                    android:textSize="10sp"
+                    android:visibility="@{item.dateOfContent != null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    tools:text="11/33/23" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="60dp"
+                    android:id="@+id/shapeableImageView"
+                    setImage="@{item.logo}"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginEnd="6dp"
-                    android:visibility="@{item.logo != null ? View.VISIBLE : View.GONE}"
-                    setImage="@{item.logo}"
+                    android:maxWidth="100dp"
                     android:scaleType="fitEnd"
-                    app:layout_constraintTop_toBottomOf="@id/image"
+                    android:visibility="@{item.logo != null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/tv_date"
+                    app:layout_constraintTop_toTopOf="@id/tv_date" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="end"
+                    app:constraint_referenced_ids="image,img_fav" />
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="6dp"
                     android:ellipsize="end"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/robotoslab_bold"
                     android:maxLines="3"
                     android:text="@{item.title}"
-                    app:layout_constraintBottom_toBottomOf="@id/image"
+                    app:layout_constraintBottom_toTopOf="@id/tv_date"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/image"
-                    app:layout_constraintTop_toTopOf="@id/image"
+                    app:layout_constraintStart_toEndOf="@id/barrier"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Breaking News --" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
