@@ -25,6 +25,6 @@
     <style name="Theme.Project.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/dark_gray</item>
         <item name="postSplashScreenTheme">@style/Theme.Project.NoActionBar</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash_1</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
     </style>
 </resources>

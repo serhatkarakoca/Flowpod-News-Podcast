@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.flow
+package com.life4.flowpod.features.flow.podcastflow
 
 import android.os.Bundle
 import androidx.core.view.isVisible

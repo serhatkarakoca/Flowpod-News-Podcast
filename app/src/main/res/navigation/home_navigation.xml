@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/newsFlowFragment"
-        android:name="com.life4.flowpod.features.flow.NewsFlowFragment"
+        android:name="com.life4.flowpod.features.flow.newsflow.NewsFlowFragment"
         android:label="@string/flow">
         <action
             android:id="@+id/action_flowFragment_to_newDetailsFragment"
@@ -142,7 +142,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="com.life4.flowpod.features.saved.SavedNewsFragment"
+        android:name="com.life4.flowpod.features.saved.savednews.SavedNewsFragment"
         android:label="@string/saved_news"
         tools:layout="@layout/fragment_saved_news">
         <action
@@ -211,7 +211,7 @@
         android:label="FlowFragment" />
     <fragment
         android:id="@+id/podcastFlowFragment"
-        android:name="com.life4.flowpod.features.flow.PodcastFlowFragment"
+        android:name="com.life4.flowpod.features.flow.podcastflow.PodcastFlowFragment"
         android:label="PodcastFlowFragment" />
 
 </navigation>

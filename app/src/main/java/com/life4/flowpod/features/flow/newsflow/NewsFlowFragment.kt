@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.flow
+package com.life4.flowpod.features.flow.newsflow
 
 import android.os.Bundle
 import android.view.LayoutInflater

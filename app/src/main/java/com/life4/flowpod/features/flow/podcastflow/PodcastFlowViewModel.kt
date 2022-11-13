@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.flow
+package com.life4.flowpod.features.flow.podcastflow
 
 import androidx.lifecycle.MutableLiveData
 import com.life4.core.core.vm.BaseViewModel

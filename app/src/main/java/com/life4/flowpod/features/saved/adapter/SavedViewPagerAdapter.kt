@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.life4.flowpod.features.saved.SavedNewsFragment
+import com.life4.flowpod.features.saved.savednews.SavedNewsFragment
 import com.life4.flowpod.features.saved.savedpodcast.SavedPodcastFragment
 
 class SavedViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :

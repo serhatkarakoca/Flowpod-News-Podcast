@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.saved
+package com.life4.flowpod.features.saved.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

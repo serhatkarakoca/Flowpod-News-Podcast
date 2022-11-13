@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.saved
+package com.life4.flowpod.features.saved.savednews
 
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -11,6 +11,7 @@ import com.life4.core.extensions.observe
 import com.life4.flowpod.HomeNavigationDirections
 import com.life4.flowpod.R
 import com.life4.flowpod.databinding.FragmentSavedNewsBinding
+import com.life4.flowpod.features.saved.adapter.CardNewsAdapter
 import com.life4.flowpod.models.rss_.RssPaginationItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job

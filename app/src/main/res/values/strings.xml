@@ -2,12 +2,13 @@
 <resources>
     <!-- Constant -->
     <string name="domain" translatable="false">https://serhatkarakoca.com</string>
-    <string name="privacy_link" translatable="false">https://sites.google.com/view/life4apps/</string>
+    <string name="privacy_link" translatable="false">https://sites.google.com/view/life4apps/flowpod-privacy-policy</string>
     <string name="string_empty" translatable="false" />
     <string name="number_zero" translatable="false">0</string>
     <string name="notification_name" translatable="false">@string/app_name</string>
     <string name="notification_channel_name" translatable="false">Music Channel</string>
     <string name="notification_channel_description" translatable="false">Shows the currently playing music</string>
+    <string name="admob_banner" translatable="false">ca-app-pub-2431989182972512/5353005310</string>
 
     <!-- Title -->
     <string name="title_home">Home</string>

@@ -1,4 +1,4 @@
-package com.life4.flowpod.features.saved
+package com.life4.flowpod.features.saved.savednews
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

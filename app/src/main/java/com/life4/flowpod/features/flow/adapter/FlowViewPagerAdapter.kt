@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.life4.flowpod.features.flow.NewsFlowFragment
-import com.life4.flowpod.features.flow.PodcastFlowFragment
+import com.life4.flowpod.features.flow.newsflow.NewsFlowFragment
+import com.life4.flowpod.features.flow.podcastflow.PodcastFlowFragment
 
 class FlowViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
