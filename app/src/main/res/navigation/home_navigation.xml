@@ -20,7 +20,9 @@
 
     <action
         android:id="@+id/action_global_home_fragment"
-        app:destination="@id/homeFragment" />
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_global_podcastListFragment"
@@ -75,11 +77,14 @@
     </fragment>
     <fragment
         android:id="@+id/newDetailsFragment"
-        android:name="com.life4.flowpod.features.newsdetails.NewsDetailsFragment"
-        android:label="NewDetailsFragment">
+        android:name="com.life4.flowpod.features.newsdetails.NewsDetailsFragment">
         <argument
             android:name="news"
             app:argType="com.life4.flowpod.models.rss_.RssPaginationItem" />
+        <argument
+            android:name="backAvailable"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
 
     <fragment

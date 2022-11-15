@@ -25,8 +25,10 @@ class MainActivity :
     BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
     private val viewModel: MainViewModel by viewModels()
     private var splashScreen: SplashScreen? = null
+    var backAvailable = true
+
     override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.navigation_host_fragment).navigateUp()
+        if (backAvailable) findNavController(R.id.navigation_host_fragment).navigateUp() else false
 
     private val currentPodcast = MutableLiveData<RssPaginationItem>()
 
@@ -62,6 +64,7 @@ class MainActivity :
                 R.id.podcastListFragment,
                 R.id.savedFragment,
                 R.id.podcastSourceFragment,
+                R.id.newDetailsFragment,
                 R.id.flowFragment -> toolbar.isVisible = false
                 else -> toolbar.isVisible = true
             }
@@ -109,6 +112,53 @@ class MainActivity :
 
         getBinding().imgPlay.setOnClickListener {
             viewModel.togglePlaybackState()
+        }
+
+        intent?.let {
+            /*
+            val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                if (activityManager.isBackgroundRestricted)
+                    startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
+
+             */
+            val title = it.getStringExtra("title")
+            val link = it.getStringExtra("link")
+            val htmlContent = it.getStringExtra("htmlContent")
+            val rssPaginationItem = RssPaginationItem(
+                author = null,
+                comments = null,
+                content = null,
+                contentSnippet = null,
+                contentEncoded = htmlContent,
+                creator = null,
+                dcCreator = null,
+                guid = null,
+                id = null,
+                isoDate = null,
+                link = link,
+                pubDate = null,
+                title = title ?: "",
+                siteImage = null,
+                enclosure = null,
+                itunes = null,
+                categoryId = null,
+                pKey = null,
+                isFavorite = false,
+                isDownloaded = false
+            )
+            if (title.isNullOrEmpty().not() && link.isNullOrEmpty()
+                    .not() && htmlContent.isNullOrEmpty().not()
+            ) {
+                backAvailable = false
+                navController.navigate(
+                    HomeNavigationDirections.actionGlobalNewsDetailsFragment(
+                        rssPaginationItem,
+                        false
+                    )
+                )
+            }
         }
     }
 }

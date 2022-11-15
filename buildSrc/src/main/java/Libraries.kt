@@ -91,8 +91,8 @@ object Libraries {
     const val googleAuth = "com.google.android.gms:play-services-auth:${Versions.googleAuthVersion}"
     const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseVersion}"
     const val firebasePerf = "com.google.firebase:firebase-perf-ktx"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
+    val firebaseCrashlytics = Dependency("com.google.firebase:firebase-crashlytics-ktx")
+    val firebaseAnalytics = Dependency("com.google.firebase:firebase-analytics-ktx")
     const val firebaseDatabase = "com.google.firebase:firebase-database-ktx"
     const val firebaseStorage = "com.google.firebase:firebase-storage-ktx"
     const val firebaseFirestore = "com.google.firebase:firebase-firestore-ktx"
@@ -100,6 +100,7 @@ object Libraries {
     const val firebaseUIAuth = "com.firebaseui:firebase-ui-auth:${Versions.firebaseUIVersion}"
     const val firebaseUIDatabase =
         "com.firebaseui:firebase-ui-database:${Versions.firebaseUIVersion}"
+    val firebaseMessaging = Dependency("com.google.firebase:firebase-messaging-ktx")
 
     // proto
     val protobufProtoc =

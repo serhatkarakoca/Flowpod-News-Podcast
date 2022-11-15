@@ -54,7 +54,7 @@ class HomeFragment :
         getAllSavedNews()
         getViewModel().getSources {
             pagingJobHome?.cancel()
-            pagingJobHome = viewLifecycleOwner.lifecycleScope.launch {
+            pagingJobHome = lifecycleScope.launch {
                 viewModel.getHomeNews().collect { hn ->
                     newsAdapter.submitData(hn)
                 }
@@ -64,7 +64,7 @@ class HomeFragment :
 
     private fun getAllSavedNews() {
         job?.cancel()
-        job = viewLifecycleOwner.lifecycleScope.launch {
+        job = lifecycleScope.launch {
             viewModel.getAllSavedNews().collectLatest {
                 viewModel.savedNews.value = it
             }
@@ -74,7 +74,8 @@ class HomeFragment :
     private fun newsClickListener(item: RssPaginationItem) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToNewDetailsFragment(
-                item
+                item,
+                false
             )
         )
     }
@@ -104,5 +105,6 @@ class HomeFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         job = null
+        pagingJobHome = null
     }
 }

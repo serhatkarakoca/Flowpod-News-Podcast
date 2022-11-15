@@ -81,6 +81,7 @@
     <string name="browser_desc">For a faster experience, news opens in the in-app browser. You can deselect it if you want to open it in an external browser.</string>
     <string name="search_podcast">Search Podcast</string>
     <string name="breaking_news">Breaking News</string>
+    <string name="breaking_news_title">Breaking News</string>
     <string name="tech_science">Tech / Science</string>
     <string name="sport">Sport</string>
     <string name="content_store">Content Store</string>

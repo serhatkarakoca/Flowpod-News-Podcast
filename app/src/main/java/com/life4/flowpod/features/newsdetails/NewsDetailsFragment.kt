@@ -15,6 +15,7 @@ import android.text.style.QuoteSpan
 import android.text.style.URLSpan
 import android.view.View
 import android.webkit.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
@@ -24,6 +25,8 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -34,6 +37,7 @@ import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.databinding.FragmentNewDetailsBinding
 import com.life4.flowpod.extensions.ImageGetter
 import com.life4.flowpod.features.login.LoginActivity
+import com.life4.flowpod.features.main.MainActivity
 import com.life4.flowpod.utils.Presets
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -45,14 +49,30 @@ import javax.inject.Inject
 class NewsDetailsFragment :
     BaseFragment<FragmentNewDetailsBinding, NewsDetailsViewModel>(R.layout.fragment_new_details) {
     private val viewModel: NewsDetailsViewModel by viewModels()
-
+    private val args: NewsDetailsFragmentArgs by navArgs()
     private var progressDialog: Dialog? = null
     lateinit var mAdView: AdView
 
     @Inject
     lateinit var pref: MyPreference
-    override fun setupListener() {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (args.backAvailable) {
+                        findNavController().popBackStack()
+                    } else {
+                        findNavController().navigate(NewsDetailsFragmentDirections.actionGlobalHomeFragment())
+                        (requireActivity() as MainActivity).backAvailable = true
+                    }
+                }
+            })
+    }
+
+    override fun setupListener() {
         getBinding().cardFav.setOnClickListener {
             if (!viewModel.isLogin()) {
                 requireActivity().move(LoginActivity::class.java, true)

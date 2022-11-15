@@ -17,6 +17,8 @@ object Constant {
     const val PODCAST_COLLECTION = "podcast_collection"
     const val NOTIFICATION_CHANNEL_ID = "podcast"
     const val NOTIFICATION_ID = 1
+    const val APP_NOTIFICATION_CHANNEL_ID = "BREAKING_NEWS"
+    const val APP_NOTIFICATION_ID = 3
     const val MEDIA_ROOT_ID = "root_id"
     const val NETWORK_ERROR = "NETWORK_ERROR"
     const val UPDATE_PLAYER_POSITION_INTERVAL = 100L

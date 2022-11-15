@@ -131,8 +131,6 @@ dependencies {
     implementation(AppDependencies.appLibraries)
     implementation(project.dependencies.platform(Libraries.firebaseBom))
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation(project.dependencies.platform(Libraries.firebaseAnalytics))
-    implementation(project.dependencies.platform(Libraries.firebaseCrashlytics))
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.annotation:annotation:1.5.0")
