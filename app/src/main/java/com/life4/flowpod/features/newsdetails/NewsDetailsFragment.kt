@@ -73,6 +73,14 @@ class NewsDetailsFragment :
     }
 
     override fun setupListener() {
+        getBinding().toolbar.setOnClickListener {
+            if (args.backAvailable) {
+                findNavController().popBackStack()
+            } else {
+                findNavController().navigate(NewsDetailsFragmentDirections.actionGlobalHomeFragment())
+                (requireActivity() as MainActivity).backAvailable = true
+            }
+        }
         getBinding().cardFav.setOnClickListener {
             if (!viewModel.isLogin()) {
                 requireActivity().move(LoginActivity::class.java, true)

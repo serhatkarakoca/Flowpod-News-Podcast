@@ -74,8 +74,7 @@ class HomeFragment :
     private fun newsClickListener(item: RssPaginationItem) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToNewDetailsFragment(
-                item,
-                false
+                item
             )
         )
     }
