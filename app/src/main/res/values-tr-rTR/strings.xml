@@ -120,4 +120,10 @@
     <string name="rate_us">Bizi Değerlendir</string>
     <string name="feedback">Geri bildiriminiz için teşekkür ederiz :)</string>
     <string name="breaking_news_title">Son Dakika</string>
+    <string name="delete_account">Hesabımı Sil</string>
+    <string name="are_u_sure_delete_source">Bu Kaynağı Silmek İstediğinize Emin Misiniz ?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="Warning">Uyarı</string>
+    <string name="delete_account_message">Hesabınızı silmek istediğinize emin misiniz ?</string>
 </resources>

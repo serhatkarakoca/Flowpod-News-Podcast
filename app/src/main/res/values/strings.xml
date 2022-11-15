@@ -135,4 +135,10 @@
     <string name="total_time_hour_and_minute">%1$s Hrs and %2$s Min</string>
     <string name="rate_us">Rate Us</string>
     <string name="feedback">Thanks for your feedback :)</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Warning">Warning</string>
+    <string name="are_u_sure_delete_source">Are you sure you want to delete ?</string>
+    <string name="delete_account_message">Are you sure you want to delete your account?</string>
 </resources>

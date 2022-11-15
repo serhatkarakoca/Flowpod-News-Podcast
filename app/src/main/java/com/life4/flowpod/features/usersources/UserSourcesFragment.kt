@@ -52,13 +52,15 @@ class UserSourcesFragment :
         if (isRemove) {
 
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Uyarı")
-                .setMessage("Bu Kaynağı Silmek İstediğinize Emin Misiniz ?")
-                .setPositiveButton("Evet", DialogInterface.OnClickListener { dialog, which ->
-                    viewModel.deleteSource(item)
-                    dialog.dismiss()
-                })
-                .setNegativeButton("Hayır") { dialog, _ -> dialog.dismiss() }
+                .setTitle(getString(R.string.Warning))
+                .setMessage(getString(R.string.are_u_sure_delete_source))
+                .setPositiveButton(
+                    getString(R.string.yes),
+                    DialogInterface.OnClickListener { dialog, which ->
+                        viewModel.deleteSource(item)
+                        dialog.dismiss()
+                    })
+                .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
                 .show()
 
             return
