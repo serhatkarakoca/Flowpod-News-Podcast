@@ -65,16 +65,6 @@ android {
                 "BASE_URL_GITLAB",
                 "\"${AppConfig.BASE_URL_GITLAB}\""
             )
-            this.buildConfigField(
-                "String",
-                "API_KEY",
-                "\"${AppConfig.API_KEY}\""
-            )
-            this.buildConfigField(
-                "String",
-                "API_SECRET",
-                "\"${AppConfig.API_SECRET}\""
-            )
         }
         debug {
             this.resValue(

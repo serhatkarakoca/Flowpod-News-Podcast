@@ -1,13 +1,15 @@
 package com.life4.flowpod.remote
 
-import com.life4.flowpod.BuildConfig
 import com.life4.flowpod.models.podcast.PodcastResponse
 import com.life4.flowpod.models.podcast.categories.PodcastCategories
 import com.life4.flowpod.models.request.RssRequest
 import com.life4.flowpod.models.rss_.RssPagination
 import com.life4.flowpod.models.rss_.RssResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -28,23 +30,19 @@ interface ApiService {
         @Query("perPage") perPage: Int? = 10
     ): Response<RssResponse>
 
-    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
     @GET("api/searchPodcast")
     suspend fun searchPodcast(@Query("query") query: String): Response<PodcastResponse>
 
-    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
     @GET("/api/podcastFeed")
     suspend fun getPodcastFeed(
         @Query("lang") language: String,
         @Query("max") maxSize: Int
     ): Response<PodcastResponse>
 
-    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
     @GET("/api/categories")
     suspend fun getCategories(
     ): Response<PodcastCategories>
 
-    @Headers("api_key: ${BuildConfig.API_KEY}", "api_secret: ${BuildConfig.API_SECRET}")
     @GET("/api/podcastFeedByCat")
     suspend fun getPodcastFeedByCategory(
         @Query("lang") language: String,

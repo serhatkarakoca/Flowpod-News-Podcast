@@ -3,7 +3,6 @@ package com.life4.flowpod.features.settings
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -46,14 +45,25 @@ class SettingsFragment :
         }
 
         getBinding().loginLogout.setOnClickListener {
-            activity?.let {
-                if (auth.currentUser != null) {
-                    pref.setUsername(null)
-                    auth.signOut()
-                }
-                it.move(LoginActivity::class.java)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.Warning))
+                .setMessage(getString(R.string.exit_account_message))
+                .setPositiveButton(
+                    getString(R.string.yes),
+                    DialogInterface.OnClickListener { dialog, which ->
+                        activity?.let {
+                            if (auth.currentUser != null) {
+                                pref.setUsername(null)
+                                auth.signOut()
+                            }
+                            it.move(LoginActivity::class.java)
 
-            }
+                        }
+                        dialog.dismiss()
+                    })
+                .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
+                .show()
+
         }
 
         getBinding().appSettings.setOnClickListener {
@@ -70,7 +80,6 @@ class SettingsFragment :
 
         getBinding().tvInfoBrowser.setOnClickListener {
             clickCount++
-            Toast.makeText(requireContext(), "${5 - clickCount} kaldı", Toast.LENGTH_SHORT).show()
             if (clickCount > 4)
                 getBinding().buttonReview.visibility = View.VISIBLE
         }
