@@ -45,25 +45,24 @@ class SettingsFragment :
         }
 
         getBinding().loginLogout.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(getString(R.string.Warning))
-                .setMessage(getString(R.string.exit_account_message))
-                .setPositiveButton(
-                    getString(R.string.yes),
-                    DialogInterface.OnClickListener { dialog, which ->
-                        activity?.let {
-                            if (auth.currentUser != null) {
+            activity?.let {
+                if (auth.currentUser != null) {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(getString(R.string.Warning))
+                        .setMessage(getString(R.string.exit_account_message))
+                        .setPositiveButton(
+                            getString(R.string.yes),
+                            DialogInterface.OnClickListener { dialog, which ->
                                 pref.setUsername(null)
                                 auth.signOut()
-                            }
-                            it.move(LoginActivity::class.java)
+                                dialog.dismiss()
+                            })
+                        .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
+                        .show()
+                } else
+                    it.move(LoginActivity::class.java)
 
-                        }
-                        dialog.dismiss()
-                    })
-                .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
-                .show()
-
+            }
         }
 
         getBinding().appSettings.setOnClickListener {
