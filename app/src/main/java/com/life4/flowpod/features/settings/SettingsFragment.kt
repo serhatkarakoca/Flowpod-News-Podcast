@@ -56,6 +56,7 @@ class SettingsFragment :
                                 pref.setUsername(null)
                                 auth.signOut()
                                 dialog.dismiss()
+                                it.move(LoginActivity::class.java)
                             })
                         .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
                         .show()
