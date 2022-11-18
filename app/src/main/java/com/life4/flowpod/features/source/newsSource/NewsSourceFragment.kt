@@ -26,6 +26,7 @@ class NewsSourceFragment :
     private val breakingAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
     private val techAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
     private val sportAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
+    //TODO kategori eklenecek
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)

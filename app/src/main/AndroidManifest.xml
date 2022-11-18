@@ -73,8 +73,7 @@
 
         <activity
             android:name="com.life4.flowpod.features.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+            android:exported="false" />
 
         <service
             android:name=".remote.notification.MyFirebaseMessagingService"
