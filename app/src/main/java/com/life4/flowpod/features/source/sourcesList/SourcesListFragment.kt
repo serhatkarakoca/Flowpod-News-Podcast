@@ -49,7 +49,7 @@ class SourcesListFragment :
     private fun sourceChanged() {
         val snackbar = Snackbar.make(
             requireView(),
-            "Haber Kaynaklarınız Güncellenmiştir.",
+            getString(R.string.updated_news_source),
             Snackbar.ANIMATION_MODE_SLIDE
         )
         snackbar.show()

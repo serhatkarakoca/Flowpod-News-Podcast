@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -13,10 +15,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.life4.core.core.view.BaseActivity
+import com.life4.core.core.vm.BaseViewModel
 import com.life4.core.extensions.move
+import com.life4.core.extensions.observe
 import com.life4.flowpod.R
 import com.life4.flowpod.data.MyPreference
 import com.life4.flowpod.databinding.ActivityLoginBinding
@@ -36,6 +41,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
+
+        observe(viewModel.signInMode) {
+            getBinding().isSignIn = viewModel.signInMode.value
+        }
 
         auth = FirebaseAuth.getInstance()
 
@@ -64,6 +73,88 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
             signIn()
         }
 
+        getBinding().btnLogin.setOnClickListener {
+            if (isValid()) {
+                viewModel.baseLiveData.value = BaseViewModel.State.ShowLoading()
+                if (viewModel.signInMode.value == true) {
+                    auth.signInWithEmailAndPassword(
+                        getBinding().etEmail.text.toString(),
+                        getBinding().etPassword.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            myPref.setUsername(getBinding().etEmail.text.toString())
+                            move(MainActivity::class.java)
+                        } else {
+                            viewModel.baseLiveData.value = BaseViewModel.State.ShowContent()
+                            showInfoDialog(getString(R.string.incorrect_email_password))
+                        }
+                    }
+                } else {
+                    auth.createUserWithEmailAndPassword(
+                        getBinding().etEmail.text.toString(),
+                        getBinding().etPassword.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            myPref.setUsername(getBinding().etEmail.text.toString())
+                            move(MainActivity::class.java)
+                        } else {
+                            viewModel.baseLiveData.value = BaseViewModel.State.ShowContent()
+                            if (it.exception?.message?.lowercase()
+                                    ?.contains("badly formatted") == true
+                            ) {
+                                showInfoDialog(getString(R.string.email_badly_format))
+                            } else if (it.exception?.message?.lowercase()
+                                    ?.contains("already in use") == true
+                            ) {
+                                showInfoDialog(getString(R.string.email_already_use))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        getBinding().tvSignInUp.setOnClickListener {
+            viewModel.signInMode.value?.let {
+                viewModel.signInMode.value = !it
+            }
+        }
+    }
+
+    private fun showInfoDialog(message: String, title: String? = null) {
+        MaterialAlertDialogBuilder(this).apply {
+            setMessage(message)
+            setTitle(title ?: getString(R.string.warning))
+            setPositiveButton(getString(R.string.ok), null)
+        }.show()
+    }
+
+    private fun isValid(): Boolean {
+        val email = getBinding().etEmail.text.toString().trim()
+        val password = getBinding().etPassword.text.toString().trim()
+        return if (email.isEmpty()) {
+            getBinding().emailLayout.isErrorEnabled = true
+            getBinding().emailLayout.error = getString(R.string.empty_field)
+            false
+        } else if (!isValidEmail(email)) {
+            getBinding().emailLayout.isErrorEnabled = true
+            getBinding().emailLayout.error = getString(R.string.invalid_email)
+            return false
+        } else if (password.isEmpty()) {
+            getBinding().emailLayout.isErrorEnabled = false
+            getBinding().passwordLayout.isErrorEnabled = true
+            getBinding().passwordLayout.error = getString(R.string.empty_field)
+            false
+        } else if (password.length < 6) {
+            getBinding().emailLayout.isErrorEnabled = false
+            getBinding().passwordLayout.isErrorEnabled = true
+            getBinding().passwordLayout.error = getString(R.string.invalid_password_length)
+            return false
+        } else true
+    }
+
+    private fun isValidEmail(target: CharSequence): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
     fun signIn() {

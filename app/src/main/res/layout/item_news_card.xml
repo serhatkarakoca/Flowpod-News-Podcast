@@ -91,6 +91,8 @@
                     android:layout_marginEnd="6dp"
                     android:maxWidth="100dp"
                     android:scaleType="fitEnd"
+                    android:layout_marginBottom="4dp"
+                    tools:src="@tools:sample/backgrounds/scenic"
                     android:visibility="@{item.logo != null ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

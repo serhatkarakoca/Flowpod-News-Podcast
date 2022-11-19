@@ -19,8 +19,8 @@
     <string name="invalid_username">Uygun olmayan bir kullanıcı adı</string>
     <string name="invalid_password">Şifre 5 karakterden uzun olmalıdır</string>
     <string name="login_failed">Giriş Başarısız</string>
-    <string name="welcome_sub">Verdiğimiz binlerce güncel haberi okuyarak boş zamanınızı doldurabilirsiniz.</string>
-    <string name="login_welcome">Her gün binlerce ilginç haber bulun</string>
+    <string name="welcome_sub">Binlerce habere ve podcast\'e kolayca erişin, güncel kalın</string>
+    <string name="login_welcome">Her Gün Binlerce İlginç Haber Ve Podcast Bulun</string>
     <string name="browser_desc">Daha hızlı bir deneyim için, haberler uygulama içi tarayıcıda açılıyor. Harici tarayıcıda açmak isterseniz seçimi kaldırabilirsiniz.</string>
     <string name="search">Ara</string>
     <string name="search_news">Haber Sitesi Adresi, RSS Linki ile Ara</string>
@@ -127,4 +127,17 @@
     <string name="Warning">Uyarı</string>
     <string name="delete_account_message">Hesabınızı silmek istediğinize emin misiniz ?</string>
     <string name="exit_account_message">Hesabınızdan çıkış yapmak istediğinize emin misiniz ?</string>
+    <string name="updated_news_source">Haber Kaynaklarınız Güncellenmiştir.</string>
+    <string name="business_finance">İş &amp; Finans</string>
+    <string name="or_login_with">Ya da Google İle Giriş Yap</string>
+    <string name="signup">Kayıt Ol</string>
+    <string name="dont_have_an_account">Hesabınız yok mu ?</string>
+    <string name="have_an_account">Hesabınız var mı ?</string>
+    <string name="incorrect_email_password">Hatalı eposta ve ya şifre</string>
+    <string name="something_wrong">Bir şeyler ters gitti tekrar dener misiniz ?</string>
+    <string name="empty_field">Bu alan boş bırakılamaz</string>
+    <string name="invalid_email">Geçerli bir eposta adresi giriniz</string>
+    <string name="invalid_password_length">Şifreniz en az 6 karakter olmalıdır</string>
+    <string name="email_already_use">Eposta adresi başka bir hesapta kullanılıyor</string>
+    <string name="email_badly_format">Eposta adresi desteklenmeyen bir formatta girildi tekrar kontrol eder misiniz ?</string>
 </resources>

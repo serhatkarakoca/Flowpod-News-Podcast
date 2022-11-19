@@ -30,8 +30,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="welcome_sub">You can fill your spare time by reading thousands of the latest news that we provide</string>
-    <string name="login_welcome">Find thousands of interesting news every day</string>
+    <string name="welcome_sub">Easily access thousands of news and podcasts, stay up to date</string>
+    <string name="login_welcome">Find Thousands Of Interesting News And Podcasts Every Day</string>
     <string name="search">Search</string>
     <string name="search_news">News Site Address, Search with RSS Link</string>
     <string name="go_to_news">Go To News Details</string>
@@ -54,6 +54,7 @@
     <string name="beauty">Beauty"</string>
     <string name="food">Food</string>
     <string name="business">Business"</string>
+    <string name="business_finance">Business &amp; Finance"</string>
     <string name="careers">Careers</string>
     <string name="investing">Investing</string>
     <string name="management">Management</string>
@@ -118,7 +119,8 @@
     <string name="cancel">Cancel</string>
     <string name="error_download">An error occurred while downloading</string>
     <string name="empty_flow_news">Your Flow Seems Empty</string>
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
     <string name="logout">Logout</string>
     <string name="news_open_in_app">Open the News Within the Application</string>
     <string name="login_account">Logged In Account</string>
@@ -142,4 +144,19 @@
     <string name="are_u_sure_delete_source">Are you sure you want to delete ?</string>
     <string name="delete_account_message">Are you sure you want to delete your account?</string>
     <string name="exit_account_message">Are you sure you want to sign out of your account?</string>
+    <string name="updated_news_source">Your News Sources Have Been Updated.</string>
+    <string name="or_login_with">Or Log in With</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="have_an_account">Have an account?</string>
+
+
+    <!-- Error -->
+    <string name="incorrect_email_password">Incorrect email or password</string>
+    <string name="something_wrong">Something went wrong</string>
+    <string name="empty_field">This field cannot be blank</string>
+    <string name="invalid_email">Please enter a valid email</string>
+    <string name="invalid_password_length">Password must be at least 6 characters</string>
+    <string name="email_already_use">The email address is already in use by another account</string>
+    <string name="email_badly_format">The email address is badly formatted.</string>
+
 </resources>

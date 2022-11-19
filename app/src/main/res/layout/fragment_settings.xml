@@ -156,6 +156,7 @@
                     android:backgroundTint="@color/primaryColor"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
+                    android:textColor="@color/white"
                     android:stateListAnimator="@null"
                     android:text="@string/delete_account"
                     android:visibility="@{isLogin?View.VISIBLE:View.GONE}"

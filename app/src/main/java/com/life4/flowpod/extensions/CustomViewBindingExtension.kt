@@ -1,7 +1,9 @@
 package com.life4.flowpod.extensions
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -9,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.life4.core.extensions.dismiss
 import com.life4.core.extensions.show
 import com.life4.flowpod.R
@@ -63,4 +67,16 @@ fun View.bindVisibilityForString(value: String?) {
         this.dismiss()
     else
         this.show()
+}
+
+@BindingAdapter("startIconTintOnFocus")
+fun TextInputLayout.startIconTintOnFocus(textInputEditTextId: Int) {
+    val et = findViewById<TextInputEditText>(textInputEditTextId)
+    et.setOnFocusChangeListener { _, hasFocus ->
+        val color = if (hasFocus) ContextCompat.getColor(
+            context,
+            R.color.primaryColor
+        ) else ContextCompat.getColor(context, R.color.gray)
+        this.setStartIconTintList(ColorStateList.valueOf(color))
+    }
 }

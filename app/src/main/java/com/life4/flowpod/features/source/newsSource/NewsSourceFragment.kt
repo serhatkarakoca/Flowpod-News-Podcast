@@ -26,7 +26,11 @@ class NewsSourceFragment :
     private val breakingAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
     private val techAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
     private val sportAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
-    //TODO kategori eklenecek
+    private val healthAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
+    private val financeAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
+    private val entertainmentAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
+    private val gamingAdapter by lazy { SourceAdapter(::addSourceToPreference, 6) }
+
 
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
@@ -37,6 +41,10 @@ class NewsSourceFragment :
         getBinding().rvBreakingNews.adapter = breakingAdapter
         getBinding().rvTechNews.adapter = techAdapter
         getBinding().rvSportNews.adapter = sportAdapter
+        getBinding().rvHealthNews.adapter = healthAdapter
+        getBinding().rvFinanceNews.adapter = financeAdapter
+        getBinding().rvEntertainmentNews.adapter = entertainmentAdapter
+        getBinding().rvGameNews.adapter = gamingAdapter
 
         getBinding().tvShowBreakingNews.setOnClickListener {
             findNavController().navigate(
@@ -60,6 +68,42 @@ class NewsSourceFragment :
             findNavController().navigate(
                 HomeNavigationDirections.actionGlobalSourcesListFragment(
                     viewModel.siteDataList.value?.filter { it.categoryId == Constant.SPORT_NEWS }
+                        ?.toTypedArray() ?: arrayOf()
+                )
+            )
+        }
+
+        getBinding().tvShowHealthNews.setOnClickListener {
+            findNavController().navigate(
+                HomeNavigationDirections.actionGlobalSourcesListFragment(
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.HEALTH_NEWS }
+                        ?.toTypedArray() ?: arrayOf()
+                )
+            )
+        }
+
+        getBinding().tvShowEntertainmentNews.setOnClickListener {
+            findNavController().navigate(
+                HomeNavigationDirections.actionGlobalSourcesListFragment(
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.ENTERTAINMENT }
+                        ?.toTypedArray() ?: arrayOf()
+                )
+            )
+        }
+
+        getBinding().tvShowFinanceNews.setOnClickListener {
+            findNavController().navigate(
+                HomeNavigationDirections.actionGlobalSourcesListFragment(
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.BUSINESS_FINANCE }
+                        ?.toTypedArray() ?: arrayOf()
+                )
+            )
+        }
+
+        getBinding().tvShowGameNews.setOnClickListener {
+            findNavController().navigate(
+                HomeNavigationDirections.actionGlobalSourcesListFragment(
+                    viewModel.siteDataList.value?.filter { it.categoryId == Constant.GAME }
                         ?.toTypedArray() ?: arrayOf()
                 )
             )
@@ -112,7 +156,7 @@ class NewsSourceFragment :
     private fun sourceChanged() {
         val snackbar = Snackbar.make(
             requireView(),
-            "Haber Kaynaklarınız Güncellenmiştir.",
+            getString(R.string.updated_news_source),
             Snackbar.ANIMATION_MODE_SLIDE
         )
         snackbar.show()
@@ -134,6 +178,10 @@ class NewsSourceFragment :
         breakingAdapter.submitList(map.filter { it.categoryId == Constant.BREAKING_NEWS })
         techAdapter.submitList(map.filter { it.categoryId == Constant.TECH_NEWS })
         sportAdapter.submitList(map.filter { it.categoryId == Constant.SPORT_NEWS })
+        entertainmentAdapter.submitList(map.filter { it.categoryId == Constant.ENTERTAINMENT })
+        healthAdapter.submitList(map.filter { it.categoryId == Constant.HEALTH_NEWS })
+        financeAdapter.submitList(map.filter { it.categoryId == Constant.BUSINESS_FINANCE })
+        gamingAdapter.submitList(map.filter { it.categoryId == Constant.GAME })
         getBinding().nestedScrollview.visibility = View.VISIBLE
     }
 
