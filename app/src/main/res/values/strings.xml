@@ -158,5 +158,9 @@
     <string name="invalid_password_length">Password must be at least 6 characters</string>
     <string name="email_already_use">The email address is already in use by another account</string>
     <string name="email_badly_format">The email address is badly formatted.</string>
+    <string name="forgot_password">Forgot your password ?</string>
+    <string name="success">Success</string>
+    <string name="success_reset_password">Password reset instruction has been sent to your e-mail.</string>
+    <string name="reset_password">Reset your password</string>
 
 </resources>

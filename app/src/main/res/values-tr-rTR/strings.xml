@@ -140,4 +140,8 @@
     <string name="invalid_password_length">Şifreniz en az 6 karakter olmalıdır</string>
     <string name="email_already_use">Eposta adresi başka bir hesapta kullanılıyor</string>
     <string name="email_badly_format">Eposta adresi desteklenmeyen bir formatta girildi tekrar kontrol eder misiniz ?</string>
+    <string name="reset_password">Şifreni Sıfırla</string>
+    <string name="forgot_password">Şifrenizi mi unuttunuz ?</string>
+    <string name="success_reset_password">Şifre sıfırlama yönergesi epostanıza gönderilmiştir.</string>
+    <string name="success">Başarılı</string>
 </resources>
