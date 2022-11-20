@@ -56,12 +56,12 @@ class SettingsFragment :
                                 pref.setUsername(null)
                                 auth.signOut()
                                 dialog.dismiss()
-                                it.move(LoginActivity::class.java)
+                                it.move(LoginActivity::class.java, true)
                             })
                         .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.dismiss() }
                         .show()
                 } else
-                    it.move(LoginActivity::class.java)
+                    it.move(LoginActivity::class.java, true)
 
             }
         }

@@ -85,6 +85,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
 
         getBinding().btnLogin.setOnClickListener {
             if (isValid()) {
+                getBinding().emailLayout.isErrorEnabled = false
+                getBinding().passwordLayout.isErrorEnabled = false
                 viewModel.baseLiveData.value = BaseViewModel.State.ShowLoading()
                 if (viewModel.signInMode.value == true) {
                     auth.signInWithEmailAndPassword(
@@ -172,10 +174,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
         val email = getBinding().etEmail.text.toString().trim()
         val password = getBinding().etPassword.text.toString().trim()
         return if (email.isEmpty()) {
+            getBinding().passwordLayout.isErrorEnabled = false
             getBinding().emailLayout.isErrorEnabled = true
             getBinding().emailLayout.error = getString(R.string.empty_field)
             false
         } else if (!isValidEmail(email)) {
+            getBinding().passwordLayout.isErrorEnabled = false
             getBinding().emailLayout.isErrorEnabled = true
             getBinding().emailLayout.error = getString(R.string.invalid_email)
             return false
