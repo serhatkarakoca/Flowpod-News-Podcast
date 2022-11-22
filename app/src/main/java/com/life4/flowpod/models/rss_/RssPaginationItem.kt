@@ -39,7 +39,7 @@ data class RssPaginationItem(
     val pubDate: String?,
     @SerializedName("title")
     @PrimaryKey(autoGenerate = false)
-    val title: String,
+    val title: String = "",
     @SerializedName("imageLogo")
     val siteImage: String?,
     @SerializedName("enclosure")
@@ -53,7 +53,7 @@ data class RssPaginationItem(
     var isDownloaded: Boolean = false
 ) : Parcelable {
     fun getHtmlContent(): String? {
-        val content = contentEncoded ?: content
+        val content = contentEncoded ?: content ?: title
         val html =
             content?.replace("\\/", "")?.replace("[", "")?.replace("]", "")?.replace("<!", "")
                 ?.replace("CDATA", "")

@@ -80,7 +80,7 @@
                     android:textSize="11sp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto_thin"
-                    android:text='@{@string/reference(item.homePageUrl)}'
+                    android:text='@{@string/reference(item.homePageUrl != null ? item.homePageUrl : item.link)}'
                     tools:text="reference" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
