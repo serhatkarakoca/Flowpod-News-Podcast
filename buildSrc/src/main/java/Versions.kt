@@ -35,7 +35,7 @@ object Versions {
     const val githubMPAndroidChartVersion = "v3.1.0"
     const val googleMaterialVersion = "1.5.0"
     const val googleHiltVersion = "2.42"
-    const val jetBrainsCoroutinesVersion = "1.6.0"
+    const val jetBrainsCoroutinesVersion = "1.6.4"
     const val squareupRetrofitVersion = "2.9.0"
     const val squareupOkHttpVersion = "4.9.3"
     const val timberVersion = "5.0.1"
@@ -47,11 +47,12 @@ object Versions {
     const val reviewVersion = "2.0.1"
 
     // dependency level test
-    const val testAndroidxTestJunitVersion = "1.1.2"
+    const val testAndroidxTestJunitVersion = "1.1.4"
     const val testAndroidxTestEspressoVersion = "3.4.0"
     const val testGoogleTruthVersion = "1.1.3"
-    const val testJetBrainsCoroutinesVersion = "1.2.1"
+    const val testJetBrainsCoroutinesVersion = "1.6.4"
     const val testJunitVersion = "4.13.2"
+
 
     // google-firebase
     const val googleServiceVersion = "4.3.14"

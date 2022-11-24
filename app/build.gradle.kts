@@ -34,7 +34,7 @@ android {
         targetSdk = AppConfig.targetSdk
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
+        testInstrumentationRunner = AppConfig.defaultAndroidTestInstrumentation
         multiDexEnabled = true
     }
     buildFeatures {
