@@ -37,7 +37,6 @@ class NewsFlowFragment :
     private var pagingJob: Job? = null
     override fun setupDefinition(savedInstanceState: Bundle?) {
         setupViewModel(viewModel)
-        getNews()
         observe(viewModel.liveData, ::onStateChanged)
         observe(viewModel.selectedCategory) {
             if (viewModel.userSources.value?.sourceList?.sourceList.isNullOrEmpty().not())
@@ -140,5 +139,12 @@ class NewsFlowFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         pagingJob = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.userSources.value?.let {
+            getAndSetNews()
+        } ?: getNews()
     }
 }

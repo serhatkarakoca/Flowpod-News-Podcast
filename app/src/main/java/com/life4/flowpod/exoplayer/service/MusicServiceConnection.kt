@@ -109,6 +109,7 @@ class MusicServiceConnection(
 
             override fun onFinish() {
                 _countDownTimer.value = "0"
+                transportControls.pause()
                 cancel()
             }
 
