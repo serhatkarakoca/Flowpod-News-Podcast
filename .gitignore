@@ -87,6 +87,5 @@ lint/tmp/
 
 .idea/
 
-/signing
 gradle.properties
 google-services.json
