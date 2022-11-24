@@ -86,3 +86,7 @@ lint/tmp/
 # lint/reports/
 
 .idea/
+
+/signing
+gradle.properties
+google-services.json
