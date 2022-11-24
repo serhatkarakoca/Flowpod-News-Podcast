@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.batdemir.core.test", appContext.packageName)
+        assertEquals("com.life4.core", appContext.packageName)
     }
 }
