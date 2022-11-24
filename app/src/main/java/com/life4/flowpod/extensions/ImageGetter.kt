@@ -10,10 +10,7 @@ import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class ImageGetter(
     private val res: Resources,
@@ -23,6 +20,7 @@ class ImageGetter(
 
     // Function needs to overridden when extending [Html.ImageGetter] ,
     // which will download the image
+    @DelicateCoroutinesApi
     override fun getDrawable(url: String): Drawable {
         val holder = BitmapDrawablePlaceHolder(res, null)
         val imageView = ImageView(context)
@@ -30,7 +28,12 @@ class ImageGetter(
         GlobalScope.launch(Dispatchers.IO) {
             runCatching {
                 // downloading image in bitmap format using [Picasso] Library
-                val bitmap = Picasso.get().load(url).get()
+                val bitmap = Picasso
+                    .get()
+                    .load(url)
+                    .resize(1080, 720)
+                    .onlyScaleDown()
+                    .get()
                 val drawable = BitmapDrawable(res, bitmap)
 
                 // To make sure Images don't go out of screen , Setting width less
